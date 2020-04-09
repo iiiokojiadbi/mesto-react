@@ -10,7 +10,7 @@
 
 @media screen and (min-width: 620px) {
   .profile__user-name {
-    line-height: 2.625rem;
+    line-height: 1.6rem;
     font-size: 2rem;
     margin: 0 0 16px 0;
   }
