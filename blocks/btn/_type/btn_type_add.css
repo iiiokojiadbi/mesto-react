@@ -1,0 +1,27 @@
+.btn_type_add {
+  background-color: transparent;
+  background-image: url(./../img/cross.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: unset;
+  border-radius: 2px;
+  border: 2px solid #ffffff;
+  height: 50px;
+  min-width: 75px;
+  padding: 0;
+  width: 282px;
+  transition: .3s;
+}
+
+@media screen and (min-width: 920px) {
+  .btn_type_add {
+    width: 150px;
+  }
+}
+
+@media screen and (pointer: fine) {
+  .btn_type_add:hover {
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    opacity: .6;
+  }
+}

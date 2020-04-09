@@ -1,0 +1,16 @@
+.profile__user-hobby {
+  color: #FFFFFF;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.0625rem;
+  margin: 0;
+  transition: .3s;
+}
+
+@media screen and (min-width: 620px) {
+  .profile__user-hobby {
+    line-height: 1.375rem;
+    font-size: 1.125rem;
+  }
+}

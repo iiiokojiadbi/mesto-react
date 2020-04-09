@@ -1,0 +1,12 @@
+.profile-edit__name {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
+  color: #000000;
+  border: none;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  padding: 13px 0;
+  width: 100%;
+}

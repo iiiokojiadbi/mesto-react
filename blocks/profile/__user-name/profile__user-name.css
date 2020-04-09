@@ -1,0 +1,17 @@
+.profile__user-name {
+  color: #ffffff;
+  font-size: 1.6875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.34rem;
+  margin: 0 0 14px 0;
+  transition: .3s;
+}
+
+@media screen and (min-width: 620px) {
+  .profile__user-name {
+    line-height: 2.625rem;
+    font-size: 2rem;
+    margin: 0 0 16px 0;
+  }
+}

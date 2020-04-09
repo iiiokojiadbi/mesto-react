@@ -1,0 +1,12 @@
+@import url(./_is/popup_is_active.css);
+@import url(./_is/popup_is_disabled.css);
+@import url(./__profile-edit/popup__profile-edit.css);
+
+.popup {
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+}

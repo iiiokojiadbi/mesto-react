@@ -1,0 +1,17 @@
+@import url(./_type/btn_type_add.css);
+@import url(./_type/btn_type_edit.css);
+@import url(./_type/btn_type_close.css);
+@import url(./_type/btn_type_save.css);
+
+.btn {
+  display: block;
+  transition: .3s;
+  outline: none;
+  box-sizing: border-box;
+}
+
+@media screen and (pointer: fine) {
+  .btn:hover {
+    cursor: pointer;
+  }
+}
