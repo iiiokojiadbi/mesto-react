@@ -20,6 +20,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-row: 1fr;
+    margin-top: 20px;
   }
 }
 
@@ -28,5 +29,6 @@
     display: grid;
     grid-template-columns: min-content 1fr 1fr;
     grid-row: 1fr;
+    margin-top: 0;
   }
 }
