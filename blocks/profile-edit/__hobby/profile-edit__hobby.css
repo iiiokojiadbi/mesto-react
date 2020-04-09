@@ -1,6 +1,6 @@
 .profile-edit__hobby {
   font-style: normal;
-  font-weight: lighter;
+  font-weight: normal;
   font-size: 0.875rem;
   line-height: 1.0625rem;
   color: #000000;
@@ -8,4 +8,8 @@
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   padding: 13px 0;
   width: 100%;
+}
+
+.profile-edit__hobby:focus {
+  outline: none;
 }
