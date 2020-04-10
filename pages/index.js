@@ -1,3 +1,9 @@
+/* Функции поделены на модули, которые импортируются целиком с присвоением
+   им уникального имени.
+   Создана коллекция элементов btn, где через цикл прохода каждому элементу
+   колекции присвоин обработчик событий по клику.
+*/
+
 import * as popup from './../module/popup.js';
 import * as openInfo from './../module/open-info.js';
 import * as saveInfo from './../module/save-info.js';

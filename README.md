@@ -1,17 +1,17 @@
 # Проект 4: Место
 
-### Обзор
+### Технологии
 
-* Figma
-* Картинки
+* БЭМ
+* Git
+* Grid layout и Flexbox
+* javascript
 
-**Figma**
+**Суть проекта**
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
+* Закрепление навыков
+* Реализация простейшней логики на сайте
 
-**Картинки**
+**Проект**
 
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
-
-Удачи!
+* [Ссылка на проект в github pages](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)

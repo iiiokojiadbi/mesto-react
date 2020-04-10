@@ -1,3 +1,7 @@
+/* Экспортируемая по умолчанию функция сохранения input полей
+   в содержимое документа.
+*/
+
 export default function () {
   const userName = document.querySelector('.profile__user-name');
   const userHobby = document.querySelector('.profile__user-hobby');
@@ -6,4 +10,4 @@ export default function () {
 
   userName.textContent = newName.value;
   userHobby.textContent = newHobby.value;
-}
+};

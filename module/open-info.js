@@ -1,3 +1,7 @@
+/* Экспортируемая по умолчанию функция заполнения input полей
+   из содержимого документа.
+*/
+
 export default function () {
   const userName = document.querySelector('.profile__user-name');
   const userHobby = document.querySelector('.profile__user-hobby');
@@ -6,4 +10,4 @@ export default function () {
 
   newName.value = userName.textContent;
   newHobby.value = userHobby.textContent;
-}
+};
