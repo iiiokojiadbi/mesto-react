@@ -1,27 +1,56 @@
-/* Функции поделены на модули, которые импортируются целиком с присвоением
-   им уникального имени.
-   Создана коллекция элементов btn, где через цикл прохода каждому элементу
-   колекции присвоин обработчик событий по клику.
+/*
+  Функция открытия и закрытия popup.
+  При закрытии popup, значение input полей затирается. 
 */
+function popupStatus() {
+  if (popup.classList.contains('popup_is_disabled')) {
+    popup.classList.remove('popup_is_disabled');
+    popup.classList.add('popup_is_active');
+  } else {
+    popup.classList.remove('popup_is_active');
+    popup.classList.add('popup_is_disabled');
+    newName.value = '';
+    newHobby.value = '';
+  }
+};
 
-import * as popup from './../module/popup.js';
-import * as openInfo from './../module/open-info.js';
-import * as saveInfo from './../module/save-info.js';
+/*
+  Функция заполнения input полей из содержимого документа.
+*/
+function openInfo() {
+  newName.value = userName.textContent;
+  newHobby.value = userHobby.textContent;
+};
 
-const btn = document.querySelectorAll('.btn');
+/*
+  Функция сохранения input полей в содержимое документа.
+*/
+function saveInfo() {
+  event.preventDefault();
+  userName.textContent = newName.value;
+  userHobby.textContent = newHobby.value;
+};
 
-btn.forEach.call(btn, function (element) {
-  element.addEventListener('click', function () {
-    if (this.classList.contains('btn_type_edit')) {
-      openInfo.default();
-      popup.default();
-    } else if (this.classList.contains('btn_type_close')) {
-      popup.default();
-    } else if (this.classList.contains('btn_type_save')) {
-      saveInfo.default();
-      popup.default();
-    } else {
-      console.log('Функционал кнопки не реализован!');
-    }
-  });
+const popup = document.querySelector('.popup');
+const btnEdit = document.querySelector('.btn_type_edit');
+const btnClose = document.querySelector('.btn_type_close');
+const formProfileEdit = document.querySelector('.profile-edit__form');
+const userName = document.querySelector('.profile__user-name');
+const userHobby = document.querySelector('.profile__user-hobby');
+const newName = document.querySelector('.profile-edit__name');
+const newHobby = document.querySelector('.profile-edit__hobby');
+
+btnEdit.addEventListener('click', function () {
+  openInfo();
+  popupStatus();
+});
+
+btnClose.addEventListener('click', function () {
+  popupStatus();
+});
+
+formProfileEdit.addEventListener('submit', function (event) {
+  event.preventDefault();
+  saveInfo();
+  popupStatus();
 });

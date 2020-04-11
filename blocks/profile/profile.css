@@ -27,7 +27,7 @@
 @media screen and (min-width: 920px) {
   .profile {
     display: grid;
-    grid-template-columns: min-content 1fr 1fr;
+    grid-template-columns: min-content minmax(311px, 1fr) 1fr;
     grid-row: 1fr;
     margin-top: 0;
   }

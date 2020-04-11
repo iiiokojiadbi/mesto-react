@@ -1,12 +1,4 @@
 .profile__btn-edit {
-  position: absolute;
-  right: -27px;
-  top: 2px;
-}
-
-@media screen and (min-width: 620px) {
-  .profile__btn-edit {
-    right: -37px;
-    top: 0;
-  }
+  grid-area: edit;
+  align-self: center;
 }
