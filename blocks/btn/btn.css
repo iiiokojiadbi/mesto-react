@@ -2,6 +2,7 @@
 @import url(./_type/btn_type_edit.css);
 @import url(./_type/btn_type_close.css);
 @import url(./_type/btn_type_save.css);
+@import url(./_type/btn_type_not-like.css);
 
 .btn {
   display: block;

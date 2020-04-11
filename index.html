@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="Проектная работа №4 от Яндекс.Практикум. JavaScript. Профиль человека в социальной сети Mesto" />
+    content="Проектная работа №4 от Яндекс.Практикум. JavaScript. Профиль человека в социальной сети Mesto Russia" />
   <meta name="author" content="Алексей Селезнев" />
   <meta name="keywords" content="Профиль, хобби, увлечения, места, путешествия">
   <title>Mesto</title>
@@ -15,82 +15,78 @@
 <body class="root">
   <div class="page">
     <header class="header">
-      <img src="./blocks/logo/img/logo.png" class="header__logo logo">
+      <img src="./images/logo.svg" alt="Изобраение логотипа социальной сети Mesto Russia" class="header__logo logo">
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__photo" src="./blocks/profile/img/jak.jpg" alt="Фотография пользователя">
+        <img class="profile__photo" src="./images/jak.jpg" alt="Фотография пользователя">
         <div class="profile__info">
           <h2 class="profile__user-name">Жак&#8209;Ив Кусто</h2>
+          <button type="button" aria-label="edit" class="profile__btn-edit btn btn_type_edit"></button>
           <p class="profile__user-hobby">Исследователь океана</p>
-          <button type="button" class="profile__btn-edit btn btn_type_edit"></button>
         </div>
-        <button type="button" class="profile__btn-add btn btn_type_add"></button>
+        <button type="button" aria-label="add" class="profile__btn-add btn btn_type_add"></button>
       </section>
       <section class="elements">
         <div class="element">
-          <img src="./blocks/element/img/kirill-pershin-1.jpeg" alt="Изображение Карачаевска" class="element__img">
+          <img src="./images/kirill-pershin-1.jpeg" alt="Изображение Карачаевска" class="element__img">
           <div class="element__info">
             <h2 class="element__title">Карачаевск</h2>
-            <img src="./blocks/element/img/heart.svg" alt="Изображение сердечка для реакции Нравится"
-              class="element__status">
+            <button type="button" aria-label="edit" class="btn btn_type_not-like"></button>
           </div>
         </div>
         <div class="element">
-          <img src="./blocks/element/img/kirill-pershin-2.jpeg" alt="Изображение горы Эльбрус" class="element__img">
+          <img src="./images/kirill-pershin-2.jpeg" alt="Изображение горы Эльбрус" class="element__img">
           <div class="element__info">
             <h2 class="element__title">Гора Эльбрус</h2>
-            <img src="./blocks/element/img/heart.svg" alt="Изображение сердечка для реакции Нравится"
-              class="element__status">
+            <button type="button" aria-label="edit" class="btn btn_type_not-like"></button>
           </div>
         </div>
         <div class="element">
-          <img src="./blocks/element/img/kirill-pershin-3.jpeg" alt="Изображение природы Домбая" class="element__img">
+          <img src="./images/kirill-pershin-3.jpeg" alt="Изображение природы Домбая" class="element__img">
           <div class="element__info">
             <h2 class="element__title">Домбай</h2>
-            <img src="./blocks/element/img/heart.svg" alt="Изображение сердечка для реакции Нравится"
-              class="element__status">
+            <button type="button" aria-label="edit" class="btn btn_type_not-like"></button>
           </div>
         </div>
         <div class="element">
-          <img src="./blocks/element/img/kirill-pershin-2.jpeg" alt="Изображение горы Эльбрус" class="element__img">
+          <img src="./images/kirill-pershin-2.jpeg" alt="Изображение горы Эльбрус" class="element__img">
           <div class="element__info">
             <h2 class="element__title">Гора Эльбрус</h2>
-            <img src="./blocks/element/img/heart.svg" alt="Изображение сердечка для реакции Нравится"
-              class="element__status">
+            <button type="button" aria-label="edit" class="btn btn_type_not-like"></button>
           </div>
         </div>
         <div class="element">
-          <img src="./blocks/element/img/kirill-pershin-3.jpeg" alt="Изображение природы Домбая" class="element__img">
+          <img src="./images/kirill-pershin-3.jpeg" alt="Изображение природы Домбая" class="element__img">
           <div class="element__info">
             <h2 class="element__title">Домбай</h2>
-            <img src="./blocks/element/img/heart.svg" alt="Изображение сердечка для реакции Нравится"
-              class="element__status">
+            <button type="button" aria-label="edit" class="btn btn_type_not-like"></button>
           </div>
         </div>
         <div class="element">
-          <img src="./blocks/element/img/kirill-pershin-1.jpeg" alt="Изображение Карачаевска" class="element__img">
+          <img src="./images/kirill-pershin-1.jpeg" alt="Изображение Карачаевска" class="element__img">
           <div class="element__info">
             <h2 class="element__title">Карачаевск</h2>
-            <img src="./blocks/element/img/heart.svg" alt="Изображение сердечка для реакции Нравится"
-              class="element__status">
+            <button type="button" aria-label="edit" class="btn btn_type_not-like"></button>
           </div>
         </div>
       </section>
     </main>
     <footer class="footer">
-      <span class="footer__copyright">© 2020 Mesto Russia. Селезнев Алексей</span>
+      <span class="footer__copyright">© 2020 Mesto Russia</span>
     </footer>
     <div class="popup popup_is_disabled">
-      <section class="popup__profile-edit profile-edit">
-        <button type="button" class="btn btn_type_close profile-edit__btn-close"></button>
-        <h3 class="profile-edit__title">Редактировать профиль</h3>
-        <form action class="profile-edit__form">
-          <input maxlength="35" type="text" class="profile-edit__name" value="">
-          <input maxlength="35" type="text" class="profile-edit__hobby" value="">
-          <button type="button" class="btn btn_type_save profile-edit__btn-save">Сохранить</button>
-        </form>
-      </section>
+      <div class="popup__container">
+        <section class="profile-edit">
+          <button type="button" class="btn btn_type_close profile-edit__btn-close"></button>
+          <h3 class="profile-edit__title">Редактировать профиль</h3>
+          <form method="post" action="#" class="profile-edit__form">
+            <input type="text" class="profile-edit__name" value="" placeholder="Введите имя">
+            <input type="text" class="profile-edit__hobby" value="" placeholder="Введите хобби">
+            <button type="submit" class="btn btn_type_save profile-edit__btn-save">Сохранить</button>
+          </form>
+        </section>
+      </div>
     </div>
   </div>
   <script src="./pages/index.js"></script>

@@ -1,10 +1,10 @@
 .btn_type_close {
-  background-image: url(./../img/close.png);
+  background-image: url(./../../../images/close.svg);
   background-repeat: no-repeat;
-  background-size: 60px 60px;
+  background-size: contain;
   background-position: center;
-  width: 40px;
-  height: 40px;
+  width: 58px;
+  height: 58px;
   background-color: transparent;
   border: none;
 }
