@@ -49,7 +49,7 @@ btnClose.addEventListener('click', function () {
   popupStatus();
 });
 
-formProfileEdit.addEventListener('submit', function (event) {
+formProfileEdit.addEventListener('submit', function () {
   event.preventDefault();
   saveInfo();
   popupStatus();
