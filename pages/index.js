@@ -1,27 +1,71 @@
-/* Функции поделены на модули, которые импортируются целиком с присвоением
-   им уникального имени.
-   Создана коллекция элементов btn, где через цикл прохода каждому элементу
-   колекции присвоин обработчик событий по клику.
+/*
+  Функция открытия и закрытия popup.
+  При закрытии popup, значение input полей затирается. 
 */
 
-import * as popup from './../module/popup.js';
-import * as openInfo from './../module/open-info.js';
-import * as saveInfo from './../module/save-info.js';
+function popup() {
+  const popup = document.querySelector('.popup');
+  const newName = document.querySelector('.profile-edit__name');
+  const newHobby = document.querySelector('.profile-edit__hobby');
+
+  if (popup.classList.contains('popup_is_disabled')) {
+    popup.classList.remove('popup_is_disabled');
+    popup.classList.add('popup_is_active');
+  } else {
+    popup.classList.remove('popup_is_active');
+    popup.classList.add('popup_is_disabled');
+    newName.value = '';
+    newHobby.value = '';
+  }
+};
+
+/*
+  Функция заполнения input полей из содержимого документа.
+*/
+
+function openInfo() {
+  const userName = document.querySelector('.profile__user-name');
+  const userHobby = document.querySelector('.profile__user-hobby');
+  const newName = document.querySelector('.profile-edit__name');
+  const newHobby = document.querySelector('.profile-edit__hobby');
+
+  newName.value = userName.textContent;
+  newHobby.value = userHobby.textContent;
+};
+
+/*
+  Функция сохранения input полей в содержимое документа.
+*/
+
+function saveInfo() {
+  const userName = document.querySelector('.profile__user-name');
+  const userHobby = document.querySelector('.profile__user-hobby');
+  const newName = document.querySelector('.profile-edit__name');
+  const newHobby = document.querySelector('.profile-edit__hobby');
+
+  userName.textContent = newName.value;
+  userHobby.textContent = newHobby.value;
+};
+
+/*
+  Создана коллекция элементов btn, где через цикл прохода каждому элементу
+  колекции присвоин обработчик событий по клику.
+*/
 
 const btn = document.querySelectorAll('.btn');
 
 btn.forEach.call(btn, function (element) {
   element.addEventListener('click', function () {
     if (this.classList.contains('btn_type_edit')) {
-      openInfo.default();
-      popup.default();
-    } else if (this.classList.contains('btn_type_close')) {
-      popup.default();
-    } else if (this.classList.contains('btn_type_save')) {
-      saveInfo.default();
-      popup.default();
-    } else {
-      console.log('Функционал кнопки не реализован!');
+      openInfo();
+      popup();
+    }
+    if (this.classList.contains('btn_type_close')) {
+      popup();
+    }
+    if (this.classList.contains('btn_type_save')) {
+      saveInfo();
+      popup();
     }
   });
 });
