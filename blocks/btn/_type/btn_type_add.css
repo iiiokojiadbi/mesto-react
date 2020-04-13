@@ -3,7 +3,6 @@
   background-image: url(./../../../images/cross.svg);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: unset;
   border-radius: 2px;
   border: 2px solid #ffffff;
   height: 50px;
@@ -12,6 +11,12 @@
   width: 282px;
   transition: .3s;
   color: #ffffff;
+}
+
+@media screen and (min-width: 620px) {
+  .btn_type_add {
+    background-size: 22px 22px;
+  }
 }
 
 @media screen and (min-width: 920px) {

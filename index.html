@@ -22,52 +22,52 @@
         <img class="profile__photo" src="./images/jak.jpg" alt="Фотография пользователя">
         <div class="profile__info">
           <h2 class="profile__user-name">Жак&#8209;Ив Кусто</h2>
-          <button type="button" aria-label="edit" class="profile__btn-edit btn btn_type_edit"></button>
+          <button type="button" aria-label="редактировать" class="profile__btn-edit btn btn_type_edit"></button>
           <p class="profile__user-hobby">Исследователь океана</p>
         </div>
-        <button type="button" aria-label="add" class="profile__btn-add btn btn_type_add"></button>
+        <button type="button" aria-label="добавить" class="profile__btn-add btn btn_type_add"></button>
       </section>
       <section class="elements">
         <div class="element">
           <img src="./images/kirill-pershin-1.jpeg" alt="Изображение Карачаевска" class="element__img">
           <div class="element__info">
             <h2 class="element__title">Карачаевск</h2>
-            <button type="button" aria-label="edit" class="btn btn_type_not-like"></button>
+            <button type="button" aria-label="лайкнуть" class="btn btn_type_not-like element__btn-like"></button>
           </div>
         </div>
         <div class="element">
           <img src="./images/kirill-pershin-2.jpeg" alt="Изображение горы Эльбрус" class="element__img">
           <div class="element__info">
             <h2 class="element__title">Гора Эльбрус</h2>
-            <button type="button" aria-label="edit" class="btn btn_type_not-like"></button>
+            <button type="button" aria-label="лайкнуть" class="btn btn_type_not-like element__btn-like"></button>
           </div>
         </div>
         <div class="element">
           <img src="./images/kirill-pershin-3.jpeg" alt="Изображение природы Домбая" class="element__img">
           <div class="element__info">
             <h2 class="element__title">Домбай</h2>
-            <button type="button" aria-label="edit" class="btn btn_type_not-like"></button>
+            <button type="button" aria-label="лайкнуть" class="btn btn_type_not-like element__btn-like"></button>
           </div>
         </div>
         <div class="element">
           <img src="./images/kirill-pershin-2.jpeg" alt="Изображение горы Эльбрус" class="element__img">
           <div class="element__info">
             <h2 class="element__title">Гора Эльбрус</h2>
-            <button type="button" aria-label="edit" class="btn btn_type_not-like"></button>
+            <button type="button" aria-label="лайкнуть" class="btn btn_type_not-like element__btn-like"></button>
           </div>
         </div>
         <div class="element">
           <img src="./images/kirill-pershin-3.jpeg" alt="Изображение природы Домбая" class="element__img">
           <div class="element__info">
             <h2 class="element__title">Домбай</h2>
-            <button type="button" aria-label="edit" class="btn btn_type_not-like"></button>
+            <button type="button" aria-label="лайкнуть" class="btn btn_type_not-like element__btn-like"></button>
           </div>
         </div>
         <div class="element">
           <img src="./images/kirill-pershin-1.jpeg" alt="Изображение Карачаевска" class="element__img">
           <div class="element__info">
             <h2 class="element__title">Карачаевск</h2>
-            <button type="button" aria-label="edit" class="btn btn_type_not-like"></button>
+            <button type="button" aria-label="лайкнуть" class="btn btn_type_not-like element__btn-like"></button>
           </div>
         </div>
       </section>
@@ -76,17 +76,16 @@
       <span class="footer__copyright">© 2020 Mesto Russia</span>
     </footer>
     <div class="popup popup_is_disabled">
-      <div class="popup__container">
-        <section class="profile-edit">
-          <button type="button" class="btn btn_type_close profile-edit__btn-close"></button>
-          <h3 class="profile-edit__title">Редактировать профиль</h3>
-          <form method="post" action="#" class="profile-edit__form">
-            <input type="text" class="profile-edit__name" value="" placeholder="Введите имя">
-            <input type="text" class="profile-edit__hobby" value="" placeholder="Введите хобби">
-            <button type="submit" class="btn btn_type_save profile-edit__btn-save">Сохранить</button>
-          </form>
-        </section>
-      </div>
+      <section class="popup__profile-edit profile-edit">
+        <button type="button" aria-label="закрыть" class="btn btn_type_close profile-edit__btn-close"></button>
+        <h3 class="profile-edit__title">Редактировать профиль</h3>
+        <form name="editinfo" method="post" action="#" class="profile-edit__form">
+          <input type="text" class="input input_type_name profile-edit__name" value="" placeholder="Введите имя">
+          <input type="text" class="input input_type_hobby profile-edit__hobby" value="" placeholder="Введите хобби">
+          <button type="submit" aria-label="сохранить"
+            class="btn btn_type_save profile-edit__btn-save">Сохранить</button>
+        </form>
+      </section>
     </div>
   </div>
   <script src="./pages/index.js"></script>

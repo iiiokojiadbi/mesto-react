@@ -7,14 +7,15 @@
   border-radius: 0;
   border: 1px solid #ffffff;
   height: 18px;
-  padding: 0;
   width: 18px;
+  padding: 0;
 }
 
 @media screen and (min-width: 620px) {
   .btn_type_edit {
     width: 24px;
     height: 24px;
+    background-size: 10px 10px;
   }
 }
 

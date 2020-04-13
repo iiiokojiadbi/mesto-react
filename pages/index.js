@@ -1,56 +1,75 @@
 /*
-  Функция открытия и закрытия popup.
-  При закрытии popup, значение input полей затирается. 
+  Функция обработчик
+  Взависимости от нажатой кнопки, происходит нужное действие
+  Использована отмена стандартной формы с переданным в функцию событием
 */
-function popupStatus() {
+function popupHandler(evt) {
+  const popup = document.querySelector('.popup');
+  const userName = document.querySelector('.profile__user-name');
+  const userHobby = document.querySelector('.profile__user-hobby');
+  const newName = document.querySelector('.input_type_name');
+  const newHobby = document.querySelector('.input_type_hobby');
+
+  if (this.classList.contains('btn_type_edit')) {
+    openInfo(userName, userHobby, newName, newHobby);
+    popupStatus(popup);
+  }
+  if (this.classList.contains('btn_type_close')) {
+    popupStatus(popup);
+    clearInfo(newName, newHobby);
+  }
+  if (this.classList.contains('profile-edit__form')) {
+    evt.preventDefault();
+    saveInfo(userName, userHobby, newName, newHobby);
+    popupStatus(popup);
+    clearInfo(newName, newHobby);
+  }
+};
+
+/*
+  Функция открытия/закрытия popup
+*/
+function popupStatus(popup) {
   if (popup.classList.contains('popup_is_disabled')) {
     popup.classList.remove('popup_is_disabled');
     popup.classList.add('popup_is_active');
   } else {
     popup.classList.remove('popup_is_active');
     popup.classList.add('popup_is_disabled');
-    newName.value = '';
-    newHobby.value = '';
   }
 };
 
 /*
-  Функция заполнения input полей из содержимого документа.
+  Функция заполнения input полей из содержимого документа
 */
-function openInfo() {
+function openInfo(userName, userHobby, newName, newHobby) {
   newName.value = userName.textContent;
   newHobby.value = userHobby.textContent;
 };
 
 /*
-  Функция сохранения input полей в содержимое документа.
+  Функция очистки input полей после закрытия popup
 */
-function saveInfo() {
-  event.preventDefault();
+function clearInfo(newName, newHobby) {
+  newName.value = '';
+  newHobby.value = '';
+}
+
+/*
+  Функция сохранения input полей в содержимое документа
+*/
+function saveInfo(userName, userHobby, newName, newHobby) {
   userName.textContent = newName.value;
   userHobby.textContent = newHobby.value;
 };
 
-const popup = document.querySelector('.popup');
+/*
+  Создание необходимых элементов для работы кнопок
+*/
 const btnEdit = document.querySelector('.btn_type_edit');
 const btnClose = document.querySelector('.btn_type_close');
 const formProfileEdit = document.querySelector('.profile-edit__form');
-const userName = document.querySelector('.profile__user-name');
-const userHobby = document.querySelector('.profile__user-hobby');
-const newName = document.querySelector('.profile-edit__name');
-const newHobby = document.querySelector('.profile-edit__hobby');
 
-btnEdit.addEventListener('click', function () {
-  openInfo();
-  popupStatus();
-});
-
-btnClose.addEventListener('click', function () {
-  popupStatus();
-});
-
-formProfileEdit.addEventListener('submit', function () {
-  event.preventDefault();
-  saveInfo();
-  popupStatus();
-});
+btnEdit.addEventListener('click', popupHandler);
+btnClose.addEventListener('click', popupHandler);
+formProfileEdit.addEventListener('submit', popupHandler);
