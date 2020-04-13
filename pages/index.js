@@ -11,7 +11,7 @@ function popupHandler(evt) {
   const newHobby = document.querySelector('.input_type_hobby');
 
   if (this.classList.contains('btn_type_edit')) {
-    openInfo(userName, userHobby, newName, newHobby);
+    downInfo(userName, userHobby, newName, newHobby);
     popupStatus(popup);
   }
   if (this.classList.contains('btn_type_close')) {
@@ -42,7 +42,7 @@ function popupStatus(popup) {
 /*
   Функция заполнения input полей из содержимого документа
 */
-function openInfo(userName, userHobby, newName, newHobby) {
+function downInfo(userName, userHobby, newName, newHobby) {
   newName.value = userName.textContent;
   newHobby.value = userHobby.textContent;
 };
