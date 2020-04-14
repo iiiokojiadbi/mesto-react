@@ -25,7 +25,6 @@ function formSubmitHandler(evt) {
 
 /*
   Функция открытия/закрытия popup.
-  Взависимости от нажатой кнопки, происходит нужное действие
 */
 function popupStatus() {
   if (popup.classList.contains('popup_is_disabled')) {
