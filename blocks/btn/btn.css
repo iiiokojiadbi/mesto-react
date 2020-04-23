@@ -3,6 +3,8 @@
 @import url(./_type/btn_type_close.css);
 @import url(./_type/btn_type_save.css);
 @import url(./_type/btn_type_not-like.css);
+@import url(./_type/btn_type_trash.css);
+@import url(./__svg-like/btn__svg-like.css);
 
 .btn {
   display: block;
