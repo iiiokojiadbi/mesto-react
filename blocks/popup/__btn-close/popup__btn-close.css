@@ -1,4 +1,4 @@
-.profile-edit__btn-close {
+.popup__btn-close {
   position: absolute;
   top: -47px;
   right: -47px;
@@ -6,7 +6,7 @@
 }
 
 @media screen and (max-width: 620px) {
-  .btn_type_close {
+  .popup__btn-close {
     top: -25px;
     right: -25px;
   }

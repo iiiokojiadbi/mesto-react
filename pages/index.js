@@ -31,7 +31,7 @@ const initialCards = [{
 ];
 
 const btn = document.querySelectorAll('.btn');
-const formProfileEdit = document.querySelector('.profile-edit__form');
+const formProfileEdit = document.querySelector('.form');
 const popup = document.querySelector('.popup');
 const userName = document.querySelector('.profile__user-name');
 const userHobby = document.querySelector('.profile__user-hobby');
