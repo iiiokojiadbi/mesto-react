@@ -1,4 +1,4 @@
-.btn_type_save {
+.btn_type_submit {
   color: #ffffff;
   background-color: #000000;
   font-style: normal;
@@ -13,7 +13,7 @@
 }
 
 @media screen and (pointer: fine) {
-  .btn_type_save:hover {
+  .btn_type_submit:hover {
     background-color: rgba(0, 0, 0, 0.8);
   }
 }
