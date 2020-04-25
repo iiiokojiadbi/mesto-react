@@ -1,5 +1,6 @@
 .element__img {
-  border-radius: 10px 10px 0px 0px;
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
   display: block;
   object-fit: cover;
   object-position: center;

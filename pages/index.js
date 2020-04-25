@@ -46,8 +46,8 @@ const formAdd = {
   title: 'Новое место',
   placeholderName: 'Название',
   placeholderSub: 'Ссылка на картинку',
-  btnLabel: 'добавить',
-  btnText: 'Добавить'
+  btnLabel: 'создать',
+  btnText: 'Создать'
 };
 
 const btn = document.querySelectorAll('.btn');
@@ -78,7 +78,8 @@ const openPopup = (evt) => {
   if (evt.target.classList.contains('btn_type_edit')) {
     renderFormEdit(formEdit);
     downInfo();
-  } else {
+  }
+  if (evt.target.classList.contains('btn_type_add')) {
     renderFormEdit(formAdd);
   }
   popup.classList.remove('popup_is_disabled');
@@ -98,11 +99,12 @@ const closePopup = (evt) => {
   Функция удаления картинки и формы popup
 */
 const removeParent = (evt) => {
-  let classParent = Array.from(evt.target.parentElement.classList).filter(item => item === 'form' || item === 'element').shift();
-  if (classParent === 'form' || classParent === 'element') {
+  let classParent = Array.from(evt.target.parentElement.classList).filter(item => item === 'form' || item === 'element' || item === 'preview-image').shift();
+  if (classParent === 'form' || classParent === 'element' || classParent === 'preview-image') {
     evt.target.closest(`.${classParent}`).remove();
   } else {
-    classParent = Array.from(Array.from(evt.target.children).find(item => item.classList.contains('btn')).parentElement.classList).filter(item => item === 'form');
+    const classChildren = Array.from(evt.target.children).find(item => item.classList.contains('btn'))
+    classParent = Array.from(classChildren.parentElement.classList).filter(item => item === 'form');
     evt.target.closest(`.${classParent}`).remove();
   }
 };
@@ -125,6 +127,8 @@ const renderCards = (oneCard, newName, newSub, newAlt = 'Изображение 
   cardElement.querySelector('.element__title').textContent = newName;
   cardElement.querySelector('.element__img').src = newSub;
   cardElement.querySelector('.element__img').alt = newAlt;
+  cardElement.querySelector('.element__img').addEventListener('click', renderPreview);
+  cardElement.querySelector('.element__img').addEventListener('click', openPopup);
   cardElement.querySelector('.element__btn-trash').addEventListener('click', removeParent);
   if (!oneCard) {
     cardContainer.append(cardElement);
@@ -146,10 +150,21 @@ const renderFormEdit = (arrForms) => {
   elementsForm.querySelector('.form__sub').placeholder = arrForms.placeholderSub;
   elementsForm.querySelector('.form__btn-submit').ariaLabel = arrForms.btnLabel;
   elementsForm.querySelector('.form__btn-submit').textContent = arrForms.btnText;
-  elementsForm.querySelector('.form__btn-close').label = 'закрыть';
   elementsForm.querySelector('.form__btn-close').addEventListener('click', closePopup);
   elementsFormContainer.append(elementsForm);
 };
+
+const renderPreview = (evt) => {
+  const targetParent = evt.target.parentElement;
+  const previewTemplate = document.querySelector('#preview').content;
+  const previewElement = previewTemplate.cloneNode(true);
+  const previewContainer = document.querySelector('.popup__container');
+  previewElement.querySelector('.preview-image__img').src = targetParent.querySelector('.element__img').src;
+  previewElement.querySelector('.preview-image__img').alt = targetParent.querySelector('.element__img').alt;
+  previewElement.querySelector('.preview-image__title').textContent = targetParent.querySelector('.element__title').textContent;
+  previewElement.querySelector('.preview-image__btn-close').addEventListener('click', closePopup);
+  previewContainer.append(previewElement);
+}
 
 /*
   Обработчик формы

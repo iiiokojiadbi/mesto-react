@@ -5,7 +5,14 @@
 @import url(./__btn-trash/element__btn-trash.css);
 
 .element {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  grid-template-rows: 1fr 80px;
   width: 100%;
   justify-self: center;
   position: relative;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 0;
 }

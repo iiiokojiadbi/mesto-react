@@ -2,12 +2,11 @@
   position: absolute;
   top: -47px;
   right: -47px;
-  padding: 0;
 }
 
 @media screen and (max-width: 620px) {
   .form__btn-close {
-    top: -25px;
-    right: -25px;
+    top: -35px;
+    right: -35px;
   }
 }

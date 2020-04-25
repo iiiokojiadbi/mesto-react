@@ -13,3 +13,9 @@
   max-width: 430px;
   position: relative;
 }
+
+@media screen and (max-width: 510px) {
+  .form {
+    padding: 30px 20px;
+  }
+}
