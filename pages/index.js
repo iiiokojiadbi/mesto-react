@@ -83,16 +83,22 @@ const openPopup = (evt) => {
     renderFormEdit(formAdd);
   }
   popup.classList.remove('popup_is_disabled');
+  popup.classList.remove('fade_type_out');
   popup.classList.add('popup_is_active');
+  popup.classList.add('fade_type_in');
 };
 
 /*
   Функция закрытия popup
 */
 const closePopup = (evt) => {
-  popup.classList.remove('popup_is_active');
-  popup.classList.add('popup_is_disabled');
-  removeParent(evt);
+  popup.classList.remove('fade_type_in');
+  popup.classList.add('fade_type_out');
+  setTimeout(() => {
+    popup.classList.add('popup_is_disabled');
+    popup.classList.remove('popup_is_active');
+    removeParent(evt);
+  }, 200);
 };
 
 /*
@@ -154,6 +160,10 @@ const renderFormEdit = (arrForms) => {
   elementsFormContainer.append(elementsForm);
 };
 
+/*
+  Функция создания preview картинки по клику на ней
+  Блок создается из шаблон
+*/
 const renderPreview = (evt) => {
   const targetParent = evt.target.parentElement;
   const previewTemplate = document.querySelector('#preview').content;
