@@ -1,6 +1,7 @@
 @import url(./_is/popup_is_active.css);
 @import url(./_is/popup_is_disabled.css);
 @import url(./__container/popup__container.css);
+@import url(./__form/popup__form.css);
 
 .popup {
   position: fixed;

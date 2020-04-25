@@ -98,10 +98,12 @@ const closePopup = (evt) => {
   Функция удаления картинки и формы popup
 */
 const removeParent = (evt) => {
-  if (evt.target.parentElement.classList.contains('form') || evt.target.parentElement.classList.contains('element')) {
-    evt.target.closest(`.${evt.target.parentElement.classList.value}`).remove();
+  let classParent = Array.from(evt.target.parentElement.classList).filter(item => item === 'form' || item === 'element').shift();
+  if (classParent === 'form' || classParent === 'element') {
+    evt.target.closest(`.${classParent}`).remove();
   } else {
-    evt.target.closest(`.${evt.target.classList.value}`).remove();
+    classParent = Array.from(Array.from(evt.target.children).find(item => item.classList.contains('btn')).parentElement.classList).filter(item => item === 'form');
+    evt.target.closest(`.${classParent}`).remove();
   }
 };
 
