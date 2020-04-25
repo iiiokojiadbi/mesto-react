@@ -1,3 +1,7 @@
+/*
+  Создание необходимых элементов для работы кнопок и функций
+*/
+
 const initialCards = [{
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
@@ -30,24 +34,23 @@ const initialCards = [{
   }
 ];
 
-const arrForms = [{
-    title: 'Редактировать профиль',
-    placeholderName: 'Введите имя',
-    placeholderSub: 'Введите хобби',
-    btnLabel: 'сохранить',
-    btnText: 'Сохранить'
-  },
-  {
-    title: 'Новое место',
-    placeholderName: 'Название',
-    placeholderSub: 'Ссылка на картинку',
-    btnLabel: 'добавить',
-    btnText: 'Добавить'
-  }
-];
+const formEdit = {
+  title: 'Редактировать профиль',
+  placeholderName: 'Введите имя',
+  placeholderSub: 'Введите хобби',
+  btnLabel: 'сохранить',
+  btnText: 'Сохранить'
+};
+
+const formAdd = {
+  title: 'Новое место',
+  placeholderName: 'Название',
+  placeholderSub: 'Ссылка на картинку',
+  btnLabel: 'добавить',
+  btnText: 'Добавить'
+};
 
 const btn = document.querySelectorAll('.btn');
-const form = document.querySelector('.form');
 const popup = document.querySelector('.popup');
 const userName = document.querySelector('.profile__user-name');
 const userHobby = document.querySelector('.profile__user-hobby');
@@ -69,35 +72,50 @@ const saveInfo = (newName, newSub) => {
 };
 
 /*
-  Функция открытия/закрытия popup.
+  Функция открытия popup
 */
-
 const openPopup = (evt) => {
   if (evt.target.classList.contains('btn_type_edit')) {
-    renderFormEdit(arrForms[0]);
+    renderFormEdit(formEdit);
     downInfo();
   } else {
-    renderFormEdit(arrForms[1]);
+    renderFormEdit(formAdd);
   }
   popup.classList.remove('popup_is_disabled');
   popup.classList.add('popup_is_active');
 };
 
+/*
+  Функция закрытия popup
+*/
 const closePopup = (evt) => {
   popup.classList.remove('popup_is_active');
   popup.classList.add('popup_is_disabled');
   removeParent(evt);
 };
 
+/*
+  Функция удаления картинки и формы popup
+*/
 const removeParent = (evt) => {
-  console.log(evt.target.parentElement.classList.value);
-  if (evt.target.parentElement.classList.value === 'form' || evt.target.parentElement.classList.value === 'element') {
-    evt.target.closest(`.${evt.target.parentElement.classList}`).remove();
+  if (evt.target.parentElement.classList.contains('form') || evt.target.parentElement.classList.contains('element')) {
+    evt.target.closest(`.${evt.target.parentElement.classList.value}`).remove();
   } else {
-    evt.target.closest(`.${evt.srcElement[0].parentElement.classList}`).remove();
+    evt.target.closest(`.${evt.target.classList.value}`).remove();
   }
 };
 
+/*
+  Вешаем на отрисованные кнопки (edit и add) открытие popup
+*/
+btn.forEach((item) => {
+  item.addEventListener('click', openPopup);
+});
+
+/*
+  Функция создания карточки
+  oneCard - значение true - 1 карточка, false - нет
+*/
 const renderCards = (oneCard, newName, newSub, newAlt = 'Изображение новой карточки с произвольным изображением') => {
   const cardTemplate = document.querySelector('#card').content;
   const cardElement = cardTemplate.cloneNode(true);
@@ -113,6 +131,9 @@ const renderCards = (oneCard, newName, newSub, newAlt = 'Изображение 
   }
 };
 
+/*
+  Функция создания необходимого popup из template
+*/
 const renderFormEdit = (arrForms) => {
   const elementsFormTemplate = document.querySelector('#form').content;
   const elementsForm = elementsFormTemplate.cloneNode(true);
@@ -129,6 +150,7 @@ const renderFormEdit = (arrForms) => {
 };
 
 /*
+  Обработчик формы
   Использована отмена стандартной формы с переданным в функцию событием
 */
 const formSubmitHandler = (evt) => {
@@ -146,20 +168,8 @@ const formSubmitHandler = (evt) => {
 };
 
 /*
-  Создание необходимых элементов для работы кнопок и функций
+  Рисуем 6 дефолтных карточек
 */
-
 initialCards.forEach((item) => {
   renderCards(false, item.name, item.link, item.altText);
-});
-
-document.addEventListener("DOMContentLoaded", function (evt) {
-  btn.forEach((item) => {
-    if (item.classList.contains('btn_type_edit')) {
-      item.addEventListener('click', openPopup);
-    };
-    if (item.classList.contains('btn_type_add')) {
-      item.addEventListener('click', openPopup);
-    };
-  });
 });

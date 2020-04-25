@@ -4,4 +4,13 @@
 @import url(./__btn-save/form__btn-submit.css);
 @import url(./__btn-close/form__btn-close.css);
 
-.form {}
+.form {
+  background-color: #ffffff;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 36px;
+  width: 100%;
+  max-width: 430px;
+  position: relative;
+  margin: 0 30px;
+}
