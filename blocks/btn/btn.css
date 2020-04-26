@@ -4,7 +4,7 @@
 @import url(./_type/btn_type_submit.css);
 @import url(./_type/btn_type_not-like.css);
 @import url(./_type/btn_type_trash.css);
-@import url(./__svg-like/btn__svg-like.css);
+@import url(./_type/btn_type_like.css);
 
 .btn {
   display: block;
