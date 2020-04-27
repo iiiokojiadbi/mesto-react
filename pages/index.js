@@ -88,7 +88,7 @@ const openPopup = (elem) => {
 const findAncestor = (elem, cls) => {
   while ((elem = elem.parentElement) && !elem.classList.contains(cls));
   return elem;
-}
+};
 
 /*
   Функция закрытия popup
@@ -104,7 +104,7 @@ const closePopup = (evt) => {
 */
 const likeHeart = (evt) => {
   evt.target.classList.toggle('btn_type_like');
-}
+};
 
 /*
   Функция удаления карточки
@@ -124,7 +124,7 @@ const openPreview = (evt) => {
   imgCardPreview.alt = targetCard.alt;
   titleCardPreview.textContent = titleCard;
   openPopup(popupCardPreview);
-}
+};
 
 /*
   Функция создания карточки
@@ -147,7 +147,7 @@ const renderInitialCards = () => {
   initialCards.forEach((item) => {
     elementsContainer.append(renderCard(item.name, item.link, item.altText));
   });
-}
+};
 
 /*
   Обработчик форм
