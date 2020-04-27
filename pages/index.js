@@ -169,8 +169,8 @@ const formSubmitHandler = (evt) => {
 /*
   Добавляем слушатели событий к необходимым кнопкам на странице
 */
-btnAdd.addEventListener('click', () => openPopup(popupAddForm));
 btnAdd.addEventListener('click', downInfo);
+btnAdd.addEventListener('click', () => openPopup(popupAddForm));
 btnEdit.addEventListener('click', () => openPopup(popupEditForm));
 btnClose.forEach((item => item.addEventListener('click', closePopup)));
 submitEditForm.addEventListener('submit', formSubmitHandler);
