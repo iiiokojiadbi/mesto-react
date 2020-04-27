@@ -1,9 +1,3 @@
 .form__name {
-  margin-bottom: 10px;
-}
-
-@media screen and (max-width: 510px) {
-  .form__name {
-    margin-bottom: 8px;
-  }
+  margin-bottom: 8px;
 }

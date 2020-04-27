@@ -1,7 +1,6 @@
 /*
   Создание необходимых элементов для работы кнопок и функций
 */
-
 const initialCards = [{
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
@@ -34,33 +33,30 @@ const initialCards = [{
   }
 ];
 
-const formEdit = {
-  title: 'Редактировать профиль',
-  placeholderName: 'Введите имя',
-  placeholderSub: 'Введите хобби',
-  btnLabel: 'сохранить',
-  btnText: 'Сохранить'
-};
-
-const formAdd = {
-  title: 'Новое место',
-  placeholderName: 'Название',
-  placeholderSub: 'Ссылка на картинку',
-  btnLabel: 'создать',
-  btnText: 'Создать'
-};
-
-const btn = document.querySelectorAll('.btn');
-const popup = document.querySelector('.popup');
+const btnEdit = document.querySelector('.btn_type_edit');
+const btnAdd = document.querySelector('.btn_type_add');
+const btnClose = document.querySelectorAll('.btn_type_close');
 const userName = document.querySelector('.profile__user-name');
 const userHobby = document.querySelector('.profile__user-hobby');
+const elementsContainer = document.querySelector('.elements');
+const popupEditForm = document.querySelector('#popupEditForm');
+const newNameProfile = popupEditForm.querySelector('.form__name');
+const newSubProfile = popupEditForm.querySelector('.form__sub');
+const submitEditForm = popupEditForm.querySelector('.form');
+const popupAddForm = document.querySelector('#popupAddForm');
+const nameNewCard = popupAddForm.querySelector('.form__name');
+const subNewCard = popupAddForm.querySelector('.form__sub');
+const submitAddForm = popupAddForm.querySelector('.form');
+const popupCardPreview = document.querySelector('#popupCardPreview');
+const titleCardPreview = popupCardPreview.querySelector('.preview-image__title');
+const imgCardPreview = popupCardPreview.querySelector('.preview-image__img');
 
 /*
   Функция заполнения input полей из содержимого документа
 */
 const downInfo = () => {
-  document.querySelector('.form__name').value = userName.textContent;
-  document.querySelector('.form__sub').value = userHobby.textContent;
+  newNameProfile.value = userName.textContent;
+  newSubProfile.value = userHobby.textContent;
 };
 
 /*
@@ -74,31 +70,33 @@ const saveInfo = (newName, newSub) => {
 /*
   Функция открытия popup
 */
-const openPopup = (evt) => {
-  if (evt.target.classList.contains('btn_type_edit')) {
-    renderFormEdit(formEdit);
+const openPopup = (elem) => {
+  if (elem.id === 'popupEditForm') {
     downInfo();
   }
-  if (evt.target.classList.contains('btn_type_add')) {
-    renderFormEdit(formAdd);
+  if (elem.id === 'popupAddForm') {
+    nameNewCard.value = '';
+    subNewCard.value = '';
   }
-  popup.classList.remove('popup_is_disabled');
-  popup.classList.remove('popup_anim_fade-out');
-  popup.classList.add('popup_is_active');
-  popup.classList.add('popup_anim_fade-in');
+  elem.classList.remove('popup_is_disabled');
+  elem.classList.add('popup_is_active');
 };
+
+/*
+  Функция поиска родителя по передаваему дочернему элементу и классу родителя дочернего элемента
+*/
+const findAncestor = (elem, cls) => {
+  while ((elem = elem.parentElement) && !elem.classList.contains(cls));
+  return elem;
+}
 
 /*
   Функция закрытия popup
 */
 const closePopup = (evt) => {
-  popup.classList.remove('popup_anim_fade-in');
-  popup.classList.add('popup_anim_fade-out');
-  setTimeout(() => {
-    popup.classList.add('popup_is_disabled');
-    popup.classList.remove('popup_is_active');
-    removeParent(evt);
-  }, 200);
+  const elem = findAncestor(evt.target, 'popup');
+  elem.classList.add('popup_is_disabled');
+  elem.classList.remove('popup_is_active');
 };
 
 /*
@@ -109,104 +107,74 @@ const likeHeart = (evt) => {
 }
 
 /*
-  Страшная функция удаления картинки, формы popup, и preview картинки.
-  Она страшная, потому что когда в эвенте находится не close кнопка, а форма, работает не так как задумывалась.
-  Тут я ищу класс родителя и подставляю его после шаблонной строкой.
-  Функция универсальная. 
+  Функция удаления карточки
 */
-const removeParent = (evt) => {
-  let classParent = Array.from(evt.target.parentElement.classList).find(item => item === 'form' || item === 'element' || item === 'preview-image');
-  if (classParent) { // если необходимые классы не найдены, будет undefined, условие не выполнится
-    evt.target.closest(`.${classParent}`).remove();
-  } else {
-    classParent = Array.from(evt.target.classList).find(item => item === 'form');
-    evt.target.closest(`.${classParent}`).remove();
-  }
+const trashElement = (evt) => {
+  const classParent = findAncestor(evt.target, 'element').classList.value;
+  evt.target.closest(`.${classParent}`).remove();
 };
 
 /*
-  Функция создания необходимого popup из template
+  Функция открытия preview картинки по клику на ней
 */
-const renderFormEdit = (arrForms) => {
-  const elementsFormTemplate = document.querySelector('#form').content;
-  const elementsForm = elementsFormTemplate.cloneNode(true);
-  const elementsFormContainer = document.querySelector('.popup__container');
-  elementsForm.querySelector('.form').addEventListener('submit', formSubmitHandler);
-  elementsForm.querySelector('.form__title').textContent = arrForms.title;
-  elementsForm.querySelector('.form__name').placeholder = arrForms.placeholderName;
-  elementsForm.querySelector('.form__sub').placeholder = arrForms.placeholderSub;
-  elementsForm.querySelector('.form__btn-submit').ariaLabel = arrForms.btnLabel;
-  elementsForm.querySelector('.form__btn-submit').textContent = arrForms.btnText;
-  elementsForm.querySelector('.form__btn-close').addEventListener('click', closePopup);
-  elementsFormContainer.append(elementsForm);
-};
-
-/*
-  Функция создания preview картинки по клику на ней
-  Блок создается из шаблона
-*/
-const renderPreview = (evt) => {
-  const targetParent = evt.target.parentElement;
-  const previewTemplate = document.querySelector('#preview').content;
-  const previewElement = previewTemplate.cloneNode(true);
-  const previewContainer = document.querySelector('.popup__container');
-  previewElement.querySelector('.preview-image__img').src = targetParent.querySelector('.element__img').src;
-  previewElement.querySelector('.preview-image__img').alt = targetParent.querySelector('.element__img').alt;
-  previewElement.querySelector('.preview-image__title').textContent = targetParent.querySelector('.element__title').textContent;
-  previewElement.querySelector('.preview-image__btn-close').addEventListener('click', closePopup);
-  previewContainer.append(previewElement);
+const openPreview = (evt) => {
+  const targetCard = evt.target;
+  const titleCard = findAncestor(targetCard, 'element').querySelector('.element__title').textContent;
+  imgCardPreview.src = targetCard.src;
+  imgCardPreview.alt = targetCard.alt;
+  titleCardPreview.textContent = titleCard;
+  openPopup(popupCardPreview);
 }
 
 /*
   Функция создания карточки
-  oneCard - значение true - 1 карточка, false - нет
 */
-const renderCards = (oneCard, newName, newSub, newAlt = 'Изображение новой карточки с произвольным изображением') => {
+const renderCard = (cardName, cardSub, cardAlt) => {
   const cardTemplate = document.querySelector('#card').content;
   const cardElement = cardTemplate.cloneNode(true);
-  const cardContainer = document.querySelector('.elements');
-  cardElement.querySelector('.element__title').textContent = newName;
-  cardElement.querySelector('.element__img').src = newSub;
-  cardElement.querySelector('.element__img').alt = newAlt;
-  cardElement.querySelector('.element__img').addEventListener('click', renderPreview);
-  cardElement.querySelector('.element__img').addEventListener('click', openPopup);
+  cardElement.querySelector('.element__title').textContent = cardName;
+  cardElement.querySelector('.element__img').src = cardSub;
+  cardElement.querySelector('.element__img').alt = cardAlt || 'Изображение новой карточки с произвольным изображением';
+  cardElement.querySelector('.element__img').addEventListener('click', openPreview);
   cardElement.querySelector('.element__btn-like').addEventListener('click', likeHeart);
-  cardElement.querySelector('.element__btn-trash').addEventListener('click', removeParent);
-  if (!oneCard) {
-    cardContainer.append(cardElement);
-  } else {
-    cardContainer.prepend(cardElement);
-  }
+  cardElement.querySelector('.element__btn-trash').addEventListener('click', trashElement);
+  return cardElement;
 };
 
 /*
-  Обработчик формы
+  Функция отрисовки 6 дефолтных карточек
+*/
+const renderInitialCards = () => {
+  initialCards.forEach((item) => {
+    elementsContainer.append(renderCard(item.name, item.link, item.altText));
+  });
+}
+
+/*
+  Обработчик форм
   Использована отмена стандартной формы с переданным в функцию событием
 */
 const formSubmitHandler = (evt) => {
   evt.preventDefault();
-  const btnSubmit = evt.target.querySelector('.form__btn-submit');
-  const newName = document.querySelector('.form__name').value;
-  const newSub = document.querySelector('.form__sub').value;
-
-  if (btnSubmit.textContent === 'Сохранить') {
-    saveInfo(newName, newSub);
-  } else {
-    renderCards(true, newName, newSub);
+  if (findAncestor(evt.target, 'popup').id === 'popupEditForm') {
+    saveInfo(newNameProfile.value, newSubProfile.value);
+  }
+  if (findAncestor(evt.target, 'popup').id === 'popupAddForm') {
+    elementsContainer.prepend(renderCard(nameNewCard.value, subNewCard.value));
   }
   closePopup(evt);
 };
 
 /*
-  Вешаем на отрисованные кнопки (edit и add) открытие popup
+  Добавляем слушатели событий к необходимым кнопкам на странице
 */
-btn.forEach((item) => {
-  item.addEventListener('click', openPopup);
-});
+btnAdd.addEventListener('click', () => openPopup(popupAddForm));
+btnEdit.addEventListener('click', () => openPopup(popupEditForm));
+btnClose.forEach((item => item.addEventListener('click', closePopup)));
+submitEditForm.addEventListener('submit', formSubmitHandler);
+submitAddForm.addEventListener('submit', formSubmitHandler);
 
 /*
   Рисуем 6 дефолтных карточек
 */
-initialCards.forEach((item) => {
-  renderCards(false, item.name, item.link, item.altText);
-});
+renderInitialCards();

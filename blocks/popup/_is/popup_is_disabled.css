@@ -1,3 +1,4 @@
 .popup_is_disabled {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
 }
