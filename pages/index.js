@@ -36,17 +36,22 @@ const initialCards = [{
 const btnEdit = document.querySelector('.btn_type_edit');
 const btnAdd = document.querySelector('.btn_type_add');
 const btnClose = document.querySelectorAll('.btn_type_close');
+
 const userName = document.querySelector('.profile__user-name');
 const userHobby = document.querySelector('.profile__user-hobby');
+
 const elementsContainer = document.querySelector('.elements');
+
 const popupEditForm = document.querySelector('#popupEditForm');
 const newNameProfile = popupEditForm.querySelector('.form__name');
 const newSubProfile = popupEditForm.querySelector('.form__sub');
 const submitEditForm = popupEditForm.querySelector('.form');
+
 const popupAddForm = document.querySelector('#popupAddForm');
 const nameNewCard = popupAddForm.querySelector('.form__name');
 const subNewCard = popupAddForm.querySelector('.form__sub');
 const submitAddForm = popupAddForm.querySelector('.form');
+
 const popupCardPreview = document.querySelector('#popupCardPreview');
 const titleCardPreview = popupCardPreview.querySelector('.preview-image__title');
 const imgCardPreview = popupCardPreview.querySelector('.preview-image__img');
