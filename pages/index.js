@@ -78,13 +78,6 @@ const saveInfo = (newName, newSub) => {
   Функция открытия popup
 */
 const openPopup = (elem) => {
-  if (elem.id === 'popupEditForm') {
-    downInfo();
-  }
-  if (elem.id === 'popupAddForm') {
-    nameNewCard.value = '';
-    subNewCard.value = '';
-  }
   elem.classList.remove('popup_is_disabled');
   elem.classList.add('popup_is_active');
 };
@@ -167,6 +160,8 @@ const formSubmitHandler = (evt) => {
   }
   if (findAncestor(evt.target, 'popup').id === 'popupAddForm') {
     elementsContainer.prepend(renderCard(nameNewCard.value, subNewCard.value));
+    nameNewCard.value = '';
+    subNewCard.value = '';
   }
   closePopup(evt);
 };
@@ -175,6 +170,7 @@ const formSubmitHandler = (evt) => {
   Добавляем слушатели событий к необходимым кнопкам на странице
 */
 btnAdd.addEventListener('click', () => openPopup(popupAddForm));
+btnAdd.addEventListener('click', downInfo);
 btnEdit.addEventListener('click', () => openPopup(popupEditForm));
 btnClose.forEach((item => item.addEventListener('click', closePopup)));
 submitEditForm.addEventListener('submit', formSubmitHandler);
