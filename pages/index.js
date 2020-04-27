@@ -56,6 +56,8 @@ const popupCardPreview = document.querySelector('#popupCardPreview');
 const titleCardPreview = popupCardPreview.querySelector('.preview-image__title');
 const imgCardPreview = popupCardPreview.querySelector('.preview-image__img');
 
+const cardTemplate = document.querySelector('#card').content;
+
 /*
   Функция заполнения input полей из содержимого документа
 */
@@ -135,7 +137,6 @@ const openPreview = (evt) => {
   Функция создания карточки
 */
 const renderCard = (cardName, cardSub, cardAlt) => {
-  const cardTemplate = document.querySelector('#card').content;
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.element__title').textContent = cardName;
   cardElement.querySelector('.element__img').src = cardSub;
