@@ -1,6 +1,8 @@
 .preview-image__img {
   object-fit: contain;
+  justify-self: center;
+  align-self: center;
+  justify-self: center;
   max-height: 75vh;
   max-width: 75vw;
-  justify-self: center;
 }

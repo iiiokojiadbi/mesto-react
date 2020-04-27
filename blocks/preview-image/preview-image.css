@@ -1,10 +1,11 @@
 @import url(./__img/preview-image__img.css);
 @import url(./__title/preview-image__title.css);
-@import url(./__btn-close/preview-image__btn-close.css);
 
 .preview-image {
   position: relative;
   display: grid;
   grid-template-columns: min-content;
   background-color: transparent;
+  max-height: 75vh;
+  max-width: 75vw;
 }
