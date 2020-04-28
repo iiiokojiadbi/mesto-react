@@ -46,20 +46,24 @@ const popupEditForm = document.querySelector('#popupEditForm');
 const newNameProfile = popupEditForm.querySelector('.form__name');
 const newSubProfile = popupEditForm.querySelector('.form__sub');
 const submitEditForm = popupEditForm.querySelector('.form');
+const btnCloseEdit = popupEditForm.querySelector('.popup__btn-close');
 
 const popupAddForm = document.querySelector('#popupAddForm');
 const nameNewCard = popupAddForm.querySelector('.form__name');
 const subNewCard = popupAddForm.querySelector('.form__sub');
 const submitAddForm = popupAddForm.querySelector('.form');
+const btnCloseAdd = popupAddForm.querySelector('.popup__btn-close');
 
 const popupCardPreview = document.querySelector('#popupCardPreview');
 const titleCardPreview = popupCardPreview.querySelector('.preview-image__title');
 const imgCardPreview = popupCardPreview.querySelector('.preview-image__img');
+const btnClosePreview = popupCardPreview.querySelector('.popup__btn-close');
+
 
 const cardTemplate = document.querySelector('#card').content;
 
 /*
-  Функция заполнения input полей из содержимого документа
+  Функция заполнения input полей формы Edit из содержимого документа
 */
 const downInfo = () => {
   newNameProfile.value = userName.textContent;
@@ -67,7 +71,7 @@ const downInfo = () => {
 };
 
 /*
-  Функция сохранения input полей в содержимое документа
+  Функция сохранения input полей формы Edit в содержимое документа
 */
 const saveInfo = (newName, newSub) => {
   userName.textContent = newName;
@@ -75,28 +79,18 @@ const saveInfo = (newName, newSub) => {
 };
 
 /*
-  Функция открытия popup
+  Функция сбрасывания input полей формы Add
 */
-const openPopup = (elem) => {
-  elem.classList.remove('popup_is_disabled');
-  elem.classList.add('popup_is_active');
+const resetInputAdd = () => {
+  nameNewCard.value = '';
+  subNewCard.value = '';
 };
 
 /*
-  Функция поиска родителя по передаваему дочернему элементу и классу родителя дочернего элемента
+  Функция открытия/закрытия popup
 */
-const findAncestor = (elem, cls) => {
-  while ((elem = elem.parentElement) && !elem.classList.contains(cls));
-  return elem;
-};
-
-/*
-  Функция закрытия popup
-*/
-const closePopup = (evt) => {
-  const elem = findAncestor(evt.target, 'popup');
-  elem.classList.add('popup_is_disabled');
-  elem.classList.remove('popup_is_active');
+const statusPopup = (elem) => {
+  elem.classList.toggle('popup_disabled');
 };
 
 /*
@@ -110,8 +104,10 @@ const likeHeart = (evt) => {
   Функция удаления карточки
 */
 const trashElement = (evt) => {
-  const classParent = findAncestor(evt.target, 'element').classList.value;
-  evt.target.closest(`.${classParent}`).remove();
+  evt.target.parentElement.querySelector('.element__img').removeEventListener('click', openPreview);
+  evt.target.parentElement.querySelector('.element__btn-like').removeEventListener('click', likeHeart);
+  evt.target.parentElement.querySelector('.element__btn-trash').removeEventListener('click', trashElement);
+  evt.target.closest('.element').remove();
 };
 
 /*
@@ -119,11 +115,11 @@ const trashElement = (evt) => {
 */
 const openPreview = (evt) => {
   const targetCard = evt.target;
-  const titleCard = findAncestor(targetCard, 'element').querySelector('.element__title').textContent;
+  const titleCard = targetCard.parentElement.querySelector('.element__title').textContent;
   imgCardPreview.src = targetCard.src;
   imgCardPreview.alt = targetCard.alt;
   titleCardPreview.textContent = titleCard;
-  openPopup(popupCardPreview);
+  statusPopup(popupCardPreview);
 };
 
 /*
@@ -150,31 +146,33 @@ const renderInitialCards = () => {
 };
 
 /*
-  Обработчик форм
+  Обработчики форм
   Использована отмена стандартной формы с переданным в функцию событием
 */
-const formSubmitHandler = (evt) => {
+const editFormSubmitHandler = (evt) => {
   evt.preventDefault();
-  if (findAncestor(evt.target, 'popup').id === 'popupEditForm') {
-    saveInfo(newNameProfile.value, newSubProfile.value);
-  }
-  if (findAncestor(evt.target, 'popup').id === 'popupAddForm') {
-    elementsContainer.prepend(renderCard(nameNewCard.value, subNewCard.value));
-    nameNewCard.value = '';
-    subNewCard.value = '';
-  }
-  closePopup(evt);
+  saveInfo(newNameProfile.value, newSubProfile.value);
+  statusPopup(popupEditForm);
+};
+
+const addFormSubmitHandler = (evt) => {
+  evt.preventDefault();
+  elementsContainer.prepend(renderCard(nameNewCard.value, subNewCard.value));
+  resetInputAdd();
+  statusPopup(popupAddForm);
 };
 
 /*
   Добавляем слушатели событий к необходимым кнопкам на странице
 */
 btnAdd.addEventListener('click', downInfo);
-btnAdd.addEventListener('click', () => openPopup(popupAddForm));
-btnEdit.addEventListener('click', () => openPopup(popupEditForm));
-btnClose.forEach((item => item.addEventListener('click', closePopup)));
-submitEditForm.addEventListener('submit', formSubmitHandler);
-submitAddForm.addEventListener('submit', formSubmitHandler);
+btnAdd.addEventListener('click', () => statusPopup(popupAddForm));
+btnEdit.addEventListener('click', () => statusPopup(popupEditForm));
+btnCloseEdit.addEventListener('click', () => statusPopup(popupEditForm));
+btnCloseAdd.addEventListener('click', () => statusPopup(popupAddForm));
+btnClosePreview.addEventListener('click', () => statusPopup(popupCardPreview));
+submitEditForm.addEventListener('submit', editFormSubmitHandler);
+submitAddForm.addEventListener('submit', addFormSubmitHandler);
 
 /*
   Рисуем 6 дефолтных карточек
