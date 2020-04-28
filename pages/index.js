@@ -35,7 +35,6 @@ const initialCards = [{
 
 const btnEdit = document.querySelector('.btn_type_edit');
 const btnAdd = document.querySelector('.btn_type_add');
-const btnClose = document.querySelectorAll('.btn_type_close');
 
 const userName = document.querySelector('.profile__user-name');
 const userHobby = document.querySelector('.profile__user-hobby');
