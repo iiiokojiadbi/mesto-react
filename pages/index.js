@@ -88,7 +88,7 @@ const resetInputAdd = () => {
 /*
   Функция открытия/закрытия popup
 */
-const statusPopup = (elem) => {
+const togglePopup = (elem) => {
   elem.classList.toggle('popup_disabled');
 };
 
@@ -100,25 +100,26 @@ const likeHeart = (evt) => {
 };
 
 /*
-  Функция удаления карточки
-*/
-const trashElement = (evt) => {
-  evt.target.parentElement.querySelector('.element__img').removeEventListener('click', openPreview);
-  evt.target.parentElement.querySelector('.element__btn-like').removeEventListener('click', likeHeart);
-  evt.target.parentElement.querySelector('.element__btn-trash').removeEventListener('click', trashElement);
-  evt.target.closest('.element').remove();
-};
-
-/*
   Функция открытия preview картинки по клику на ней
 */
 const openPreview = (evt) => {
-  const targetCard = evt.target;
-  const titleCard = targetCard.parentElement.querySelector('.element__title').textContent;
-  imgCardPreview.src = targetCard.src;
-  imgCardPreview.alt = targetCard.alt;
+  const targetCard = evt.target.closest('.element');
+  const titleCard = targetCard.querySelector('.element__title').textContent;
+  imgCardPreview.src = evt.target.src;
+  imgCardPreview.alt = evt.target.alt;
   titleCardPreview.textContent = titleCard;
-  statusPopup(popupCardPreview);
+  togglePopup(popupCardPreview);
+};
+
+/*
+  Функция удаления карточки
+*/
+const trashElement = (evt) => {
+  const targetCard = evt.target.closest('.element');
+  targetCard.querySelector('.element__img').removeEventListener('click', openPreview);
+  targetCard.querySelector('.element__btn-like').removeEventListener('click', likeHeart);
+  targetCard.querySelector('.element__btn-trash').removeEventListener('click', trashElement);
+  targetCard.remove();
 };
 
 /*
@@ -151,25 +152,25 @@ const renderInitialCards = () => {
 const editFormSubmitHandler = (evt) => {
   evt.preventDefault();
   saveInfo(newNameProfile.value, newSubProfile.value);
-  statusPopup(popupEditForm);
+  togglePopup(popupEditForm);
 };
 
 const addFormSubmitHandler = (evt) => {
   evt.preventDefault();
   elementsContainer.prepend(renderCard(nameNewCard.value, subNewCard.value));
   resetInputAdd();
-  statusPopup(popupAddForm);
+  togglePopup(popupAddForm);
 };
 
 /*
   Добавляем слушатели событий к необходимым кнопкам на странице
 */
 btnAdd.addEventListener('click', downInfo);
-btnAdd.addEventListener('click', () => statusPopup(popupAddForm));
-btnEdit.addEventListener('click', () => statusPopup(popupEditForm));
-btnCloseEdit.addEventListener('click', () => statusPopup(popupEditForm));
-btnCloseAdd.addEventListener('click', () => statusPopup(popupAddForm));
-btnClosePreview.addEventListener('click', () => statusPopup(popupCardPreview));
+btnAdd.addEventListener('click', () => togglePopup(popupAddForm));
+btnEdit.addEventListener('click', () => togglePopup(popupEditForm));
+btnCloseEdit.addEventListener('click', () => togglePopup(popupEditForm));
+btnCloseAdd.addEventListener('click', () => togglePopup(popupAddForm));
+btnClosePreview.addEventListener('click', () => togglePopup(popupCardPreview));
 submitEditForm.addEventListener('submit', editFormSubmitHandler);
 submitAddForm.addEventListener('submit', addFormSubmitHandler);
 
