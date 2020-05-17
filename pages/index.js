@@ -104,8 +104,8 @@ const togglePopup = (elem) => {
 /*
   Функция лайка карточки
 */
-const likeHeart = (evt) => {
-  evt.target.classList.toggle("btn_type_like");
+const likeHeart = (elem) => {
+  elem.classList.toggle("btn_type_like");
 };
 
 /*
@@ -129,9 +129,6 @@ const trashElement = (evt) => {
     .querySelector(".element__img")
     .removeEventListener("click", openPreview);
   targetCard
-    .querySelector(".element__btn-like")
-    .removeEventListener("click", likeHeart);
-  targetCard
     .querySelector(".element__btn-trash")
     .removeEventListener("click", trashElement);
   targetCard.remove();
@@ -150,9 +147,6 @@ const renderCard = (cardName, cardSub, cardAlt) => {
     .querySelector(".element__img")
     .addEventListener("click", openPreview);
   cardElement
-    .querySelector(".element__btn-like")
-    .addEventListener("click", likeHeart);
-  cardElement
     .querySelector(".element__btn-trash")
     .addEventListener("click", trashElement);
   return cardElement;
@@ -166,6 +160,13 @@ const renderInitialCards = () => {
     elementsContainer.append(renderCard(item.name, item.link, item.altText));
   });
 };
+
+elementsContainer.addEventListener("click", (evt) => {
+  console.log(evt.target);
+  if (evt.target.classList.contains("element__btn-like")) {
+    likeHeart(evt.target);
+  }
+});
 
 /*
   Обработчики форм
