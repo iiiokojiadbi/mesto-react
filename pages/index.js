@@ -43,9 +43,6 @@ const initialCards = [
 
 const pageContainer = document.querySelector(".page");
 
-const btnEdit = document.querySelector(".btn_type_edit");
-const btnAdd = document.querySelector(".btn_type_add");
-
 const userName = document.querySelector(".profile__user-name");
 const userHobby = document.querySelector(".profile__user-hobby");
 
@@ -53,22 +50,19 @@ const elementsContainer = document.querySelector(".elements");
 
 const popupEditForm = document.querySelector("#popupEditForm");
 const newNameProfile = popupEditForm.querySelector(".form__name");
-const newSubProfile = popupEditForm.querySelector(".form__sub");
+const newHobbyProfile = popupEditForm.querySelector(".form__sub");
 const submitEditForm = popupEditForm.querySelector(".form");
-const btnCloseEdit = popupEditForm.querySelector(".popup__btn-close");
 
 const popupAddForm = document.querySelector("#popupAddForm");
 const nameNewCard = popupAddForm.querySelector(".form__name");
-const subNewCard = popupAddForm.querySelector(".form__sub");
+const urlNewCard = popupAddForm.querySelector(".form__sub");
 const submitAddForm = popupAddForm.querySelector(".form");
-const btnCloseAdd = popupAddForm.querySelector(".popup__btn-close");
 
 const popupCardPreview = document.querySelector("#popupCardPreview");
 const titleCardPreview = popupCardPreview.querySelector(
   ".preview-image__title"
 );
 const imgCardPreview = popupCardPreview.querySelector(".preview-image__img");
-const btnClosePreview = popupCardPreview.querySelector(".popup__btn-close");
 
 const cardTemplate = document.querySelector("#card").content;
 
@@ -77,15 +71,15 @@ const cardTemplate = document.querySelector("#card").content;
 */
 const downInfo = () => {
   newNameProfile.value = userName.textContent;
-  newSubProfile.value = userHobby.textContent;
+  newHobbyProfile.value = userHobby.textContent;
 };
 
 /*
   Функция сохранения input полей формы Edit в содержимое документа
 */
-const saveInfo = (newName, newSub) => {
+const saveInfo = (newName, newHobby) => {
   userName.textContent = newName;
-  userHobby.textContent = newSub;
+  userHobby.textContent = newHobby;
 };
 
 /*
@@ -93,7 +87,7 @@ const saveInfo = (newName, newSub) => {
 */
 const resetInputAdd = () => {
   nameNewCard.value = "";
-  subNewCard.value = "";
+  urlNewCard.value = "";
 };
 
 /*
@@ -126,7 +120,7 @@ const openPreview = (elem) => {
   Функция удаления карточки
 */
 const trashElement = (elem) => {
-  evt.target.closest(".element").remove();
+  elem.closest(".element").remove();
 };
 
 /*
@@ -192,13 +186,13 @@ elementsContainer.addEventListener("click", (evt) => {
 */
 const editFormSubmitHandler = (evt) => {
   evt.preventDefault();
-  saveInfo(newNameProfile.value, newSubProfile.value);
+  saveInfo(newNameProfile.value, newHobbyProfile.value);
   togglePopup(popupEditForm);
 };
 
 const addFormSubmitHandler = (evt) => {
   evt.preventDefault();
-  elementsContainer.prepend(renderCard(nameNewCard.value, subNewCard.value));
+  elementsContainer.prepend(renderCard(nameNewCard.value, urlNewCard.value));
   resetInputAdd();
   togglePopup(popupAddForm);
 };
