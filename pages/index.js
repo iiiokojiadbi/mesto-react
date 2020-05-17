@@ -111,11 +111,11 @@ const likeHeart = (elem) => {
 /*
   Функция открытия preview картинки по клику на ней
 */
-const openPreview = (evt) => {
-  const targetCard = evt.target.closest(".element");
+const openPreview = (elem) => {
+  const targetCard = elem.closest(".element");
   const titleCard = targetCard.querySelector(".element__title").textContent;
-  imgCardPreview.src = evt.target.src;
-  imgCardPreview.alt = evt.target.alt;
+  imgCardPreview.src = elem.src;
+  imgCardPreview.alt = elem.alt;
   titleCardPreview.textContent = titleCard;
   togglePopup(popupCardPreview);
 };
@@ -123,15 +123,8 @@ const openPreview = (evt) => {
 /*
   Функция удаления карточки
 */
-const trashElement = (evt) => {
-  const targetCard = evt.target.closest(".element");
-  targetCard
-    .querySelector(".element__img")
-    .removeEventListener("click", openPreview);
-  targetCard
-    .querySelector(".element__btn-trash")
-    .removeEventListener("click", trashElement);
-  targetCard.remove();
+const trashElement = (elem) => {
+  evt.target.closest(".element").remove();
 };
 
 /*
@@ -143,12 +136,6 @@ const renderCard = (cardName, cardSub, cardAlt) => {
   cardElement.querySelector(".element__img").src = cardSub;
   cardElement.querySelector(".element__img").alt =
     cardAlt || "Изображение новой карточки с произвольным изображением";
-  cardElement
-    .querySelector(".element__img")
-    .addEventListener("click", openPreview);
-  cardElement
-    .querySelector(".element__btn-trash")
-    .addEventListener("click", trashElement);
   return cardElement;
 };
 
@@ -162,13 +149,18 @@ const renderInitialCards = () => {
 };
 
 /*
-  Делегирование собыйтий в контейнере elements
+  Делегирование событий в контейнере elements
 */
 
 elementsContainer.addEventListener("click", (evt) => {
-  console.log(evt.target);
   if (evt.target.classList.contains("element__btn-like")) {
     likeHeart(evt.target);
+  }
+  if (evt.target.classList.contains("element__img")) {
+    openPreview(evt.target);
+  }
+  if (evt.target.classList.contains("element__btn-trash")) {
+    trashElement(evt.target);
   }
 });
 
