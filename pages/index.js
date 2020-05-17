@@ -41,6 +41,8 @@ const initialCards = [
   },
 ];
 
+const pageContainer = document.querySelector(".page");
+
 const btnEdit = document.querySelector(".btn_type_edit");
 const btnAdd = document.querySelector(".btn_type_add");
 
@@ -149,6 +151,26 @@ const renderInitialCards = () => {
 };
 
 /*
+  Делегирование событий в контейнере page для управления popup;
+*/
+
+pageContainer.addEventListener("click", (evt) => {
+  if (evt.target.classList.contains("btn_type_add")) {
+    togglePopup(popupAddForm);
+  }
+  if (evt.target.classList.contains("btn_type_edit")) {
+    downInfo();
+    togglePopup(popupEditForm);
+  }
+  if (evt.target.classList.contains("popup__btn-close")) {
+    togglePopup(evt.target.closest(".popup"));
+  }
+  if (evt.target.classList.contains("popup")) {
+    togglePopup(evt.target);
+  }
+});
+
+/*
   Делегирование событий в контейнере elements
 */
 
@@ -184,12 +206,6 @@ const addFormSubmitHandler = (evt) => {
 /*
   Добавляем слушатели событий к необходимым кнопкам на странице
 */
-btnAdd.addEventListener("click", downInfo);
-btnAdd.addEventListener("click", () => togglePopup(popupAddForm));
-btnEdit.addEventListener("click", () => togglePopup(popupEditForm));
-btnCloseEdit.addEventListener("click", () => togglePopup(popupEditForm));
-btnCloseAdd.addEventListener("click", () => togglePopup(popupAddForm));
-btnClosePreview.addEventListener("click", () => togglePopup(popupCardPreview));
 submitEditForm.addEventListener("submit", editFormSubmitHandler);
 submitAddForm.addEventListener("submit", addFormSubmitHandler);
 

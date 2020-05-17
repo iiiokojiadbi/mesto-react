@@ -18,5 +18,5 @@
   z-index: 1000;
   visibility: visible;
   opacity: 1;
-  transition: visibility 0s, opacity .5s ease;
+  transition: visibility 0s, opacity .3s ease;
 }
