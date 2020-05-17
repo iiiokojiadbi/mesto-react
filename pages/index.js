@@ -161,6 +161,10 @@ const renderInitialCards = () => {
   });
 };
 
+/*
+  Делегирование собыйтий в контейнере elements
+*/
+
 elementsContainer.addEventListener("click", (evt) => {
   console.log(evt.target);
   if (evt.target.classList.contains("element__btn-like")) {
