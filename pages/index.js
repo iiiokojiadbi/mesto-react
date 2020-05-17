@@ -47,6 +47,7 @@ const userName = document.querySelector(".profile__user-name");
 const userHobby = document.querySelector(".profile__user-hobby");
 
 const elementsContainer = document.querySelector(".elements");
+const allPopup = document.querySelectorAll(".popup");
 
 const popupEditForm = document.querySelector("#popupEditForm");
 const newNameProfile = popupEditForm.querySelector(".form__name");
@@ -164,6 +165,19 @@ pageContainer.addEventListener("click", (evt) => {
   }
 });
 
+
+/*
+  Отслеживание события нажатия кнопки Escape, если какой-то из popup открыт, закрывает его
+*/
+const popupEscapeHandler = (evt) => {
+  const popupWithDisabled = Array.from(allPopup).find(
+    (popupElement) => !popupElement.classList.contains("popup_disabled")
+  );
+  if (popupWithDisabled && evt.key === "Escape") {
+    togglePopup(popupWithDisabled);
+  }
+};
+
 /*
   Делегирование событий в контейнере elements
 */
@@ -202,6 +216,7 @@ const addFormSubmitHandler = (evt) => {
 */
 submitEditForm.addEventListener("submit", editFormSubmitHandler);
 submitAddForm.addEventListener("submit", addFormSubmitHandler);
+window.addEventListener("keydown", popupEscapeHandler);
 
 /*
   Рисуем 6 дефолтных карточек
