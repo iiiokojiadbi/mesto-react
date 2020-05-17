@@ -68,19 +68,22 @@
             <h3 class="form__title">Новое место</h3>
             <input
               type="text"
-              class="input input_type_name form__name"
+              class="input input_type_name form__input"
               placeholder="Название"
               name="namePlace"
+              required
+              minlength="1"
             />
             <input
               type="text"
-              class="input input_type_hobby form__sub"
+              class="input input_type_hobby form__input"
               placeholder="Ссылка на картинку"
               name="urlPic"
+              required
             />
             <button
               type="submit"
-              class="btn btn_type_submit form__btn-submit"
+              class="btn btn_type_submit form__btn-submit form__btn-submit_disabled"
               aria-label="создать"
               name="submit"
             >
@@ -105,19 +108,23 @@
             <h3 class="form__title">Редактировать профиль</h3>
             <input
               type="text"
-              class="input input_type_name form__name"
+              class="input input_type_name form__input"
               placeholder="Введите имя"
               name="name"
+              required
+              minlength="2"
             />
             <input
               type="text"
-              class="input input_type_hobby form__sub"
+              class="input input_type_hobby form__input"
               placeholder="Введите хобби"
               name="hobby"
+              required
+              minlength="2"
             />
             <button
               type="submit"
-              class="btn btn_type_submit form__btn-submit"
+              class="btn btn_type_submit form__btn-submit form__btn-submit_disabled"
               aria-label="сохранить"
               name="submit"
             >

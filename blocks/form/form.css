@@ -1,7 +1,8 @@
-@import url(./__name/form__name.css);
-@import url(./__sub/form__sub.css);
 @import url(./__title/form__title.css);
 @import url(./__btn-save/form__btn-submit.css);
+@import url(./__btn-submit/form__btn-submit.css);
+@import url(./__btn-submit/_disabled/form__btn-submit_disabled.css);
+@import url(./__input/form__input.css);
 
 .form {
   background-color: #ffffff;
