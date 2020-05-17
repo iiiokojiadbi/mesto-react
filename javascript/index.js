@@ -50,14 +50,14 @@ const elementsContainer = document.querySelector(".elements");
 const allPopup = document.querySelectorAll(".popup");
 
 const popupEditForm = document.querySelector("#popupEditForm");
-const newNameProfile = popupEditForm.querySelector(".form__name");
-const newHobbyProfile = popupEditForm.querySelector(".form__sub");
-const submitEditForm = popupEditForm.querySelector(".form");
+const editForm = document.forms.editForm;
+const newNameProfile = editForm.elements.name;
+const newHobbyProfile = editForm.elements.hobby;
 
 const popupAddForm = document.querySelector("#popupAddForm");
-const nameNewCard = popupAddForm.querySelector(".form__name");
-const urlNewCard = popupAddForm.querySelector(".form__sub");
-const submitAddForm = popupAddForm.querySelector(".form");
+const addForm = document.forms.addForm;
+const nameNewCard = addForm.elements.namePlace;
+const urlNewCard = addForm.elements.urlPic;
 
 const popupCardPreview = document.querySelector("#popupCardPreview");
 const titleCardPreview = popupCardPreview.querySelector(
@@ -165,7 +165,6 @@ pageContainer.addEventListener("click", (evt) => {
   }
 });
 
-
 /*
   Отслеживание события нажатия кнопки Escape, если какой-то из popup открыт, закрывает его
 */
@@ -214,8 +213,8 @@ const addFormSubmitHandler = (evt) => {
 /*
   Добавляем слушатели событий к необходимым кнопкам на странице
 */
-submitEditForm.addEventListener("submit", editFormSubmitHandler);
-submitAddForm.addEventListener("submit", addFormSubmitHandler);
+editForm.addEventListener("submit", editFormSubmitHandler);
+addForm.addEventListener("submit", addFormSubmitHandler);
 window.addEventListener("keydown", popupEscapeHandler);
 
 /*
