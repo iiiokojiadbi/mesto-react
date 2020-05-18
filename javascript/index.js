@@ -108,13 +108,11 @@ const popupEscapeHandler = (evt) => {
 */
 const togglePopup = (elem) => {
   elem.classList.toggle("popup_disabled");
-  window.addEventListener(
-    "keydown",
-    (evt) => {
-      popupEscapeHandler(evt);
-    },
-    { once: true }
-  );
+  if (!elem.classList.contains("popup_disabled")) {
+    window.addEventListener("keydown", popupEscapeHandler, { once: true });
+  } else {
+    window.removeEventListener("keydown", popupEscapeHandler);
+  }
 };
 /*
   Функция лайка карточки
