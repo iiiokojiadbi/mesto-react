@@ -86,9 +86,8 @@ const saveInfo = (newName, newHobby) => {
 /*
   Функция сбрасывания input полей формы Add
 */
-const resetInputAdd = () => {
-  nameNewCard.value = "";
-  urlNewCard.value = "";
+const resetInput = (formElement) => {
+  formElement.reset();
 };
 
 /*
@@ -197,16 +196,14 @@ elementsContainer.addEventListener("click", (evt) => {
   Обработчики форм
   Использована отмена стандартной формы с переданным в функцию событием
 */
-const editFormSubmitHandler = (evt) => {
-  evt.preventDefault();
+const editFormSubmitHandler = () => {
   saveInfo(newNameProfile.value, newHobbyProfile.value);
   togglePopup(popupEditForm);
 };
 
-const addFormSubmitHandler = (evt) => {
-  evt.preventDefault();
+const addFormSubmitHandler = () => {
   elementsContainer.prepend(renderCard(nameNewCard.value, urlNewCard.value));
-  resetInputAdd();
+  resetInput(addForm);
   togglePopup(popupAddForm);
 };
 
@@ -215,7 +212,7 @@ const addFormSubmitHandler = (evt) => {
 */
 editForm.addEventListener("submit", editFormSubmitHandler);
 addForm.addEventListener("submit", addFormSubmitHandler);
-window.addEventListener("keydown", popupEscapeHandler);
+document.addEventListener("keydown", popupEscapeHandler);
 
 /*
   Рисуем 6 дефолтных карточек

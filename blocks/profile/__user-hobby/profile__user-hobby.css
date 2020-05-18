@@ -9,7 +9,7 @@
   grid-area: hobby;
   max-width: 280px;
   justify-self: center;
-  text-align: center;
+  text-align: left;
 }
 
 @media screen and (min-width: 620px) {
