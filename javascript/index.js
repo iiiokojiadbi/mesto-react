@@ -91,12 +91,31 @@ const resetInput = (formElement) => {
 };
 
 /*
-  Функция открытия/закрытия popup
+  Отслеживание события нажатия кнопки Escape, если какой-то из popup открыт, закрывает его
+*/
+const popupEscapeHandler = (evt) => {
+  const popupWithDisabled = Array.from(allPopup).find(
+    (popupElement) => !popupElement.classList.contains("popup_disabled")
+  );
+  if (popupWithDisabled && evt.key === "Escape") {
+    togglePopup(popupWithDisabled);
+  }
+};
+
+/*
+  Функция открытия/закрытия popup с добавлением слушателя нажатия кнопки.
+  Функция слушателя сработает 1 раз из-за передаваемого свойства once, после чего будет удален
 */
 const togglePopup = (elem) => {
   elem.classList.toggle("popup_disabled");
+  window.addEventListener(
+    "keydown",
+    (evt) => {
+      popupEscapeHandler(evt);
+    },
+    { once: true }
+  );
 };
-
 /*
   Функция лайка карточки
 */
@@ -165,18 +184,6 @@ pageContainer.addEventListener("click", (evt) => {
 });
 
 /*
-  Отслеживание события нажатия кнопки Escape, если какой-то из popup открыт, закрывает его
-*/
-const popupEscapeHandler = (evt) => {
-  const popupWithDisabled = Array.from(allPopup).find(
-    (popupElement) => !popupElement.classList.contains("popup_disabled")
-  );
-  if (popupWithDisabled && evt.key === "Escape") {
-    togglePopup(popupWithDisabled);
-  }
-};
-
-/*
   Делегирование событий в контейнере elements
 */
 
@@ -212,7 +219,6 @@ const addFormSubmitHandler = () => {
 */
 editForm.addEventListener("submit", editFormSubmitHandler);
 addForm.addEventListener("submit", addFormSubmitHandler);
-document.addEventListener("keydown", popupEscapeHandler);
 
 /*
   Рисуем 6 дефолтных карточек

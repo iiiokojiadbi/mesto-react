@@ -90,6 +90,12 @@ const setEventListeners = (formElement, optionsForm) => {
 };
 
 /*
+Функция отключения стандартного поведения кнопки сабмит в форме
+*/
+const disableSubmitForm = (evt) => {
+  evt.preventDefault();
+};
+/*
 Функция валидации, в которую передаем объект с настройками
 */
 const enableValidation = (optionsForm) => {
@@ -99,9 +105,7 @@ const enableValidation = (optionsForm) => {
   );
   //каждой форме выключаем стандартое поведение отправки
   formList.forEach((formElement) => {
-    formElement.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-    });
+    formElement.addEventListener("submit", disableSubmitForm);
     //вызываем функцию добавления слушателей к каждой форме
     setEventListeners(formElement, optionsForm);
   });
