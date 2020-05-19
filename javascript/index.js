@@ -103,13 +103,12 @@ const popupEscapeHandler = (evt) => {
 };
 
 /*
-  Функция открытия/закрытия popup с добавлением слушателя нажатия кнопки.
-  Функция слушателя сработает 1 раз из-за передаваемого свойства once, после чего будет удален
+  Функция открытия/закрытия popup с добавлением/удалением слушателя нажатия кнопки Escape.
 */
 const togglePopup = (elem) => {
   elem.classList.toggle("popup_disabled");
   if (!elem.classList.contains("popup_disabled")) {
-    window.addEventListener("keydown", popupEscapeHandler, { once: true });
+    window.addEventListener("keydown", popupEscapeHandler);
   } else {
     window.removeEventListener("keydown", popupEscapeHandler);
   }
