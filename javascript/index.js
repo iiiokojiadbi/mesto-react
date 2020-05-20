@@ -51,13 +51,17 @@ const allPopup = document.querySelectorAll(".popup");
 
 const popupEditForm = document.querySelector("#popupEditForm");
 const editForm = document.forms.editForm;
+const editFormInputs = Array.from(editForm.querySelectorAll(".form__input"));
 const newNameProfile = editForm.elements.name;
 const newHobbyProfile = editForm.elements.hobby;
+const submitEditForm = editForm.elements.submitForm;
 
 const popupAddForm = document.querySelector("#popupAddForm");
 const addForm = document.forms.addForm;
+const addFormInputs = Array.from(addForm.querySelectorAll(".form__input"));
 const nameNewCard = addForm.elements.namePlace;
 const urlNewCard = addForm.elements.urlPic;
+const submitAddForm = addForm.elements.submitForm;
 
 const popupCardPreview = document.querySelector("#popupCardPreview");
 const titleCardPreview = popupCardPreview.querySelector(
@@ -84,7 +88,7 @@ const saveInfo = (newName, newHobby) => {
 };
 
 /*
-  Функция сбрасывания input полей формы Add
+  Функция сбрасывания input полей формы
 */
 const resetInput = (formElement) => {
   formElement.reset();
@@ -163,36 +167,46 @@ const renderInitialCards = () => {
 /*
   Делегирование событий в контейнере page для управления popup;
 */
-
 pageContainer.addEventListener("click", (evt) => {
   if (evt.target.classList.contains("btn_type_add")) {
+    toggleButtonState(addFormInputs, submitAddForm, optionsForm);
     togglePopup(popupAddForm);
+    return;
   }
   if (evt.target.classList.contains("btn_type_edit")) {
     downInfo();
+    editFormInputs.forEach((inputElement) =>
+      hideInputError(editForm, inputElement, optionsForm)
+    );
+    toggleButtonState(editFormInputs, submitEditForm, optionsForm);
     togglePopup(popupEditForm);
+    return;
   }
   if (evt.target.classList.contains("popup__btn-close")) {
     togglePopup(evt.target.closest(".popup"));
+    return;
   }
   if (evt.target.classList.contains("popup")) {
     togglePopup(evt.target);
+    return;
   }
 });
 
 /*
   Делегирование событий в контейнере elements
 */
-
 elementsContainer.addEventListener("click", (evt) => {
   if (evt.target.classList.contains("element__btn-like")) {
     likeHeart(evt.target);
+    return;
   }
   if (evt.target.classList.contains("element__img")) {
     openPreview(evt.target);
+    return;
   }
   if (evt.target.classList.contains("element__btn-trash")) {
     trashElement(evt.target);
+    return;
   }
 });
 
