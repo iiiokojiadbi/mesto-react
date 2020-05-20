@@ -75,8 +75,8 @@
                 id="place-input"
                 required
                 minlength="1"
-                maxlength="35"
-                pattern=".{1,30}" />
+                maxlength="30"
+                pattern=".*" />
               <span class="form__input-error" id="place-input-error"></span
             ></label>
             <label class="form__field">
@@ -124,9 +124,9 @@
                 id="user-name-input"
                 required
                 minlength="2"
-                maxlength="45"
+                maxlength="40"
                 value="Жак-Ив Кусто"
-                pattern="[А-Яа-яA-Za-z\s-]{2,40}"
+                pattern="[А-Яа-яёЁA-Za-z\s-]*"
               />
               <span class="form__input-error" id="user-name-input-error"></span>
             </label>
@@ -139,9 +139,9 @@
                 id="hobby-input"
                 required
                 minlength="2"
-                maxlength="210"
+                maxlength="200"
                 value="Исследователь океана"
-                pattern=".{2,200}"
+                pattern=".*"
               />
               <span class="form__input-error" id="hobby-input-error"></span>
             </label>
