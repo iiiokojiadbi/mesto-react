@@ -51,13 +51,13 @@ const hasInvalidInput = (inputList) => {
 /*
 функция включения\отключения кнопки отправки
 */
-const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
+const toggleButtonState = (inputList, buttonElement, optionsForm) => {
   //вызов функции проверки валидности каждого инпута в форме
   //добавляем или удаляем класс взависимости от результата проверки
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(inactiveButtonClass);
+    buttonElement.classList.add(optionsForm.inactiveButtonClass);
   } else {
-    buttonElement.classList.remove(inactiveButtonClass);
+    buttonElement.classList.remove(optionsForm.inactiveButtonClass);
   }
 };
 
@@ -74,17 +74,13 @@ const setEventListeners = (formElement, optionsForm) => {
     optionsForm.submitButtonSelector
   );
   //вызываем функцию включения\отключения кнопки отправки
-  toggleButtonState(inputList, buttonElement, optionsForm.inactiveButtonClass);
+  toggleButtonState(inputList, buttonElement, optionsForm);
   //для каждого инпута добавляем проверку
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", function () {
       checkInputValidity(formElement, inputElement, optionsForm);
       //вызываем функцию включения\отключения кнопки отправки
-      toggleButtonState(
-        inputList,
-        buttonElement,
-        optionsForm.inactiveButtonClass
-      );
+      toggleButtonState(inputList, buttonElement, optionsForm);
     });
   });
 };
@@ -111,14 +107,17 @@ const enableValidation = (optionsForm) => {
   });
 };
 
-/*
-Включаем валидацию
-*/
-enableValidation({
+/* объект с необходимыми классами для работы валидации */
+const optionsForm = {
   formSelector: ".form",
   inputSelector: ".form__input",
   submitButtonSelector: ".form__btn-submit",
   inactiveButtonClass: "form__btn-submit_disabled",
   inputErrorClass: "form__input_type_error",
   errorClass: "form__input-error_active",
-});
+};
+
+/*
+Включаем валидацию
+*/
+enableValidation(optionsForm);
