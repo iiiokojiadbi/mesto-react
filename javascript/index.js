@@ -166,36 +166,41 @@ const renderInitialCards = () => {
 /*
   Делегирование событий в контейнере page для управления popup;
 */
-
 pageContainer.addEventListener("click", (evt) => {
   if (evt.target.classList.contains("btn_type_add")) {
     togglePopup(popupAddForm);
+    return;
   }
   if (evt.target.classList.contains("btn_type_edit")) {
     downInfo();
     togglePopup(popupEditForm);
+    return;
   }
   if (evt.target.classList.contains("popup__btn-close")) {
     togglePopup(evt.target.closest(".popup"));
+    return;
   }
   if (evt.target.classList.contains("popup")) {
     togglePopup(evt.target);
+    return;
   }
 });
 
 /*
   Делегирование событий в контейнере elements
 */
-
 elementsContainer.addEventListener("click", (evt) => {
   if (evt.target.classList.contains("element__btn-like")) {
     likeHeart(evt.target);
+    return;
   }
   if (evt.target.classList.contains("element__img")) {
     openPreview(evt.target);
+    return;
   }
   if (evt.target.classList.contains("element__btn-trash")) {
     trashElement(evt.target);
+    return;
   }
 });
 
