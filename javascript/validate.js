@@ -20,7 +20,7 @@ const hideInputError = (formElement, inputElement, optionsForm) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.remove(optionsForm.inputErrorClass);
   errorElement.classList.remove(optionsForm.errorClass);
-  errorElement.textContent = "";
+  errorElement.textContent = '';
 };
 
 /*
@@ -77,7 +77,7 @@ const setEventListeners = (formElement, optionsForm) => {
   toggleButtonState(inputList, buttonElement, optionsForm);
   //для каждого инпута добавляем проверку
   inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", function () {
+    inputElement.addEventListener('input', function () {
       checkInputValidity(formElement, inputElement, optionsForm);
       //вызываем функцию включения\отключения кнопки отправки
       toggleButtonState(inputList, buttonElement, optionsForm);
@@ -101,7 +101,7 @@ const enableValidation = (optionsForm) => {
   );
   //каждой форме выключаем стандартое поведение отправки
   formList.forEach((formElement) => {
-    formElement.addEventListener("submit", disableSubmitForm);
+    formElement.addEventListener('submit', disableSubmitForm);
     //вызываем функцию добавления слушателей к каждой форме
     setEventListeners(formElement, optionsForm);
   });
@@ -109,12 +109,12 @@ const enableValidation = (optionsForm) => {
 
 /* объект с необходимыми классами для работы валидации */
 const optionsForm = {
-  formSelector: ".form",
-  inputSelector: ".form__input",
-  submitButtonSelector: ".form__btn-submit",
-  inactiveButtonClass: "form__btn-submit_disabled",
-  inputErrorClass: "form__input_type_error",
-  errorClass: "form__input-error_active",
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__btn-submit',
+  inactiveButtonClass: 'form__btn-submit_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active',
 };
 
 /*

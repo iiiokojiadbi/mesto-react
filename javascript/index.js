@@ -3,73 +3,73 @@
 */
 const initialCards = [
   {
-    name: "Архыз",
+    name: 'Архыз',
     link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-    altText: "Изображение горного района Архыз",
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+    altText: 'Изображение горного района Архыз',
   },
   {
-    name: "Челябинская область",
+    name: 'Челябинская область',
     link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-    altText: "Изображение природы в Челябинской области",
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+    altText: 'Изображение природы в Челябинской области',
   },
   {
-    name: "Иваново",
+    name: 'Иваново',
     link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
     altText:
-      "Изображение одной из улиц города Иваново, также известного как &laquo;Город невест&raquo;",
+      'Изображение одной из улиц города Иваново, также известного как &laquo;Город невест&raquo;',
   },
   {
-    name: "Камчатка",
+    name: 'Камчатка',
     link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-    altText: "Изображение природы в Камчатки",
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+    altText: 'Изображение природы в Камчатки',
   },
   {
-    name: "Холмогорский район",
+    name: 'Холмогорский район',
     link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-    altText: "Изображение железнодорожных путей в Холмогорском районе",
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+    altText: 'Изображение железнодорожных путей в Холмогорском районе',
   },
   {
-    name: "Байкал",
+    name: 'Байкал',
     link:
-      "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-    altText: "Изображение природы Байкала",
+      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+    altText: 'Изображение природы Байкала',
   },
 ];
 
-const pageContainer = document.querySelector(".page");
+const pageContainer = document.querySelector('.page');
 
-const userName = document.querySelector(".profile__user-name");
-const userHobby = document.querySelector(".profile__user-hobby");
+const userName = document.querySelector('.profile__user-name');
+const userHobby = document.querySelector('.profile__user-hobby');
 
-const elementsContainer = document.querySelector(".elements");
-const allPopup = document.querySelectorAll(".popup");
+const elementsContainer = document.querySelector('.elements');
+const allPopup = document.querySelectorAll('.popup');
 
-const popupEditForm = document.querySelector("#popupEditForm");
+const popupEditForm = document.querySelector('#popupEditForm');
 const editForm = document.forms.editForm;
-const editFormInputs = Array.from(editForm.querySelectorAll(".form__input"));
+const editFormInputs = Array.from(editForm.querySelectorAll('.form__input'));
 const newNameProfile = editForm.elements.name;
 const newHobbyProfile = editForm.elements.hobby;
 const submitEditForm = editForm.elements.submitForm;
 
-const popupAddForm = document.querySelector("#popupAddForm");
+const popupAddForm = document.querySelector('#popupAddForm');
 const addForm = document.forms.addForm;
-const addFormInputs = Array.from(addForm.querySelectorAll(".form__input"));
+const addFormInputs = Array.from(addForm.querySelectorAll('.form__input'));
 const nameNewCard = addForm.elements.namePlace;
 const urlNewCard = addForm.elements.urlPic;
 const submitAddForm = addForm.elements.submitForm;
 
-const popupCardPreview = document.querySelector("#popupCardPreview");
+const popupCardPreview = document.querySelector('#popupCardPreview');
 const titleCardPreview = popupCardPreview.querySelector(
-  ".preview-image__title"
+  '.preview-image__title'
 );
-const imgCardPreview = popupCardPreview.querySelector(".preview-image__img");
+const imgCardPreview = popupCardPreview.querySelector('.preview-image__img');
 
-const cardTemplate = document.querySelector("#card").content;
+const cardTemplate = document.querySelector('#card').content;
 
 /*
   Функция заполнения input полей формы Edit из содержимого документа
@@ -99,9 +99,9 @@ const resetInput = (formElement) => {
 */
 const popupEscapeHandler = (evt) => {
   const popupWithDisabled = Array.from(allPopup).find(
-    (popupElement) => !popupElement.classList.contains("popup_disabled")
+    (popupElement) => !popupElement.classList.contains('popup_disabled')
   );
-  if (popupWithDisabled && evt.key === "Escape") {
+  if (popupWithDisabled && evt.key === 'Escape') {
     togglePopup(popupWithDisabled);
   }
 };
@@ -110,26 +110,26 @@ const popupEscapeHandler = (evt) => {
   Функция открытия/закрытия popup с добавлением/удалением слушателя нажатия кнопки Escape.
 */
 const togglePopup = (elem) => {
-  elem.classList.toggle("popup_disabled");
-  if (!elem.classList.contains("popup_disabled")) {
-    window.addEventListener("keydown", popupEscapeHandler);
+  elem.classList.toggle('popup_disabled');
+  if (!elem.classList.contains('popup_disabled')) {
+    window.addEventListener('keydown', popupEscapeHandler);
   } else {
-    window.removeEventListener("keydown", popupEscapeHandler);
+    window.removeEventListener('keydown', popupEscapeHandler);
   }
 };
 /*
   Функция лайка карточки
 */
 const likeHeart = (elem) => {
-  elem.classList.toggle("btn_type_like");
+  elem.classList.toggle('btn_type_like');
 };
 
 /*
   Функция открытия preview картинки по клику на ней
 */
 const openPreview = (elem) => {
-  const targetCard = elem.closest(".element");
-  const titleCard = targetCard.querySelector(".element__title").textContent;
+  const targetCard = elem.closest('.element');
+  const titleCard = targetCard.querySelector('.element__title').textContent;
   imgCardPreview.src = elem.src;
   imgCardPreview.alt = elem.alt;
   titleCardPreview.textContent = titleCard;
@@ -140,7 +140,7 @@ const openPreview = (elem) => {
   Функция удаления карточки
 */
 const trashElement = (elem) => {
-  elem.closest(".element").remove();
+  elem.closest('.element').remove();
 };
 
 /*
@@ -148,10 +148,10 @@ const trashElement = (elem) => {
 */
 const renderCard = (cardName, cardSub, cardAlt) => {
   const cardElement = cardTemplate.cloneNode(true);
-  cardElement.querySelector(".element__title").textContent = cardName;
-  cardElement.querySelector(".element__img").src = cardSub;
-  cardElement.querySelector(".element__img").alt =
-    cardAlt || "Изображение новой карточки с произвольным изображением";
+  cardElement.querySelector('.element__title').textContent = cardName;
+  cardElement.querySelector('.element__img').src = cardSub;
+  cardElement.querySelector('.element__img').alt =
+    cardAlt || 'Изображение новой карточки с произвольным изображением';
   return cardElement;
 };
 
@@ -167,13 +167,13 @@ const renderInitialCards = () => {
 /*
   Делегирование событий в контейнере page для управления popup;
 */
-pageContainer.addEventListener("click", (evt) => {
-  if (evt.target.classList.contains("btn_type_add")) {
+pageContainer.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('btn_type_add')) {
     toggleButtonState(addFormInputs, submitAddForm, optionsForm);
     togglePopup(popupAddForm);
     return;
   }
-  if (evt.target.classList.contains("btn_type_edit")) {
+  if (evt.target.classList.contains('btn_type_edit')) {
     downInfo();
     editFormInputs.forEach((inputElement) =>
       hideInputError(editForm, inputElement, optionsForm)
@@ -182,11 +182,11 @@ pageContainer.addEventListener("click", (evt) => {
     togglePopup(popupEditForm);
     return;
   }
-  if (evt.target.classList.contains("popup__btn-close")) {
-    togglePopup(evt.target.closest(".popup"));
+  if (evt.target.classList.contains('popup__btn-close')) {
+    togglePopup(evt.target.closest('.popup'));
     return;
   }
-  if (evt.target.classList.contains("popup")) {
+  if (evt.target.classList.contains('popup')) {
     togglePopup(evt.target);
     return;
   }
@@ -195,16 +195,16 @@ pageContainer.addEventListener("click", (evt) => {
 /*
   Делегирование событий в контейнере elements
 */
-elementsContainer.addEventListener("click", (evt) => {
-  if (evt.target.classList.contains("element__btn-like")) {
+elementsContainer.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('element__btn-like')) {
     likeHeart(evt.target);
     return;
   }
-  if (evt.target.classList.contains("element__img")) {
+  if (evt.target.classList.contains('element__img')) {
     openPreview(evt.target);
     return;
   }
-  if (evt.target.classList.contains("element__btn-trash")) {
+  if (evt.target.classList.contains('element__btn-trash')) {
     trashElement(evt.target);
     return;
   }
@@ -228,8 +228,8 @@ const addFormSubmitHandler = () => {
 /*
   Добавляем слушатели событий к необходимым кнопкам на странице
 */
-editForm.addEventListener("submit", editFormSubmitHandler);
-addForm.addEventListener("submit", addFormSubmitHandler);
+editForm.addEventListener('submit', editFormSubmitHandler);
+addForm.addEventListener('submit', addFormSubmitHandler);
 
 /*
   Рисуем 6 дефолтных карточек
