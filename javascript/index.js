@@ -66,14 +66,6 @@ const nameNewCard = addForm.elements.namePlace;
 const urlNewCard = addForm.elements.urlPic;
 const submitAddForm = addForm.elements.submitForm;
 
-const popupCardPreview = document.querySelector('#popupCardPreview');
-const titleCardPreview = popupCardPreview.querySelector(
-  '.preview-image__title'
-);
-const imgCardPreview = popupCardPreview.querySelector('.preview-image__img');
-
-//const cardTemplate = document.querySelector('#card').content;
-
 /*
   Функция заполнения input полей формы Edit из содержимого документа
 */
@@ -120,31 +112,6 @@ const togglePopup = (elem) => {
     window.removeEventListener('keydown', popupEscapeHandler);
   }
 };
-/*
-  Функция лайка карточки
-*/
-const likeHeart = (elem) => {
-  elem.classList.toggle('btn_type_like');
-};
-
-/*
-  Функция открытия preview картинки по клику на ней
-*/
-const openPreview = (elem) => {
-  const targetCard = elem.closest('.element');
-  const titleCard = targetCard.querySelector('.element__title').textContent;
-  imgCardPreview.src = elem.src;
-  imgCardPreview.alt = elem.alt;
-  titleCardPreview.textContent = titleCard;
-  togglePopup(popupCardPreview);
-};
-
-/*
-  Функция удаления карточки
-*/
-const trashElement = (elem) => {
-  elem.closest('.element').remove();
-};
 
 /*
   Функция отрисовки 6 дефолтных карточек
@@ -185,24 +152,6 @@ pageContainer.addEventListener('click', (evt) => {
 });
 
 /*
-  Делегирование событий в контейнере elements
-*/
-elementsContainer.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('element__btn-like')) {
-    likeHeart(evt.target);
-    return;
-  }
-  if (evt.target.classList.contains('element__img')) {
-    openPreview(evt.target);
-    return;
-  }
-  if (evt.target.classList.contains('element__btn-trash')) {
-    trashElement(evt.target);
-    return;
-  }
-});
-
-/*
   Обработчики форм
   Использована отмена стандартной формы с переданным в функцию событием
 */
@@ -227,3 +176,5 @@ addForm.addEventListener('submit', addFormSubmitHandler);
   Рисуем 6 дефолтных карточек
 */
 renderInitialCards();
+
+export { togglePopup };
