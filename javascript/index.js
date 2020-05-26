@@ -1,3 +1,6 @@
+/* импортируем необходимые модули */
+import { DefaultCard } from './Cards.js';
+
 /*
   Создание необходимых элементов для работы кнопок и функций
 */
@@ -69,7 +72,7 @@ const titleCardPreview = popupCardPreview.querySelector(
 );
 const imgCardPreview = popupCardPreview.querySelector('.preview-image__img');
 
-const cardTemplate = document.querySelector('#card').content;
+//const cardTemplate = document.querySelector('#card').content;
 
 /*
   Функция заполнения input полей формы Edit из содержимого документа
@@ -144,23 +147,12 @@ const trashElement = (elem) => {
 };
 
 /*
-  Функция создания карточки
-*/
-const renderCard = (cardName, cardSub, cardAlt) => {
-  const cardElement = cardTemplate.cloneNode(true);
-  cardElement.querySelector('.element__title').textContent = cardName;
-  cardElement.querySelector('.element__img').src = cardSub;
-  cardElement.querySelector('.element__img').alt =
-    cardAlt || 'Изображение новой карточки с произвольным изображением';
-  return cardElement;
-};
-
-/*
   Функция отрисовки 6 дефолтных карточек
 */
 const renderInitialCards = () => {
   initialCards.forEach((item) => {
-    elementsContainer.append(renderCard(item.name, item.link, item.altText));
+    const card = new DefaultCard(item, '#card');
+    elementsContainer.append(card.generateCard());
   });
 };
 
