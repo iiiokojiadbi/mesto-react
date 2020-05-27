@@ -155,6 +155,7 @@ const addFormSubmitHandler = () => {
   togglePopup(popupAddForm);
   nameNewCard.value = '';
   urlNewCard.value = '';
+  addForm.reset();
 };
 
 /*
