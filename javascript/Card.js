@@ -8,7 +8,7 @@ const titleCardPreview = popupCardPreview.querySelector(
 );
 const imgCardPreview = popupCardPreview.querySelector('.preview-image__img');
 
-/* Класс карточки */
+// Класс карточки
 class Card {
   constructor(data, cardSelector) {
     this._cardSelector = cardSelector;

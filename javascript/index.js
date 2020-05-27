@@ -63,7 +63,6 @@ const userHobby = document.querySelector('.profile__user-hobby');
 
 const elementsContainer = document.querySelector('.elements');
 const allPopup = Array.from(document.querySelectorAll('.popup'));
-const allForms = Array.from(document.forms);
 
 const popupEditForm = document.querySelector('#popupEditForm');
 const editForm = document.forms.editForm;
