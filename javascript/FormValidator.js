@@ -1,3 +1,41 @@
+/* объект с необходимыми классами для работы валидации */
+const optionsForm = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__btn-submit',
+  inactiveButtonClass: 'form__btn-submit_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active',
+};
+
+class FormValidator {
+  constructor(option, form) {
+    this._form = form;
+    this._inputSelector = option.inputSelector;
+    this._submitButtonSelector = option.submitButtonSelector;
+    this._inactiveButtonClass = option.inactiveButtonClass;
+    this._inputErrorClass = option.inputErrorClass;
+    this._errorClass = option.errorClass;
+  }
+
+  _disableSubmitForm() {
+    const buttonSubmit = this._form.querySelector(this._submitButtonSelector);
+    buttonSubmit.addEventListener('submit', () => evt.preventDefault());
+  }
+
+  _toggleButtonState() {
+    const buttonSubmit = this._form.querySelector(this._submitButtonSelector);
+    
+  }
+
+  _setEventListeners() {}
+
+  enableValidation() {
+    _disableSubmitForm();
+    _setEventListeners();
+  }
+}
+
 /*
 Функция показа элемента ошибки
 */
@@ -86,13 +124,13 @@ const setEventListeners = (formElement, optionsForm) => {
 };
 
 /*
-Функция отключения стандартного поведения кнопки сабмит в форме
+Функция отключения стандартного поведения кнопки сабмит в форме2
 */
 const disableSubmitForm = (evt) => {
   evt.preventDefault();
 };
 /*
-Функция валидации, в которую передаем объект с настройками
+Функция валидации, в которую передаем объект с настройками1
 */
 const enableValidation = (optionsForm) => {
   // ищем все формы на странице
@@ -105,16 +143,6 @@ const enableValidation = (optionsForm) => {
     //вызываем функцию добавления слушателей к каждой форме
     setEventListeners(formElement, optionsForm);
   });
-};
-
-/* объект с необходимыми классами для работы валидации */
-const optionsForm = {
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__btn-submit',
-  inactiveButtonClass: 'form__btn-submit_disabled',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active',
 };
 
 /*
