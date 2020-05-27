@@ -1,6 +1,6 @@
 /* импортируем необходимые модули */
 import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
+import { FormValidator, EditFormValidator } from './FormValidator.js';
 
 /*
   Создание необходимых элементов для работы кнопок и функций
@@ -50,6 +50,7 @@ const optionsForm = {
   formSelector: '.form',
   inputSelector: '.form__input',
   submitButtonSelector: '.form__btn-submit',
+  buttonCloseSelector: '.form__btn-close',
   inactiveButtonClass: 'form__btn-submit_disabled',
   inputErrorClass: 'form__input_type_error',
   errorClass: 'form__input-error_active',
@@ -61,22 +62,18 @@ const userName = document.querySelector('.profile__user-name');
 const userHobby = document.querySelector('.profile__user-hobby');
 
 const elementsContainer = document.querySelector('.elements');
-const allPopup = document.querySelectorAll('.popup');
+const allPopup = Array.from(document.querySelectorAll('.popup'));
 const allForms = Array.from(document.forms);
 
 const popupEditForm = document.querySelector('#popupEditForm');
 const editForm = document.forms.editForm;
-const editFormInputs = Array.from(editForm.querySelectorAll('.form__input'));
 const newNameProfile = editForm.elements.name;
 const newHobbyProfile = editForm.elements.hobby;
-const submitEditForm = editForm.elements.submitForm;
 
 const popupAddForm = document.querySelector('#popupAddForm');
 const addForm = document.forms.addForm;
-const addFormInputs = Array.from(addForm.querySelectorAll('.form__input'));
 const nameNewCard = addForm.elements.namePlace;
 const urlNewCard = addForm.elements.urlPic;
-const submitAddForm = addForm.elements.submitForm;
 
 /*
   Функция заполнения input полей формы Edit из содержимого документа
@@ -95,17 +92,10 @@ const saveInfo = (newName, newHobby) => {
 };
 
 /*
-  Функция сбрасывания input полей формы
-*/
-const resetInput = (formElement) => {
-  formElement.reset();
-};
-
-/*
   Отслеживание события нажатия кнопки Escape, если какой-то из popup открыт, закрывает его
 */
 const popupEscapeHandler = (evt) => {
-  const popupWithDisabled = Array.from(allPopup).find(
+  const popupWithDisabled = allPopup.find(
     (popupElement) => !popupElement.classList.contains('popup_disabled')
   );
   if (popupWithDisabled && evt.key === 'Escape') {
@@ -126,40 +116,15 @@ const togglePopup = (elem) => {
 };
 
 /*
-  Функция отрисовки 6 дефолтных карточек
-*/
-const renderInitialCards = () => {
-  initialCards.forEach((item) => {
-    const card = new Card(item, '#card');
-    elementsContainer.append(card.generateCard());
-  });
-};
-
-const activateFormValidation = () => {
-  console.log(allForms);
-  allForms.forEach((form) => {
-    const validateForm = new FormValidator(form, optionsForm);
-  });
-};
-
-/*
   Делегирование событий в контейнере page для управления popup;
 */
 pageContainer.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('btn_type_add')) {
-    /*    
-    toggleButtonState(addFormInputs, submitAddForm, optionsForm);
-     */
     togglePopup(popupAddForm);
     return;
   }
   if (evt.target.classList.contains('btn_type_edit')) {
     downInfo();
-    /*
-    editFormInputs.forEach((inputElement) =>
-      hideInputError(editForm, inputElement, optionsForm)
-    );
-    toggleButtonState(editFormInputs, submitEditForm, optionsForm); */
     togglePopup(popupEditForm);
     return;
   }
@@ -177,17 +142,38 @@ pageContainer.addEventListener('click', (evt) => {
   Обработчики форм
   Использована отмена стандартной формы с переданным в функцию событием
 */
-const editFormSubmitHandler = (evt) => {
-  evt.preventDefault();
+const editFormSubmitHandler = () => {
   saveInfo(newNameProfile.value, newHobbyProfile.value);
   togglePopup(popupEditForm);
 };
 
-const addFormSubmitHandler = (evt) => {
-  evt.preventDefault();
-  elementsContainer.prepend(renderCard(nameNewCard.value, urlNewCard.value));
-  resetInput(addForm);
+const addFormSubmitHandler = () => {
+  const newCard = new Card(
+    { name: nameNewCard.value, link: urlNewCard.value },
+    '#card'
+  );
+  elementsContainer.prepend(newCard.generateCard());
   togglePopup(popupAddForm);
+  nameNewCard.value = '';
+  urlNewCard.value = '';
+};
+
+/*
+  Функция отрисовки 6 дефолтных карточек
+*/
+const renderInitialCards = () => {
+  initialCards.forEach((item) => {
+    const card = new Card(item, '#card');
+    elementsContainer.append(card.generateCard());
+  });
+};
+
+/* функция активации валидации для форм */
+const activateFormValidation = () => {
+  const addFormValidation = new FormValidator(addForm, optionsForm);
+  const editFormValidation = new EditFormValidator(editForm, optionsForm);
+  addFormValidation.enableValidation();
+  editFormValidation.enableValidation();
 };
 
 /*
@@ -200,6 +186,8 @@ addForm.addEventListener('submit', addFormSubmitHandler);
   Рисуем 6 дефолтных карточек
 */
 renderInitialCards();
+
+/* Включаем валидацию всех форм */
 activateFormValidation();
 
 export { togglePopup };

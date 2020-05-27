@@ -62,7 +62,6 @@ class Card {
     this._element.querySelector('.element__title').textContent = this._name;
     this._element.querySelector('.element__img').src = this._link;
     this._element.querySelector('.element__img').alt = this._altText;
-
     return this._element;
   }
 }
