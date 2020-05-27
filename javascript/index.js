@@ -54,6 +54,7 @@ const optionsForm = {
   inactiveButtonClass: 'form__btn-submit_disabled',
   inputErrorClass: 'form__input_type_error',
   errorClass: 'form__input-error_active',
+  popupSelector: '.popup',
 };
 
 const pageContainer = document.querySelector('.page');
