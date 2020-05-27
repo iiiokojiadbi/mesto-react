@@ -1,5 +1,6 @@
 /* импортируем необходимые модули */
 import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 
 /*
   Создание необходимых элементов для работы кнопок и функций
@@ -44,6 +45,16 @@ const initialCards = [
   },
 ];
 
+/* объект с необходимыми классами для работы валидации */
+const optionsForm = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__btn-submit',
+  inactiveButtonClass: 'form__btn-submit_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active',
+};
+
 const pageContainer = document.querySelector('.page');
 
 const userName = document.querySelector('.profile__user-name');
@@ -51,6 +62,7 @@ const userHobby = document.querySelector('.profile__user-hobby');
 
 const elementsContainer = document.querySelector('.elements');
 const allPopup = document.querySelectorAll('.popup');
+const allForms = Array.from(document.forms);
 
 const popupEditForm = document.querySelector('#popupEditForm');
 const editForm = document.forms.editForm;
@@ -123,21 +135,31 @@ const renderInitialCards = () => {
   });
 };
 
+const activateFormValidation = () => {
+  console.log(allForms);
+  allForms.forEach((form) => {
+    const validateForm = new FormValidator(form, optionsForm);
+  });
+};
+
 /*
   Делегирование событий в контейнере page для управления popup;
 */
 pageContainer.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('btn_type_add')) {
+    /*    
     toggleButtonState(addFormInputs, submitAddForm, optionsForm);
+     */
     togglePopup(popupAddForm);
     return;
   }
   if (evt.target.classList.contains('btn_type_edit')) {
     downInfo();
+    /*
     editFormInputs.forEach((inputElement) =>
       hideInputError(editForm, inputElement, optionsForm)
     );
-    toggleButtonState(editFormInputs, submitEditForm, optionsForm);
+    toggleButtonState(editFormInputs, submitEditForm, optionsForm); */
     togglePopup(popupEditForm);
     return;
   }
@@ -155,12 +177,14 @@ pageContainer.addEventListener('click', (evt) => {
   Обработчики форм
   Использована отмена стандартной формы с переданным в функцию событием
 */
-const editFormSubmitHandler = () => {
+const editFormSubmitHandler = (evt) => {
+  evt.preventDefault();
   saveInfo(newNameProfile.value, newHobbyProfile.value);
   togglePopup(popupEditForm);
 };
 
-const addFormSubmitHandler = () => {
+const addFormSubmitHandler = (evt) => {
+  evt.preventDefault();
   elementsContainer.prepend(renderCard(nameNewCard.value, urlNewCard.value));
   resetInput(addForm);
   togglePopup(popupAddForm);
@@ -176,5 +200,6 @@ addForm.addEventListener('submit', addFormSubmitHandler);
   Рисуем 6 дефолтных карточек
 */
 renderInitialCards();
+activateFormValidation();
 
 export { togglePopup };

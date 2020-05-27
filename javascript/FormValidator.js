@@ -1,44 +1,72 @@
-/* объект с необходимыми классами для работы валидации */
-const optionsForm = {
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__btn-submit',
-  inactiveButtonClass: 'form__btn-submit_disabled',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active',
-};
-
 class FormValidator {
-  constructor(option, form) {
+  constructor(form, option) {
     this._form = form;
     this._inputSelector = option.inputSelector;
     this._submitButtonSelector = option.submitButtonSelector;
     this._inactiveButtonClass = option.inactiveButtonClass;
     this._inputErrorClass = option.inputErrorClass;
     this._errorClass = option.errorClass;
-  }
-
-  _disableSubmitForm() {
-    const buttonSubmit = this._form.querySelector(this._submitButtonSelector);
-    buttonSubmit.addEventListener('submit', () => evt.preventDefault());
+    this._buttonSubmit = this._form.querySelector(this._submitButtonSelector);
+    this._inputList = Array.from(
+      this._form.querySelectorAll(this._inputSelector)
+    );
   }
 
   _toggleButtonState() {
-    const buttonSubmit = this._form.querySelector(this._submitButtonSelector);
-    
+    if (_hasInvalidInput()) {
+      this._buttonSubmit.classList.add(this._inactiveButtonClass);
+    } else {
+      this._buttonSubmit.classList.remove(this._inactiveButtonClass);
+    }
   }
 
-  _setEventListeners() {}
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => {
+      return !inputElement.validity.valid;
+    });
+  }
+
+  _showInputError(inputElement) {
+    const errorElement = this._form.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.add(this._inputErrorClass);
+    errorElement.textContent = inputElement.validationMessage;
+    errorElement.classList.add(this._errorClass);
+  }
+
+  _hideInputError(inputElement) {
+    const errorElement = this._form.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.remove(this._inputErrorClass);
+    errorElement.classList.remove(this._errorClass);
+    errorElement.textContent = '';
+  }
+
+  _checkInputValidity(inputElement) {
+    if (!inputElement.validity.valid) {
+      _showInputError(inputElement);
+    } else {
+      _hideInputError(inputElement);
+    }
+  }
+
+  _setEventListeners() {
+    this._form.addEventListener('submit', (evt) => evt.preventDefault());
+    _toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      inputElement.addEventListener('input', function () {
+        _checkInputValidity(inputElement);
+        _toggleButtonState();
+      });
+    });
+  }
 
   enableValidation() {
-    _disableSubmitForm();
     _setEventListeners();
   }
 }
 
+export { FormValidator };
+
 /*
-Функция показа элемента ошибки
-*/
 const showInputError = (
   formElement,
   inputElement,
@@ -51,9 +79,6 @@ const showInputError = (
   errorElement.classList.add(optionsForm.errorClass);
 };
 
-/*
-Функция скрытия элемента ошибки
-*/
 const hideInputError = (formElement, inputElement, optionsForm) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.remove(optionsForm.inputErrorClass);
@@ -61,9 +86,6 @@ const hideInputError = (formElement, inputElement, optionsForm) => {
   errorElement.textContent = '';
 };
 
-/*
-Функция вызова функций показа или скрытия, взависимости от валидности инпута
-*/
 const checkInputValidity = (formElement, inputElement, optionsForm) => {
   if (!inputElement.validity.valid) {
     showInputError(
@@ -77,18 +99,12 @@ const checkInputValidity = (formElement, inputElement, optionsForm) => {
   }
 };
 
-/*
-функция проверки валидности каждого инпута в форме
-*/
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 };
 
-/*
-функция включения\отключения кнопки отправки
-*/
 const toggleButtonState = (inputList, buttonElement, optionsForm) => {
   //вызов функции проверки валидности каждого инпута в форме
   //добавляем или удаляем класс взависимости от результата проверки
@@ -99,9 +115,6 @@ const toggleButtonState = (inputList, buttonElement, optionsForm) => {
   }
 };
 
-/*
-Функция добавления слушателей к форме
-*/
 const setEventListeners = (formElement, optionsForm) => {
   // ищем все инпуты в форме
   const inputList = Array.from(
@@ -123,15 +136,9 @@ const setEventListeners = (formElement, optionsForm) => {
   });
 };
 
-/*
-Функция отключения стандартного поведения кнопки сабмит в форме2
-*/
 const disableSubmitForm = (evt) => {
   evt.preventDefault();
 };
-/*
-Функция валидации, в которую передаем объект с настройками1
-*/
 const enableValidation = (optionsForm) => {
   // ищем все формы на странице
   const formList = Array.from(
@@ -143,9 +150,4 @@ const enableValidation = (optionsForm) => {
     //вызываем функцию добавления слушателей к каждой форме
     setEventListeners(formElement, optionsForm);
   });
-};
-
-/*
-Включаем валидацию
-*/
-enableValidation(optionsForm);
+}; */
