@@ -1,5 +1,3 @@
-//TODO: ИСПРАВИТЬ МОДУЛЬ ОСТАВИВ ТОЛЬКО ОСНОВНОЙ КЛАСС
-
 // импортируем необходимые функции для работы класса
 import { togglePopup } from './index.js';
 
@@ -12,8 +10,12 @@ const imgCardPreview = popupCardPreview.querySelector('.preview-image__img');
 
 /* Класс карточки */
 class Card {
-  constructor(cardSelector) {
+  constructor(data, cardSelector) {
     this._cardSelector = cardSelector;
+    this._name = data.name;
+    this._altText =
+      data.altText || 'Изображение новой карточки с произвольным изображением';
+    this._link = data.link;
   }
   // метод получения шаблона карточки
   _getTemplate() {
@@ -34,6 +36,13 @@ class Card {
   _trashElement() {
     this._element.closest('.element').remove();
   }
+  // метод открытия превью карточки
+  _openPreview() {
+    titleCardPreview.textContent = this._name;
+    imgCardPreview.src = this._link;
+    imgCardPreview.alt = this._altText;
+    togglePopup(popupCardPreview);
+  }
   // метод добавления событий карточки
   _setEventListeners() {
     this._element
@@ -42,35 +51,13 @@ class Card {
     this._element
       .querySelector('.element__btn-trash')
       .addEventListener('click', () => this._trashElement());
-  }
-}
-
-/* Новый класс обычной карточки */
-class DefaultCard extends Card {
-  constructor(data, cardSelector) {
-    super(cardSelector);
-    this._name = data.name;
-    this._altText =
-      data.altText || 'Изображение новой карточки с произвольным изображением';
-    this._link = data.link;
-  }
-  // метод открытия превью карточки
-  _openPreview() {
-    titleCardPreview.textContent = this._name;
-    imgCardPreview.src = this._link;
-    imgCardPreview.alt = this._altText;
-    togglePopup(popupCardPreview);
-  }
-  // перегружаем метод добавления событий карточки
-  _setEventListeners() {
     this._element
       .querySelector('.element__img')
       .addEventListener('click', () => this._openPreview());
-    super._setEventListeners();
   }
   // метод создания карточки
   generateCard() {
-    this._element = super._getTemplate();
+    this._element = this._getTemplate();
     this._setEventListeners();
     this._element.querySelector('.element__title').textContent = this._name;
     this._element.querySelector('.element__img').src = this._link;
@@ -80,4 +67,4 @@ class DefaultCard extends Card {
   }
 }
 
-export { DefaultCard };
+export { Card };

@@ -1,5 +1,5 @@
 /* импортируем необходимые модули */
-import { DefaultCard } from './Cards.js';
+import { Card } from './Card.js';
 
 /*
   Создание необходимых элементов для работы кнопок и функций
@@ -118,7 +118,7 @@ const togglePopup = (elem) => {
 */
 const renderInitialCards = () => {
   initialCards.forEach((item) => {
-    const card = new DefaultCard(item, '#card');
+    const card = new Card(item, '#card');
     elementsContainer.append(card.generateCard());
   });
 };
