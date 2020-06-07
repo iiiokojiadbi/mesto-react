@@ -35,6 +35,7 @@ class Card {
   // метод удаления карточки
   _trashElement() {
     this._element.closest('.element').remove();
+    this._element = null;
   }
   // метод открытия превью карточки
   _openPreview() {

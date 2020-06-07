@@ -1,49 +1,9 @@
 /* импортируем необходимые модули */
+import { togglePopup, renderInitialCards } from './utils.js';
 import { Card } from './Card.js';
-import { FormValidator, EditFormValidator } from './FormValidator.js';
-
-/*
-  Создание необходимых элементов для работы кнопок и функций
-*/
-const initialCards = [
-  {
-    name: 'Архыз',
-    link:
-      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-    altText: 'Изображение горного района Архыз',
-  },
-  {
-    name: 'Челябинская область',
-    link:
-      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-    altText: 'Изображение природы в Челябинской области',
-  },
-  {
-    name: 'Иваново',
-    link:
-      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-    altText:
-      'Изображение одной из улиц города Иваново, также известного как &laquo;Город невест&raquo;',
-  },
-  {
-    name: 'Камчатка',
-    link:
-      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-    altText: 'Изображение природы в Камчатки',
-  },
-  {
-    name: 'Холмогорский район',
-    link:
-      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-    altText: 'Изображение железнодорожных путей в Холмогорском районе',
-  },
-  {
-    name: 'Байкал',
-    link:
-      'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-    altText: 'Изображение природы Байкала',
-  },
-];
+import { FormValidator } from './FormValidator.js';
+import { EditFormValidator } from './EditFormValidator.js';
+import { initialCards } from './initial-сards.js';
 
 /* объект с необходимыми классами для работы валидации */
 const optionsForm = {
@@ -63,7 +23,6 @@ const userName = document.querySelector('.profile__user-name');
 const userHobby = document.querySelector('.profile__user-hobby');
 
 const elementsContainer = document.querySelector('.elements');
-const allPopup = Array.from(document.querySelectorAll('.popup'));
 
 const popupEditForm = document.querySelector('#popupEditForm');
 const editForm = document.forms.editForm;
@@ -89,30 +48,6 @@ const downInfo = () => {
 const saveInfo = (newName, newHobby) => {
   userName.textContent = newName;
   userHobby.textContent = newHobby;
-};
-
-/*
-  Отслеживание события нажатия кнопки Escape, если какой-то из popup открыт, закрывает его
-*/
-const popupEscapeHandler = (evt) => {
-  const popupWithDisabled = allPopup.find(
-    (popupElement) => !popupElement.classList.contains('popup_disabled')
-  );
-  if (popupWithDisabled && evt.key === 'Escape') {
-    togglePopup(popupWithDisabled);
-  }
-};
-
-/*
-  Функция открытия/закрытия popup с добавлением/удалением слушателя нажатия кнопки Escape.
-*/
-const togglePopup = (elem) => {
-  elem.classList.toggle('popup_disabled');
-  if (!elem.classList.contains('popup_disabled')) {
-    window.addEventListener('keydown', popupEscapeHandler);
-  } else {
-    window.removeEventListener('keydown', popupEscapeHandler);
-  }
 };
 
 /*
@@ -159,16 +94,6 @@ const addFormSubmitHandler = () => {
   addForm.reset();
 };
 
-/*
-  Функция отрисовки 6 дефолтных карточек
-*/
-const renderInitialCards = () => {
-  initialCards.forEach((item) => {
-    const card = new Card(item, '#card');
-    elementsContainer.append(card.generateCard());
-  });
-};
-
 /* функция активации валидации для форм */
 const activateFormValidation = () => {
   const addFormValidation = new FormValidator(addForm, optionsForm);
@@ -186,7 +111,7 @@ addForm.addEventListener('submit', addFormSubmitHandler);
 /*
   Рисуем 6 дефолтных карточек
 */
-renderInitialCards();
+renderInitialCards(initialCards, elementsContainer, '#card', Card);
 
 /* Включаем валидацию всех форм */
 activateFormValidation();
