@@ -13,6 +13,7 @@ class FormValidator {
     this._inputList = Array.from(
       this._form.querySelectorAll(this._inputSelector)
     );
+    this._popup = this._form.closest(option.popupSelector);
   }
   // метод проверки валидности инпутов
   _hasInvalidInput() {
@@ -54,10 +55,23 @@ class FormValidator {
   _submitForm(evt) {
     evt.preventDefault();
     this._inputList.forEach((inputElement) => {
-      this._hideInputError(inputElement);
-      this._toggleButtonState();
+      this._hasInvalidInput();
+      this._buttonSubmit.classList.remove(this._inactiveButtonClass);
     });
   }
+
+  // метод удаления ошибок с инпутов формы редактирования
+  _closeForm() {
+    this._buttonClose.addEventListener('click', () => {
+      if (this._popup.id === 'popupEditForm') {
+        this._inputList.forEach((inputElement) => {
+          this._hideInputError(inputElement);
+        });
+        this._buttonSubmit.classList.remove(this._inactiveButtonClass);
+      }
+    });
+  }
+
   // метод для объявления слушателей события валидации формы
   _setEventListeners() {
     this._form.addEventListener('submit', (evt) => this._submitForm(evt));
@@ -67,7 +81,9 @@ class FormValidator {
         this._toggleButtonState();
       });
     });
+    this._closeForm();
   }
+
   // "публичный" метод активации валидации
   enableValidation() {
     this._toggleButtonState();

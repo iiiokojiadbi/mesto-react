@@ -16,7 +16,7 @@ const optionsForm = {
   popupSelector: '.popup',
 };
 
-const pageContainer = document.querySelector('.page');
+const allPopup = Array.from(document.querySelectorAll('.popup'));
 
 const editButton = document.querySelector('.btn_type_edit');
 const addButton = document.querySelector('.btn_type_add');
@@ -54,16 +54,7 @@ const saveInfo = (newName, newHobby) => {
   userHobby.textContent = newHobby;
 };
 
-/*
-  Делегирование событий в контейнере page для управления popup;
-*/
-pageContainer.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup')) {
-    togglePopup(evt.target);
-    return;
-  }
-});
-
+// необходимые функции управления попапом
 const closePopup = (evt) => {
   togglePopup(evt.target.closest('.popup'));
 };
@@ -114,6 +105,12 @@ addButton.addEventListener('click', openAddPopup);
 closeButtons.forEach((button) => button.addEventListener('click', closePopup));
 editForm.addEventListener('submit', editFormSubmitHandler);
 addForm.addEventListener('submit', addFormSubmitHandler);
+
+allPopup.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) =>
+    evt.target.classList.contains('popup') ? togglePopup(popup) : null
+  );
+});
 
 /*
   Рисуем 6 дефолтных карточек
