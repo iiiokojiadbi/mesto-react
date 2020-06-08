@@ -2,7 +2,6 @@
 import { togglePopup, renderInitialCards } from './utils.js';
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
-import { EditFormValidator } from './EditFormValidator.js';
 import { initialCards } from './initial-сards.js';
 
 /* объект с необходимыми классами для работы валидации */
@@ -19,10 +18,15 @@ const optionsForm = {
 
 const pageContainer = document.querySelector('.page');
 
+const editButton = document.querySelector('.btn_type_edit');
+const addButton = document.querySelector('.btn_type_add');
+const closeButtons = document.querySelectorAll('.btn_type_close');
+
 const userName = document.querySelector('.profile__user-name');
 const userHobby = document.querySelector('.profile__user-hobby');
 
 const elementsContainer = document.querySelector('.elements');
+const allForms = Array.from(document.forms);
 
 const popupEditForm = document.querySelector('#popupEditForm');
 const editForm = document.forms.editForm;
@@ -54,24 +58,24 @@ const saveInfo = (newName, newHobby) => {
   Делегирование событий в контейнере page для управления popup;
 */
 pageContainer.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('btn_type_add')) {
-    togglePopup(popupAddForm);
-    return;
-  }
-  if (evt.target.classList.contains('btn_type_edit')) {
-    downInfo();
-    togglePopup(popupEditForm);
-    return;
-  }
-  if (evt.target.classList.contains('popup__btn-close')) {
-    togglePopup(evt.target.closest('.popup'));
-    return;
-  }
   if (evt.target.classList.contains('popup')) {
     togglePopup(evt.target);
     return;
   }
 });
+
+const closePopup = (evt) => {
+  togglePopup(evt.target.closest('.popup'));
+};
+
+const openAddPopup = () => {
+  togglePopup(popupAddForm);
+};
+
+const openEditPopup = () => {
+  downInfo();
+  togglePopup(popupEditForm);
+};
 
 /*
   Обработчики форм
@@ -95,16 +99,19 @@ const addFormSubmitHandler = () => {
 };
 
 /* функция активации валидации для форм */
-const activateFormValidation = () => {
-  const addFormValidation = new FormValidator(addForm, optionsForm);
-  const editFormValidation = new EditFormValidator(editForm, optionsForm);
-  addFormValidation.enableValidation();
-  editFormValidation.enableValidation();
+const activateFormValidation = (forms) => {
+  forms.forEach((form) => {
+    const enableFormValidation = new FormValidator(form, optionsForm);
+    enableFormValidation.enableValidation();
+  });
 };
 
 /*
   Добавляем слушатели событий к необходимым кнопкам на странице
 */
+editButton.addEventListener('click', openEditPopup);
+addButton.addEventListener('click', openAddPopup);
+closeButtons.forEach((button) => button.addEventListener('click', closePopup));
 editForm.addEventListener('submit', editFormSubmitHandler);
 addForm.addEventListener('submit', addFormSubmitHandler);
 
@@ -114,6 +121,6 @@ addForm.addEventListener('submit', addFormSubmitHandler);
 renderInitialCards(initialCards, elementsContainer, '#card', Card);
 
 /* Включаем валидацию всех форм */
-activateFormValidation();
+activateFormValidation(allForms);
 
 export { togglePopup };
