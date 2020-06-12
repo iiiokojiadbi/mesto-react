@@ -1,8 +1,8 @@
 /* импортируем необходимые модули */
-import { togglePopup, renderInitialCards } from './utils.js';
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
-import { initialCards } from './initial-сards.js';
+import { togglePopup, renderInitialCards } from '../javascript/utils.js';
+import { Card } from '../javascript/Card.js';
+import { FormValidator } from '../javascript/FormValidator.js';
+import { initialCards } from '../javascript/constants.js';
 
 /* объект с необходимыми классами для работы валидации */
 const optionsForm = {

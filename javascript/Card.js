@@ -1,5 +1,5 @@
 // импортируем необходимые функции для работы класса
-import { togglePopup } from './index.js';
+import { togglePopup } from '../pages/index.js';
 
 // создаем необходимые элементы для работы методов в классе
 const popupCardPreview = document.querySelector('#popupCardPreview');
