@@ -73,7 +73,8 @@ const editFormSubmitHandler = () => {
 const addFormSubmitHandler = () => {
   const newCard = new Card(
     { name: nameNewCard.value, link: urlNewCard.value },
-    '#card'
+    '#card',
+    popupPreview.open.bind(popupPreview)
   );
   elementsContainer.prepend(newCard.generateCard());
   nameNewCard.value = '';
