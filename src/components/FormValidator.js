@@ -1,19 +1,30 @@
 // создаем класс для валидации форм
 class FormValidator {
-  constructor(form, option) {
+  constructor(
+    form,
+    {
+      inputSelector,
+      submitButtonSelector,
+      inactiveButtonClass,
+      inputErrorClass,
+      errorClass,
+      buttonCloseSelector,
+      popupSelector,
+    }
+  ) {
     this._form = form;
-    this._inputSelector = option.inputSelector;
-    this._submitButtonSelector = option.submitButtonSelector;
-    this._inactiveButtonClass = option.inactiveButtonClass;
-    this._inputErrorClass = option.inputErrorClass;
-    this._errorClass = option.errorClass;
-    this._buttonCloseSelector = option.buttonCloseSelector;
+    this._inputSelector = inputSelector;
+    this._submitButtonSelector = submitButtonSelector;
+    this._inactiveButtonClass = inactiveButtonClass;
+    this._inputErrorClass = inputErrorClass;
+    this._errorClass = errorClass;
+    this._buttonCloseSelector = buttonCloseSelector;
     this._buttonSubmit = this._form.querySelector(this._submitButtonSelector);
     this._buttonClose = this._form.querySelector(this._buttonCloseSelector);
     this._inputList = Array.from(
       this._form.querySelectorAll(this._inputSelector)
     );
-    this._popup = this._form.closest(option.popupSelector);
+    this._popup = this._form.closest(popupSelector);
   }
   // метод проверки валидности инпутов
   _hasInvalidInput() {

@@ -1,8 +1,16 @@
 /* импортируем необходимые модули */
-import { togglePopup, renderInitialCards } from '../javascript/utils.js';
-import { Card } from '../javascript/Card.js';
-import { FormValidator } from '../javascript/FormValidator.js';
-import { initialCards } from '../javascript/constants.js';
+import { FormValidator } from '../components/FormValidator.js';
+import {
+  initialCards,
+  popupAddSelector,
+  popupEditSelector,
+  popupPreviewSelector,
+} from '../utils/constants.js';
+
+import Section from '../components/Section.js';
+import Card from '../components/Card.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 
 /* объект с необходимыми классами для работы валидации */
 const optionsForm = {
@@ -16,11 +24,8 @@ const optionsForm = {
   popupSelector: '.popup',
 };
 
-const allPopup = Array.from(document.querySelectorAll('.popup'));
-
 const editButton = document.querySelector('.btn_type_edit');
 const addButton = document.querySelector('.btn_type_add');
-const closeButtons = document.querySelectorAll('.btn_type_close');
 
 const userName = document.querySelector('.profile__user-name');
 const userHobby = document.querySelector('.profile__user-hobby');
@@ -28,16 +33,18 @@ const userHobby = document.querySelector('.profile__user-hobby');
 const elementsContainer = document.querySelector('.elements');
 const allForms = Array.from(document.forms);
 
-const popupEditForm = document.querySelector('#popupEditForm');
 const editForm = document.forms.editForm;
 const newNameProfile = editForm.elements.name;
 const newHobbyProfile = editForm.elements.hobby;
 
-const popupAddForm = document.querySelector('#popupAddForm');
 const addForm = document.forms.addForm;
 const nameNewCard = addForm.elements.namePlace;
 const urlNewCard = addForm.elements.urlPic;
 
+//////////////////////////////////
+const addPopup = new PopupWithForm(popupAddSelector);
+const editPopup = new PopupWithForm(popupEditSelector);
+const popupPreview = new PopupWithImage(popupPreviewSelector);
 /*
   Функция заполнения input полей формы Edit из содержимого документа
 */
@@ -54,27 +61,13 @@ const saveInfo = (newName, newHobby) => {
   userHobby.textContent = newHobby;
 };
 
-// необходимые функции управления попапом
-const closePopup = (evt) => {
-  togglePopup(evt.target.closest('.popup'));
-};
-
-const openAddPopup = () => {
-  togglePopup(popupAddForm);
-};
-
-const openEditPopup = () => {
-  downInfo();
-  togglePopup(popupEditForm);
-};
-
 /*
   Обработчики форм
   Использована отмена стандартной формы с переданным в функцию событием
 */
 const editFormSubmitHandler = () => {
   saveInfo(newNameProfile.value, newHobbyProfile.value);
-  togglePopup(popupEditForm);
+  editPopup.close();
 };
 
 const addFormSubmitHandler = () => {
@@ -83,13 +76,13 @@ const addFormSubmitHandler = () => {
     '#card'
   );
   elementsContainer.prepend(newCard.generateCard());
-  togglePopup(popupAddForm);
   nameNewCard.value = '';
   urlNewCard.value = '';
   addForm.reset();
+  addPopup.close();
 };
 
-/* функция активации валидации для форм */
+//функция активации валидации для форм
 const activateFormValidation = (forms) => {
   forms.forEach((form) => {
     const enableFormValidation = new FormValidator(form, optionsForm);
@@ -97,27 +90,31 @@ const activateFormValidation = (forms) => {
   });
 };
 
-/*
-  Добавляем слушатели событий к необходимым кнопкам на странице
-*/
-editButton.addEventListener('click', openEditPopup);
-addButton.addEventListener('click', openAddPopup);
-closeButtons.forEach((button) => button.addEventListener('click', closePopup));
+////////////////////////////////////////////////////
+const cardsContainer = new Section(
+  {
+    items: initialCards,
+    rendered: (item) => {
+      const card = new Card(
+        item,
+        '#card',
+        popupPreview.open.bind(popupPreview)
+      );
+      const cardElement = card.generateCard();
+      cardsContainer.addItem(cardElement);
+    },
+  },
+  '.elements'
+);
+
+cardsContainer.renderItems();
+////////////////////////////////////////////////////
+
+//Добавляем слушатели событий к необходимым кнопкам на странице
+editButton.addEventListener('click', () => editPopup.open());
+addButton.addEventListener('click', () => addPopup.open());
 editForm.addEventListener('submit', editFormSubmitHandler);
 addForm.addEventListener('submit', addFormSubmitHandler);
 
-allPopup.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) =>
-    evt.target.classList.contains('popup') ? togglePopup(popup) : null
-  );
-});
-
-/*
-  Рисуем 6 дефолтных карточек
-*/
-renderInitialCards(initialCards, elementsContainer, '#card', Card);
-
-/* Включаем валидацию всех форм */
+//Включаем валидацию всех форм
 activateFormValidation(allForms);
-
-export { togglePopup };

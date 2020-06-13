@@ -41,4 +41,13 @@ const initialCards = [
   },
 ];
 
-export { initialCards };
+const popupEditSelector = '#popupEditForm';
+const popupAddSelector = '#popupAddForm';
+const popupPreviewSelector = '#popupCardPreview';
+
+export {
+  initialCards,
+  popupAddSelector,
+  popupEditSelector,
+  popupPreviewSelector,
+};
