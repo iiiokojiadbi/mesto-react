@@ -1,3 +1,5 @@
+import './index.css';
+
 /* импортируем необходимые модули */
 import { FormValidator } from '../components/FormValidator.js';
 import {
