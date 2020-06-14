@@ -62,30 +62,24 @@ class FormValidator {
       this._buttonSubmit.classList.remove(this._inactiveButtonClass);
     }
   }
-  // метод для управления поведением сабмита при отправке формы
-  _submitForm(evt) {
-    evt.preventDefault();
-    this._inputList.forEach((inputElement) => {
-      this._hasInvalidInput();
-      this._buttonSubmit.classList.remove(this._inactiveButtonClass);
-    });
+
+  _submitForm() {
+    this._toggleButtonState();
   }
 
   // метод удаления ошибок с инпутов формы редактирования
   _closeForm() {
     this._buttonClose.addEventListener('click', () => {
-      if (this._popup.id === 'popupEditForm') {
-        this._inputList.forEach((inputElement) => {
-          this._hideInputError(inputElement);
-        });
-        this._buttonSubmit.classList.remove(this._inactiveButtonClass);
-      }
+      this._inputList.forEach((inputElement) => {
+        this._hideInputError(inputElement);
+      });
+      this._toggleButtonState();
     });
   }
 
   // метод для объявления слушателей события валидации формы
   _setEventListeners() {
-    this._form.addEventListener('submit', (evt) => this._submitForm(evt));
+    this._form.addEventListener('submit', () => this._submitForm());
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);

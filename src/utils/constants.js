@@ -41,13 +41,52 @@ const initialCards = [
   },
 ];
 
+/* объект с необходимыми классами для работы валидации */
+const optionsForm = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__btn-submit',
+  buttonCloseSelector: '.form__btn-close',
+  inactiveButtonClass: 'form__btn-submit_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active',
+  popupSelector: '.popup',
+};
+
+const editButton = document.querySelector('.btn_type_edit');
+const addButton = document.querySelector('.btn_type_add');
+
+const elementsContainer = document.querySelector('.elements');
+const allForms = Array.from(document.forms);
+
+const editForm = document.forms.editForm;
+const newNameProfile = editForm.elements.name;
+const newHobbyProfile = editForm.elements.hobby;
+
+const addForm = document.forms.addForm;
+const nameNewCard = addForm.elements.namePlace;
+const urlNewCard = addForm.elements.urlPic;
+
 const popupEditSelector = '#popupEditForm';
 const popupAddSelector = '#popupAddForm';
 const popupPreviewSelector = '#popupCardPreview';
+const userNameSelector = '.profile__user-name';
+const userHobbySelector = '.profile__user-hobby';
 
 export {
   initialCards,
   popupAddSelector,
   popupEditSelector,
   popupPreviewSelector,
+  optionsForm,
+  editButton,
+  addButton,
+  elementsContainer,
+  allForms,
+  newNameProfile,
+  newHobbyProfile,
+  nameNewCard,
+  urlNewCard,
+  userNameSelector,
+  userHobbySelector,
 };
