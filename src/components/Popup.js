@@ -16,11 +16,13 @@ export default class Popup {
     this._popup.addEventListener('mousedown', (evt) =>
       evt.target.classList.contains('popup') ? this.close() : null
     );
-    document.addEventListener('keydown', this._handleEscClose.bind(this));
   }
 
   open() {
     this._popup.classList.remove('popup_disabled');
+    document.addEventListener('keydown', this._handleEscClose.bind(this), {
+      once: 1,
+    });
   }
 
   close() {
