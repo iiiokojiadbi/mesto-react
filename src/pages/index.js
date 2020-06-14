@@ -27,10 +27,13 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 
+//создаем необходимые объекты
 const userInfo = new UserInfo({
   selectorUserName: userNameSelector,
   selectorUserHobby: userHobbySelector,
 });
+
+const popupPreview = new PopupWithImage(popupPreviewSelector);
 
 const addPopup = new PopupWithForm(popupAddSelector, {
   submitForm: (evt) => {
@@ -56,8 +59,6 @@ const editPopup = new PopupWithForm(popupEditSelector, {
   },
 });
 
-const popupPreview = new PopupWithImage(popupPreviewSelector);
-
 const cardsContainer = new Section(
   {
     items: initialCards,
@@ -74,9 +75,11 @@ const cardsContainer = new Section(
   '.elements'
 );
 
+//рисуем карточки в контейнере
 cardsContainer.renderItems();
 
 //Добавляем слушатели событий к необходимым кнопкам на странице
+addButton.addEventListener('click', () => addPopup.open());
 editButton.addEventListener('click', () => {
   editPopup.open();
   const { name, hobby } = userInfo.getUserInfo();
@@ -84,8 +87,6 @@ editButton.addEventListener('click', () => {
   newHobbyProfile.value = hobby;
   eventOnInput([newNameProfile, newHobbyProfile]);
 });
-
-addButton.addEventListener('click', () => addPopup.open());
 
 //функция активации валидации для форм
 const activateFormValidation = (forms) => {
