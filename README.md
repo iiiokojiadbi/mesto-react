@@ -22,4 +22,4 @@
 
 **Проект**
 
-- [Ссылка на проект в github pages](https://iiiokojiadbi.github.io/mesto/) (Без dist ссылаться некуда. В src нет подключения css и javascript)
+- [Ссылка на проект в github pages](https://iiiokojiadbi.github.io/mesto/) (Без dist ссылаться некуда, в src нет подключения css и javascript)
