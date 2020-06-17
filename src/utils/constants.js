@@ -62,10 +62,6 @@ const editForm = document.forms.editForm;
 const newNameProfile = editForm.elements.name;
 const newHobbyProfile = editForm.elements.hobby;
 
-const addForm = document.forms.addForm;
-const nameNewCard = addForm.elements.namePlace;
-const urlNewCard = addForm.elements.urlPic;
-
 const popupEditSelector = '#popupEditForm';
 const popupAddSelector = '#popupAddForm';
 const popupPreviewSelector = '#popupCardPreview';
@@ -85,8 +81,6 @@ export {
   allForms,
   newNameProfile,
   newHobbyProfile,
-  nameNewCard,
-  urlNewCard,
   userNameSelector,
   userHobbySelector,
   formSelector,

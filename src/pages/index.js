@@ -14,8 +14,6 @@ import {
   allForms,
   newNameProfile,
   newHobbyProfile,
-  nameNewCard,
-  urlNewCard,
   userNameSelector,
   userHobbySelector,
   formSelector,
