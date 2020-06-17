@@ -18,9 +18,7 @@ export default class Card {
   }
 
   _likeCard() {
-    this._element
-      .querySelector('.element__btn-like')
-      .classList.toggle('btn_type_like');
+    this._cardLike.classList.toggle('btn_type_like');
   }
 
   _trashElement() {
@@ -32,24 +30,26 @@ export default class Card {
     this._handleCardClick({ name: this._name, link: this._link });
   }
 
+  _getElements() {
+    this._cardLike = this._element.querySelector('.element__btn-like');
+    this._cardTrash = this._element.querySelector('.element__btn-trash');
+    this._cardImg = this._element.querySelector('.element__img');
+    this._cardTitle = this._element.querySelector('.element__title');
+  }
+
   _setEventListeners() {
-    this._element
-      .querySelector('.element__btn-like')
-      .addEventListener('click', () => this._likeCard());
-    this._element
-      .querySelector('.element__btn-trash')
-      .addEventListener('click', () => this._trashElement());
-    this._element
-      .querySelector('.element__img')
-      .addEventListener('click', () => this._openPreview());
+    this._cardLike.addEventListener('click', () => this._likeCard());
+    this._cardTrash.addEventListener('click', () => this._trashElement());
+    this._cardImg.addEventListener('click', () => this._openPreview());
   }
 
   generateCard() {
     this._element = this._getTemplate();
+    this._getElements();
     this._setEventListeners();
-    this._element.querySelector('.element__title').textContent = this._name;
-    this._element.querySelector('.element__img').src = this._link;
-    this._element.querySelector('.element__img').alt = this._altText;
+    this._cardTitle.textContent = this._name;
+    this._cardImg.src = this._link;
+    this._cardImg.alt = this._altText;
     return this._element;
   }
 }
