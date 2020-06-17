@@ -18,6 +18,7 @@ import {
   urlNewCard,
   userNameSelector,
   userHobbySelector,
+  formSelector,
 } from '../utils/constants.js';
 
 import { eventOnInput } from '../utils/utils.js';
@@ -35,11 +36,10 @@ const userInfo = new UserInfo({
 
 const popupPreview = new PopupWithImage(popupPreviewSelector);
 
-const addPopup = new PopupWithForm(popupAddSelector, {
-  submitForm: (evt) => {
-    evt.preventDefault();
+const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
+  submitForm: ([name, link]) => {
     const newCard = new Card(
-      { name: nameNewCard.value, link: urlNewCard.value },
+      { name, link },
       '#card',
       popupPreview.open.bind(popupPreview)
     );
@@ -48,13 +48,9 @@ const addPopup = new PopupWithForm(popupAddSelector, {
   },
 });
 
-const editPopup = new PopupWithForm(popupEditSelector, {
-  submitForm: (evt) => {
-    evt.preventDefault();
-    userInfo.setUserInfo({
-      name: newNameProfile.value,
-      hobby: newHobbyProfile.value,
-    });
+const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
+  submitForm: ([name, hobby]) => {
+    userInfo.setUserInfo({ name, hobby });
     editPopup.close();
   },
 });

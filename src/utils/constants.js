@@ -71,6 +71,7 @@ const popupAddSelector = '#popupAddForm';
 const popupPreviewSelector = '#popupCardPreview';
 const userNameSelector = '.profile__user-name';
 const userHobbySelector = '.profile__user-hobby';
+const formSelector = '.form';
 
 export {
   initialCards,
@@ -88,4 +89,5 @@ export {
   urlNewCard,
   userNameSelector,
   userHobbySelector,
+  formSelector,
 };
