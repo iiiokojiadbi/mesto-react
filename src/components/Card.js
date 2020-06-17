@@ -17,6 +17,13 @@ export default class Card {
     return cardElement;
   }
 
+  _getElements() {
+    this._cardLike = this._element.querySelector('.element__btn-like');
+    this._cardTrash = this._element.querySelector('.element__btn-trash');
+    this._cardImg = this._element.querySelector('.element__img');
+    this._cardTitle = this._element.querySelector('.element__title');
+  }
+
   _likeCard() {
     this._cardLike.classList.toggle('btn_type_like');
   }
@@ -28,13 +35,6 @@ export default class Card {
 
   _openPreview() {
     this._handleCardClick({ name: this._name, link: this._link });
-  }
-
-  _getElements() {
-    this._cardLike = this._element.querySelector('.element__btn-like');
-    this._cardTrash = this._element.querySelector('.element__btn-trash');
-    this._cardImg = this._element.querySelector('.element__img');
-    this._cardTitle = this._element.querySelector('.element__title');
   }
 
   _setEventListeners() {
