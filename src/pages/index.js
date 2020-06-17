@@ -76,7 +76,7 @@ cardsContainer.renderItems();
 addButton.addEventListener('click', () => addPopup.open());
 editButton.addEventListener('click', () => {
   editPopup.open();
-  const { name, hobby } = userInfo.getUserInfo();
+  const [name, hobby] = userInfo.getUserInfo();
   newNameProfile.value = name;
   newHobbyProfile.value = hobby;
   eventOnInput([newNameProfile, newHobbyProfile]);
