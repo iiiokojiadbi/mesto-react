@@ -22,4 +22,4 @@
 
 **Проект**
 
-- [Ссылка на проект в github pages](https://iiiokojiadbi.github.io/mesto/dist/)
+- [Ссылка на проект в github pages](https://iiiokojiadbi.github.io/mesto/src/)
