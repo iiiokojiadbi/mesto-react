@@ -55,7 +55,6 @@ const optionsForm = {
 const editButton = document.querySelector('.btn_type_edit');
 const addButton = document.querySelector('.btn_type_add');
 
-const elementsContainer = document.querySelector('.elements');
 const allForms = Array.from(document.forms);
 
 const editForm = document.forms.editForm;
@@ -77,7 +76,6 @@ export {
   optionsForm,
   editButton,
   addButton,
-  elementsContainer,
   allForms,
   newNameProfile,
   newHobbyProfile,

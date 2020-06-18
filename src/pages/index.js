@@ -10,7 +10,6 @@ import {
   optionsForm,
   editButton,
   addButton,
-  elementsContainer,
   allForms,
   newNameProfile,
   newHobbyProfile,
