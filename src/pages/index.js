@@ -34,22 +34,32 @@ const userInfo = new UserInfo({
 
 const popupPreview = new PopupWithImage(popupPreviewSelector);
 
-const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
-  submitForm: ([name, link]) => {
-    const newCard = new Card(
-      { name, link },
-      '#card',
-      popupPreview.open.bind(popupPreview)
-    );
-    elementsContainer.prepend(newCard.generateCard());
-    addPopup.close();
-  },
-});
-
 const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
   submitForm: ([name, hobby]) => {
     userInfo.setUserInfo({ name, hobby });
     editPopup.close();
+  },
+});
+
+const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
+  submitForm: ([name, link]) => {
+    const cardsContainer = new Section(
+      {
+        items: [{ name, link }],
+        rendered: (item) => {
+          const card = new Card(
+            item,
+            '#card',
+            popupPreview.open.bind(popupPreview)
+          );
+          const cardElement = card.generateCard();
+          cardsContainer.addItem(cardElement, false);
+        },
+      },
+      '.elements'
+    );
+    cardsContainer.renderItems();
+    addPopup.close();
   },
 });
 
@@ -63,7 +73,7 @@ const cardsContainer = new Section(
         popupPreview.open.bind(popupPreview)
       );
       const cardElement = card.generateCard();
-      cardsContainer.addItem(cardElement);
+      cardsContainer.addItem(cardElement, true);
     },
   },
   '.elements'
