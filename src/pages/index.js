@@ -35,7 +35,7 @@ const popupPreview = new PopupWithImage(popupPreviewSelector);
 
 const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
   submitForm: ([name, hobby]) => {
-    userInfo.setUserInfo({ name, hobby });
+    userInfo.setUserInfo(name, hobby);
     editPopup.close();
   },
 });

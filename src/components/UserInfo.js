@@ -10,7 +10,7 @@ export default class UserInfo {
     return [name, hobby];
   }
 
-  setUserInfo({ name, hobby }) {
+  setUserInfo(name, hobby) {
     this._userName.textContent = name;
     this._userHobby.textContent = hobby;
   }
