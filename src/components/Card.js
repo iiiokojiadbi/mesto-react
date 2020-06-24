@@ -5,7 +5,7 @@ export default class Card {
       link,
       _id = 0,
       altText = 'Изображение новой карточки с произвольным изображением',
-      likes = 0,
+      likes = [],
     },
     cardSelector,
     handleCardClick
@@ -15,7 +15,7 @@ export default class Card {
     this._link = link;
     this._id = _id;
     this._altText = altText;
-    this._likes = likes.length;
+    this._likes = likes;
     this._handleCardClick = handleCardClick;
   }
 
@@ -69,7 +69,7 @@ export default class Card {
     this._cardTitle.textContent = this._name;
     this._cardImg.src = this._link;
     this._cardImg.alt = this._altText;
-    this._cardLikes.textContent = this._likes;
+    this._cardLikes.textContent = this._likes.length;
     return this._element;
   }
 }

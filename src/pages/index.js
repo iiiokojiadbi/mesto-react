@@ -44,7 +44,7 @@ const updateAvatarPopup = new PopupWithForm(
   {
     submitForm: ([link]) => {
       api
-        .updateUserInfo({ avatar: link.value })
+        .updateUserAvatar({ avatar: link.value })
         .then((data) => {
           userInfo.setUserInfo({ src: data.avatar });
         })
