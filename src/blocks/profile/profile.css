@@ -4,6 +4,7 @@
 @import url(./__user-hobby/profile__user-hobby.css);
 @import url(./__btn-edit/profile__btn-edit.css);
 @import url(./__btn-add/profile__btn-add.css);
+@import url(./__btn-update/profile__btn-update.css);
 
 .profile {
   display: flex;

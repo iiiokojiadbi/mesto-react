@@ -31,6 +31,11 @@
             src="#"
             alt="Фотография пользователя"
           />
+          <button
+          type="button"
+          aria-label="обновить"
+          class="profile__btn-update btn btn_type_update"
+        ></button>
           <div class="profile__info">
             <h2 class="profile__user-name"></h2>
             <button
@@ -167,6 +172,43 @@
             <img src="#" alt="" class="preview-image__img popup__img" />
             <h3 class="preview-image__title popup__title"></h3>
           </section>
+        </div>
+      </section>
+      <section class="popup popup_disabled" id="popupUpdateAvatar">
+        <div class="popup__container">
+          <form
+            name="updateForm"
+            method="post"
+            action="#"
+            class="form popup__form"
+          >
+            <button
+              type="button"
+              aria-label="закрыть"
+              class="btn btn_type_close popup__btn-close form__btn-close"
+              name="closeForm"
+            ></button>
+            <h3 class="form__title">Обновить аватар</h3>
+            <label class="form__field">
+              <input
+                type="url"
+                class="input input_type_hobby form__input"
+                placeholder="Ссылка на новый аватар"
+                name="urlAvatar"
+                id="url-avatar-input"
+                required
+              />
+              <span class="form__input-error" id="url-input-error"></span>
+            </label>
+            <button
+              type="submit"
+              class="btn btn_type_submit form__btn-submit"
+              aria-label="создать"
+              name="submitForm"
+            >
+              Создать
+            </button>
+          </form>
         </div>
       </section>
     </div>

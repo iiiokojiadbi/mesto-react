@@ -3,13 +3,14 @@ import './index.css';
 /* импортируем необходимые модули */
 import { FormValidator } from '../components/FormValidator.js';
 import {
-  initialCards,
   popupAddSelector,
   popupEditSelector,
   popupPreviewSelector,
+  popupUpdateAvatarSelector,
   optionsForm,
   editButton,
   addButton,
+  updateButton,
   elementsContainer,
   allForms,
   newNameProfile,
@@ -23,6 +24,7 @@ import {
 import { eventOnInput } from '../utils/utils.js';
 import Section from '../components/Section.js';
 import Card from '../components/Card.js';
+import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -37,6 +39,7 @@ const userInfo = new UserInfo({
 });
 
 const popupPreview = new PopupWithImage(popupPreviewSelector);
+const updateAvatarPopup = new Popup(popupUpdateAvatarSelector);
 
 const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
   submitForm: ([name, link]) => {
@@ -88,6 +91,7 @@ api
   .catch((err) => console.log(err));
 
 //Добавляем слушатели событий к необходимым кнопкам на странице
+updateButton.addEventListener('click', () => updateAvatarPopup.open());
 addButton.addEventListener('click', () => addPopup.open());
 editButton.addEventListener('click', () => {
   editPopup.open();
@@ -96,6 +100,8 @@ editButton.addEventListener('click', () => {
   newHobbyProfile.value = hobby;
   eventOnInput([newNameProfile, newHobbyProfile]);
 });
+
+console.log(allForms);
 
 //функция активации валидации для форм
 const activateFormValidation = (forms) => {
