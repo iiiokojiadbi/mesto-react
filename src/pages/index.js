@@ -14,10 +14,9 @@ import {
   allForms,
   newNameProfile,
   newHobbyProfile,
-  nameNewCard,
-  urlNewCard,
   userNameSelector,
   userHobbySelector,
+  userAvatarSelector,
   formSelector,
 } from '../utils/constants.js';
 
@@ -27,11 +26,14 @@ import Card from '../components/Card.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import { api } from '../components/Api.js';
 
 //создаем необходимые объекты
+
 const userInfo = new UserInfo({
   selectorUserName: userNameSelector,
   selectorUserHobby: userHobbySelector,
+  selectorUserAvatar: userAvatarSelector,
 });
 
 const popupPreview = new PopupWithImage(popupPreviewSelector);
@@ -55,24 +57,35 @@ const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
   },
 });
 
-const cardsContainer = new Section(
-  {
-    items: initialCards,
-    rendered: (item) => {
-      const card = new Card(
-        item,
-        '#card',
-        popupPreview.open.bind(popupPreview)
-      );
-      const cardElement = card.generateCard();
-      cardsContainer.addItem(cardElement);
-    },
-  },
-  '.elements'
-);
+api
+  .getInitialCards()
+  .then((cards) => {
+    const cardsContainer = new Section(
+      {
+        items: cards,
+        rendered: (item) => {
+          const card = new Card(
+            item,
+            '#card',
+            popupPreview.open.bind(popupPreview)
+          );
+          const cardElement = card.generateCard();
+          cardsContainer.addItem(cardElement);
+        },
+      },
+      '.elements'
+    );
+    cardsContainer.renderItems();
+  })
+  .catch((err) => console.log(err));
 
-//рисуем карточки в контейнере
-cardsContainer.renderItems();
+api
+  .getUserInfo()
+  .then((userData) => {
+    const { name, about, avatar } = userData;
+    userInfo.setUserInfo({ name: name, hobby: about, src: avatar });
+  })
+  .catch((err) => console.log(err));
 
 //Добавляем слушатели событий к необходимым кнопкам на странице
 addButton.addEventListener('click', () => addPopup.open());

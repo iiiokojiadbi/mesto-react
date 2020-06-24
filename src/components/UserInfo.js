@@ -1,9 +1,8 @@
 export default class UserInfo {
-  constructor({ selectorUserName, selectorUserHobby }) {
-    this._selectorUserName = selectorUserName;
-    this._selectorUserHobby = selectorUserHobby;
-    this._userName = document.querySelector(this._selectorUserName);
-    this._userHobby = document.querySelector(this._selectorUserHobby);
+  constructor({ selectorUserName, selectorUserHobby, selectorUserAvatar }) {
+    this._userName = document.querySelector(selectorUserName);
+    this._userHobby = document.querySelector(selectorUserHobby);
+    this._userAvatar = document.querySelector(selectorUserAvatar);
   }
 
   getUserInfo() {
@@ -12,8 +11,9 @@ export default class UserInfo {
     return { name, hobby };
   }
 
-  setUserInfo({ name, hobby }) {
+  setUserInfo({ name, hobby, src }) {
     this._userName.textContent = name;
     this._userHobby.textContent = hobby;
+    this._userAvatar.src = src;
   }
 }
