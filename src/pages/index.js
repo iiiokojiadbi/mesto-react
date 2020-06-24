@@ -24,7 +24,6 @@ import {
 import { eventOnInput } from '../utils/utils.js';
 import Section from '../components/Section.js';
 import Card from '../components/Card.js';
-import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -39,7 +38,16 @@ const userInfo = new UserInfo({
 });
 
 const popupPreview = new PopupWithImage(popupPreviewSelector);
-const updateAvatarPopup = new Popup(popupUpdateAvatarSelector);
+const updateAvatarPopup = new PopupWithForm(
+  popupUpdateAvatarSelector,
+  formSelector,
+  {
+    submitForm: ([, link]) => {
+      console.log(link);
+      updateAvatarPopup.close();
+    },
+  }
+);
 
 const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
   submitForm: ([name, link]) => {
@@ -100,8 +108,6 @@ editButton.addEventListener('click', () => {
   newHobbyProfile.value = hobby;
   eventOnInput([newNameProfile, newHobbyProfile]);
 });
-
-console.log(allForms);
 
 //функция активации валидации для форм
 const activateFormValidation = (forms) => {
