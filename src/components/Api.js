@@ -22,6 +22,14 @@ class Api {
       headers: this._headers,
     }).then(this._returnResponse);
   }
+
+  updateUserInfo(body) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify(body),
+    }).then(this._returnResponse);
+  }
 }
 
 const api = new Api({

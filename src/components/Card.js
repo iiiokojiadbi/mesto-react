@@ -37,7 +37,13 @@ export default class Card {
   }
 
   _likeCard() {
-    this._cardLike.classList.toggle('btn_type_like');
+    if (!this._cardLike.classList.contains('btn_type_like')) {
+      this._cardLike.classList.add('btn_type_like');
+      this._cardLikes.textContent = Number(this._cardLikes.textContent) + 1;
+    } else {
+      this._cardLike.classList.remove('btn_type_like');
+      this._cardLikes.textContent = Number(this._cardLikes.textContent) - 1;
+    }
   }
 
   _trashElement() {

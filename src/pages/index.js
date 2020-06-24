@@ -43,7 +43,12 @@ const updateAvatarPopup = new PopupWithForm(
   formSelector,
   {
     submitForm: ([link]) => {
-      console.log(link);
+      api
+        .updateUserInfo({ avatar: link.value })
+        .then((data) => {
+          userInfo.setUserInfo({ src: data.avatar });
+        })
+        .catch((err) => console.log(err));
       updateAvatarPopup.close();
     },
   }
@@ -63,7 +68,12 @@ const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
 
 const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
   submitForm: ([name, hobby]) => {
-    userInfo.setUserInfo({ name: name.value, hobby: hobby.value });
+    api
+      .updateUserInfo({ name: name.value, about: hobby.value })
+      .then((data) => {
+        userInfo.setUserInfo({ name: data.name, hobby: data.about });
+      })
+      .catch((err) => console.log(err));
     editPopup.close();
   },
 });
