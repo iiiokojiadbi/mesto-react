@@ -42,7 +42,7 @@ const updateAvatarPopup = new PopupWithForm(
   popupUpdateAvatarSelector,
   formSelector,
   {
-    submitForm: ([, link]) => {
+    submitForm: ([link]) => {
       console.log(link);
       updateAvatarPopup.close();
     },
@@ -52,7 +52,7 @@ const updateAvatarPopup = new PopupWithForm(
 const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
   submitForm: ([name, link]) => {
     const newCard = new Card(
-      { name, link },
+      { name: name.value, link: link.value },
       '#card',
       popupPreview.open.bind(popupPreview)
     );
@@ -63,7 +63,7 @@ const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
 
 const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
   submitForm: ([name, hobby]) => {
-    userInfo.setUserInfo({ name, hobby });
+    userInfo.setUserInfo({ name: name.value, hobby: hobby.value });
     editPopup.close();
   },
 });

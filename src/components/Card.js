@@ -1,6 +1,12 @@
 export default class Card {
   constructor(
-    { name, link, _id, altText, likes },
+    {
+      name,
+      link,
+      _id = 0,
+      altText = 'Изображение новой карточки с произвольным изображением',
+      likes = 0,
+    },
     cardSelector,
     handleCardClick
   ) {
@@ -8,8 +14,7 @@ export default class Card {
     this._name = name;
     this._link = link;
     this._id = _id;
-    this._altText =
-      altText || 'Изображение новой карточки с произвольным изображением';
+    this._altText = altText;
     this._likes = likes.length;
     this._handleCardClick = handleCardClick;
   }
