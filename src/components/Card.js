@@ -1,11 +1,16 @@
 export default class Card {
-  constructor({ name, link, _id, altText }, cardSelector, handleCardClick) {
+  constructor(
+    { name, link, _id, altText, likes },
+    cardSelector,
+    handleCardClick
+  ) {
     this._cardSelector = cardSelector;
     this._name = name;
     this._link = link;
     this._id = _id;
     this._altText =
       altText || 'Изображение новой карточки с произвольным изображением';
+    this._likes = likes.length;
     this._handleCardClick = handleCardClick;
   }
 
@@ -23,6 +28,7 @@ export default class Card {
     this._cardTrash = this._element.querySelector('.element__btn-trash');
     this._cardImg = this._element.querySelector('.element__img');
     this._cardTitle = this._element.querySelector('.element__title');
+    this._cardLikes = this._element.querySelector('.element__likes');
   }
 
   _likeCard() {
@@ -52,6 +58,7 @@ export default class Card {
     this._cardTitle.textContent = this._name;
     this._cardImg.src = this._link;
     this._cardImg.alt = this._altText;
+    this._cardLikes.textContent = this._likes;
     return this._element;
   }
 }
