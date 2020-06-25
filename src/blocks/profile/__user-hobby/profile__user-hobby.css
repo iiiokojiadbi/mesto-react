@@ -7,9 +7,11 @@
   margin: 0;
   transition: .3s;
   grid-area: hobby;
-  max-width: 280px;
+  max-width: 400px;
   justify-self: center;
   text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 @media screen and (min-width: 620px) {
