@@ -16,7 +16,6 @@ const editButton = document.querySelector('.btn_type_edit');
 const addButton = document.querySelector('.btn_type_add');
 const updateButton = document.querySelector('.profile__photo');
 
-const elementsContainer = document.querySelector('.elements');
 const allForms = Array.from(document.forms);
 
 const editForm = document.forms.editForm;
@@ -27,6 +26,7 @@ const popupEditSelector = '#popupEditForm';
 const popupAddSelector = '#popupAddForm';
 const popupPreviewSelector = '#popupCardPreview';
 const popupUpdateAvatarSelector = '#popupUpdateAvatar';
+const popupDeleteCardSelector = '#popupDeleteForm';
 const userNameSelector = '.profile__user-name';
 const userHobbySelector = '.profile__user-hobby';
 const userAvatarSelector = '.profile__photo';
@@ -37,11 +37,11 @@ export {
   popupEditSelector,
   popupPreviewSelector,
   popupUpdateAvatarSelector,
+  popupDeleteCardSelector,
   optionsForm,
   editButton,
   addButton,
   updateButton,
-  elementsContainer,
   allForms,
   newNameProfile,
   newHobbyProfile,

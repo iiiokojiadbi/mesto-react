@@ -38,6 +38,14 @@ class Api {
       body: JSON.stringify(body),
     }).then(this._returnResponse);
   }
+
+  postCard(body) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(body),
+    }).then(this._returnResponse);
+  }
 }
 
 const api = new Api({

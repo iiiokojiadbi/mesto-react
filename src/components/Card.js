@@ -3,20 +3,22 @@ export default class Card {
     {
       name,
       link,
-      _id = 0,
+      id = 0,
       altText = 'Изображение новой карточки с произвольным изображением',
       likes = [],
     },
     cardSelector,
-    handleCardClick
+    handleCardClick,
+    handlePopupDelete
   ) {
     this._cardSelector = cardSelector;
     this._name = name;
     this._link = link;
-    this._id = _id;
+    this._id = id;
     this._altText = altText;
     this._likes = likes;
     this._handleCardClick = handleCardClick;
+    this._handlePopupDelete = handlePopupDelete;
   }
 
   _getTemplate() {
@@ -47,6 +49,7 @@ export default class Card {
   }
 
   _trashElement() {
+    this._handlePopupDelete();
     this._element.closest('.element').remove();
     this._element = null;
   }

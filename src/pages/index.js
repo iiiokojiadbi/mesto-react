@@ -7,11 +7,11 @@ import {
   popupEditSelector,
   popupPreviewSelector,
   popupUpdateAvatarSelector,
+  popupDeleteCardSelector,
   optionsForm,
   editButton,
   addButton,
   updateButton,
-  elementsContainer,
   allForms,
   newNameProfile,
   newHobbyProfile,
@@ -24,6 +24,7 @@ import {
 import { eventOnInput } from '../utils/utils.js';
 import Section from '../components/Section.js';
 import Card from '../components/Card.js';
+import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -38,6 +39,7 @@ const userInfo = new UserInfo({
 });
 
 const popupPreview = new PopupWithImage(popupPreviewSelector);
+const popupDelete = new Popup(popupDeleteCardSelector);
 const updateAvatarPopup = new PopupWithForm(
   popupUpdateAvatarSelector,
   formSelector,
@@ -56,13 +58,37 @@ const updateAvatarPopup = new PopupWithForm(
 
 const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
   submitForm: ([name, link]) => {
-    const newCard = new Card(
-      { name: name.value, link: link.value },
-      '#card',
-      popupPreview.open.bind(popupPreview)
-    );
-    elementsContainer.prepend(newCard.generateCard());
-    addPopup.close();
+    api
+      .postCard({ name: name.value, link: link.value })
+      .then((data) => {
+        console.log(data);
+
+        const cardsContainer = new Section(
+          {
+            items: [
+              {
+                name: data.name,
+                link: data.link,
+                id: data._id,
+                likes: data.likes,
+              },
+            ],
+            rendered: (item) => {
+              const card = new Card(
+                item,
+                '#card',
+                popupPreview.open.bind(popupPreview)
+              );
+              const cardElement = card.generateCard();
+              cardsContainer.addItem(cardElement, false);
+            },
+          },
+          '.elements'
+        );
+        cardsContainer.renderItems();
+        addPopup.close();
+      })
+      .catch((err) => console.log(err));
   },
 });
 
@@ -78,6 +104,8 @@ const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
   },
 });
 
+api.getInitialCards().then((cards) => console.log(cards));
+
 api
   .getInitialCards()
   .then((cards) => {
@@ -88,10 +116,11 @@ api
           const card = new Card(
             item,
             '#card',
-            popupPreview.open.bind(popupPreview)
+            popupPreview.open.bind(popupPreview),
+            popupDelete.open.bind(popupDelete)
           );
           const cardElement = card.generateCard();
-          cardsContainer.addItem(cardElement);
+          cardsContainer.addItem(cardElement, true);
         },
       },
       '.elements'

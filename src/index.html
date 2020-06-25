@@ -26,16 +26,12 @@
       </header>
       <main class="content">
         <section class="profile">
-          <img
-            class="profile__photo"
-            src="#"
-            alt="Фотография пользователя"
-          />
+          <img class="profile__photo" src="#" alt="Фотография пользователя" />
           <button
-          type="button"
-          aria-label="обновить"
-          class="profile__btn-update btn btn_type_update"
-        ></button>
+            type="button"
+            aria-label="обновить"
+            class="profile__btn-update btn btn_type_update"
+          ></button>
           <div class="profile__info">
             <h2 class="profile__user-name"></h2>
             <button
@@ -207,6 +203,32 @@
               name="submitForm"
             >
               Сохранить
+            </button>
+          </form>
+        </div>
+      </section>
+      <section class="popup popup_disabled" id="popupDeleteForm">
+        <div class="popup__container">
+          <form
+            name="deleteForm"
+            method="post"
+            action="#"
+            class="form popup__form"
+          >
+            <button
+              type="button"
+              aria-label="закрыть"
+              class="btn btn_type_close popup__btn-close form__btn-close"
+              name="closeForm"
+            ></button>
+            <h3 class="form__title">Вы уверены?</h3>
+            <button
+              type="submit"
+              class="btn btn_type_submit form__btn-submit"
+              aria-label="создать"
+              name="submitForm"
+            >
+              Да
             </button>
           </form>
         </div>
