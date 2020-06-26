@@ -3,9 +3,10 @@ export default class Card {
     {
       name,
       link,
-      id = 0,
+      _id = 0,
       altText = 'Изображение новой карточки с произвольным изображением',
       likes = [],
+      ownerMe,
     },
     cardSelector,
     handleCardClick,
@@ -14,9 +15,10 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._name = name;
     this._link = link;
-    this._id = id;
+    this._id = _id;
     this._altText = altText;
     this._likes = likes;
+    this._ownerMe = ownerMe;
     this._handleCardClick = handleCardClick;
     this._handlePopupDelete = handlePopupDelete;
   }
@@ -49,7 +51,6 @@ export default class Card {
   }
 
   _trashElement() {
-    this._handlePopupDelete();
     this._element.closest('.element').remove();
     this._element = null;
   }
@@ -60,8 +61,14 @@ export default class Card {
 
   _setEventListeners() {
     this._cardLike.addEventListener('click', () => this._likeCard());
-    this._cardTrash.addEventListener('click', () => this._trashElement());
     this._cardImg.addEventListener('click', () => this._openPreview());
+    if (!this._ownerMe) {
+      this._cardTrash.remove();
+    } else {
+      this._cardTrash.addEventListener('click', () => {
+        this._handlePopupDelete(this._trashElement.bind(this), this._id);
+      });
+    }
   }
 
   generateCard() {

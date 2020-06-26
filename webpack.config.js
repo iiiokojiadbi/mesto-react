@@ -10,11 +10,11 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: '/node_modules/',
-      },
+      // {
+      //   test: /\.js$/,
+      //   loader: 'babel-loader',
+      //   exclude: '/node_modules/',
+      // },
       {
         test: /\.(png|svg|jpg|gif)$/,
         loader: 'file-loader?name=./images/[contenthash].[ext]',

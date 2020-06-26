@@ -1,7 +1,6 @@
 import './index.css';
 
 /* импортируем необходимые модули */
-import { FormValidator } from '../components/FormValidator.js';
 import {
   popupAddSelector,
   popupEditSelector,
@@ -22,15 +21,24 @@ import {
 } from '../utils/constants.js';
 
 import { eventOnInput } from '../utils/utils.js';
+import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import Card from '../components/Card.js';
-import Popup from '../components/Popup.js';
+import PopupWithDelete from '../components/PopupWithDelete.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-import { api } from '../components/Api.js';
+import Api from '../components/Api.js';
 
 //создаем необходимые объекты
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
+  headers: {
+    authorization: '71b91625-ec4b-4170-b042-4d00aa6f06b7',
+    'Content-Type': 'application/json',
+  },
+});
 
 const userInfo = new UserInfo({
   selectorUserName: userNameSelector,
@@ -38,8 +46,14 @@ const userInfo = new UserInfo({
   selectorUserAvatar: userAvatarSelector,
 });
 
-const popupPreview = new PopupWithImage(popupPreviewSelector);
-const popupDelete = new Popup(popupDeleteCardSelector);
+const popupPreview = new PopupWithImage(popupPreviewSelector, formSelector);
+const popupDelete = new PopupWithDelete(popupDeleteCardSelector, formSelector, {
+  submitForm: ({ deleteCard, idCard }) => {
+    api.deleteCard(idCard).catch((err) => console.log(err));
+    deleteCard();
+    popupDelete.close();
+  },
+});
 const updateAvatarPopup = new PopupWithForm(
   popupUpdateAvatarSelector,
   formSelector,
@@ -61,23 +75,24 @@ const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
     api
       .postCard({ name: name.value, link: link.value })
       .then((data) => {
-        console.log(data);
-
         const cardsContainer = new Section(
           {
             items: [
               {
                 name: data.name,
                 link: data.link,
-                id: data._id,
+                _id: data._id,
                 likes: data.likes,
+                ownerMe: api.ownerMe === data.owner._id,
               },
             ],
             rendered: (item) => {
               const card = new Card(
                 item,
                 '#card',
-                popupPreview.open.bind(popupPreview)
+                (evt) => popupPreview.open(evt),
+                (trashCard, idElement) =>
+                  popupDelete.open({ deleteCard: trashCard, id: idElement })
               );
               const cardElement = card.generateCard();
               cardsContainer.addItem(cardElement, false);
@@ -96,19 +111,18 @@ const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
   submitForm: ([name, hobby]) => {
     api
       .updateUserInfo({ name: name.value, about: hobby.value })
-      .then((data) => {
-        userInfo.setUserInfo({ name: data.name, hobby: data.about });
-      })
+      .then((data) =>
+        userInfo.setUserInfo({ name: data.name, hobby: data.about })
+      )
       .catch((err) => console.log(err));
     editPopup.close();
   },
 });
 
-api.getInitialCards().then((cards) => console.log(cards));
-
 api
   .getInitialCards()
   .then((cards) => {
+    cards.forEach((item) => (item.ownerMe = api.ownerMe === item.owner._id));
     const cardsContainer = new Section(
       {
         items: cards,
@@ -116,8 +130,9 @@ api
           const card = new Card(
             item,
             '#card',
-            popupPreview.open.bind(popupPreview),
-            popupDelete.open.bind(popupDelete)
+            (evt) => popupPreview.open(evt),
+            (trashCard, idElement) =>
+              popupDelete.open({ deleteCard: trashCard, id: idElement })
           );
           const cardElement = card.generateCard();
           cardsContainer.addItem(cardElement, true);

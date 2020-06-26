@@ -1,7 +1,8 @@
-class Api {
+export default class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
+    this._getOwnerId();
   }
 
   _returnResponse(response) {
@@ -9,6 +10,17 @@ class Api {
       return response.json();
     }
     return Promise.reject(`Ошибка: ${response.status}`);
+  }
+
+  _getOwnerId() {
+    return fetch(`${this._baseUrl}/users/me`, {
+      headers: this._headers,
+    })
+      .then(this._returnResponse)
+      .then((response) => {
+        this.ownerMe = response._id;
+      })
+      .catch((err) => console.log(err));
   }
 
   getInitialCards() {
@@ -46,14 +58,11 @@ class Api {
       body: JSON.stringify(body),
     }).then(this._returnResponse);
   }
+
+  deleteCard(idCard) {
+    return fetch(`${this._baseUrl}/cards/${idCard}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    }).then(this._returnResponse);
+  }
 }
-
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
-  headers: {
-    authorization: '71b91625-ec4b-4170-b042-4d00aa6f06b7',
-    'Content-Type': 'application/json',
-  },
-});
-
-export { api };
