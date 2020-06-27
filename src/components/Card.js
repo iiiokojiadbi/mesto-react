@@ -9,8 +9,7 @@ export default class Card {
       ownerMe,
     },
     cardSelector,
-    handleCardClick,
-    handlePopupDelete
+    { handleCardClick, handlePopupDelete }
   ) {
     this._cardSelector = cardSelector;
     this._name = name;

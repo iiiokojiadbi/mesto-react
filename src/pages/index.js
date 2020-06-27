@@ -74,28 +74,26 @@ const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
   submitForm: ([name, link]) => {
     api
       .postCard({ name: name.value, link: link.value })
-      .then((data) => {
+      .then((card) => {
         const cardsContainer = new Section(
           {
             items: [
               {
-                name: data.name,
-                link: data.link,
-                _id: data._id,
-                likes: data.likes,
-                ownerMe: api.ownerMe === data.owner._id,
+                name: card.name,
+                link: card.link,
+                _id: card._id,
+                likes: card.likes,
+                ownerMe: api.ownerMe === card.owner._id,
               },
             ],
             rendered: (item) => {
-              const card = new Card(
-                item,
-                '#card',
-                (evt) => popupPreview.open(evt),
-                (trashCard, idElement) =>
-                  popupDelete.open({ deleteCard: trashCard, id: idElement })
-              );
+              const card = new Card(item, '#card', {
+                handleCardClick: (evt) => popupPreview.open(evt),
+                handlePopupDelete: (trashCard, idElement) =>
+                  popupDelete.open({ deleteCard: trashCard, id: idElement }),
+              });
               const cardElement = card.generateCard();
-              cardsContainer.addItem(cardElement, false);
+              cardsContainer.addItem({ element: cardElement });
             },
           },
           '.elements'
@@ -125,17 +123,15 @@ api
     cards.forEach((item) => (item.ownerMe = api.ownerMe === item.owner._id));
     const cardsContainer = new Section(
       {
-        items: cards,
+        items: cards.reverse(),
         rendered: (item) => {
-          const card = new Card(
-            item,
-            '#card',
-            (evt) => popupPreview.open(evt),
-            (trashCard, idElement) =>
-              popupDelete.open({ deleteCard: trashCard, id: idElement })
-          );
+          const card = new Card(item, '#card', {
+            handleCardClick: (evt) => popupPreview.open(evt),
+            handlePopupDelete: (trashCard, idElement) =>
+              popupDelete.open({ deleteCard: trashCard, id: idElement }),
+          });
           const cardElement = card.generateCard();
-          cardsContainer.addItem(cardElement, true);
+          cardsContainer.addItem({ element: cardElement });
         },
       },
       '.elements'
