@@ -59,19 +59,24 @@ const updateAvatarPopup = new PopupWithForm(
   formSelector,
   {
     submitForm: ([link]) => {
+      updateAvatarPopup.statusLoading(true);
       api
         .updateUserAvatar({ avatar: link.value })
         .then((data) => {
           userInfo.setUserInfo({ src: data.avatar });
         })
-        .catch((err) => console.log(err));
-      updateAvatarPopup.close();
+        .catch((err) => console.log(err))
+        .finally(() => {
+          updateAvatarPopup.close();
+          updateAvatarPopup.statusLoading(false);
+        });
     },
   }
 );
 
 const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
   submitForm: ([name, link]) => {
+    addPopup.statusLoading(true);
     api
       .postCard({ name: name.value, link: link.value })
       .then((card) => {
@@ -99,21 +104,28 @@ const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
           '.elements'
         );
         cardsContainer.renderItems();
-        addPopup.close();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        addPopup.close();
+        addPopup.statusLoading(false);
+      });
   },
 });
 
 const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
   submitForm: ([name, hobby]) => {
+    editPopup.statusLoading(true);
     api
       .updateUserInfo({ name: name.value, about: hobby.value })
       .then((data) =>
         userInfo.setUserInfo({ name: data.name, hobby: data.about })
       )
-      .catch((err) => console.log(err));
-    editPopup.close();
+      .catch((err) => console.log(err))
+      .finally(() => {
+        editPopup.close();
+        editPopup.statusLoading(false);
+      });
   },
 });
 
