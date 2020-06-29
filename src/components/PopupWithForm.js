@@ -6,7 +6,6 @@ export default class PopupWithForm extends Popup {
     this._form = this._popup.querySelector(formSelector);
     this._submitButton = this._form.querySelector('.form__btn-submit');
     this._defaultSubmitButtonText = this._submitButton.textContent;
-    this._nonBreakingSpace = '\u00A0';
     this._submitForm = submitForm;
   }
 
@@ -32,7 +31,7 @@ export default class PopupWithForm extends Popup {
           this._submitButton.textContent = 'Сохранение';
           count = 0;
         }
-        this._submitButton.textContent = `${this._nonBreakingSpace}${this._submitButton.textContent}.`;
+        this._submitButton.textContent = `\u00A0${this._submitButton.textContent}.`;
         count++;
       }, 200);
     } else {
