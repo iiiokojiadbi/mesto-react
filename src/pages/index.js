@@ -74,13 +74,6 @@ const updateAvatarPopup = new PopupWithForm(
   }
 );
 
-const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
-  submitForm: ([name, hobby]) => {
-    userInfo.setUserInfo(name, hobby);
-    editPopup.close();
-  },
-});
-
 const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
   submitForm: ([name, link]) => {
     addPopup.statusLoading(true);
