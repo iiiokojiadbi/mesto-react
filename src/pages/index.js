@@ -1,37 +1,78 @@
 import './index.css';
 
 /* импортируем необходимые модули */
-import { FormValidator } from '../components/FormValidator.js';
 import {
-  initialCards,
   popupAddSelector,
   popupEditSelector,
   popupPreviewSelector,
+  popupUpdateAvatarSelector,
+  popupDeleteCardSelector,
   optionsForm,
   editButton,
   addButton,
+  updateButton,
   allForms,
   newNameProfile,
   newHobbyProfile,
   userNameSelector,
   userHobbySelector,
+  userAvatarSelector,
   formSelector,
 } from '../utils/constants.js';
 
 import { eventOnInput } from '../utils/utils.js';
+import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import Card from '../components/Card.js';
+import PopupWithDelete from '../components/PopupWithDelete.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 
 //создаем необходимые объекты
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
+  headers: {
+    authorization: '71b91625-ec4b-4170-b042-4d00aa6f06b7',
+    'Content-Type': 'application/json',
+  },
+});
+
 const userInfo = new UserInfo({
   selectorUserName: userNameSelector,
   selectorUserHobby: userHobbySelector,
+  selectorUserAvatar: userAvatarSelector,
 });
 
-const popupPreview = new PopupWithImage(popupPreviewSelector);
+const popupPreview = new PopupWithImage(popupPreviewSelector, formSelector);
+const popupDelete = new PopupWithDelete(popupDeleteCardSelector, formSelector, {
+  submitForm: ({ deleteCard, idCard }) => {
+    api.deleteCard(idCard).catch((err) => console.log(err));
+    deleteCard();
+    popupDelete.close();
+  },
+});
+const updateAvatarPopup = new PopupWithForm(
+  popupUpdateAvatarSelector,
+  formSelector,
+  {
+    submitForm: ([link]) => {
+      updateAvatarPopup.statusLoading(true);
+      api
+        .updateUserAvatar({ avatar: link.value })
+        .then((data) => {
+          userInfo.setUserInfo({ src: data.avatar });
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+          updateAvatarPopup.close();
+          updateAvatarPopup.statusLoading(false);
+        });
+    },
+  }
+);
 
 const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
   submitForm: ([name, hobby]) => {
@@ -42,46 +83,91 @@ const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
 
 const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
   submitForm: ([name, link]) => {
+    addPopup.statusLoading(true);
+    api
+      .postCard({ name: name.value, link: link.value })
+      .then((card) => {
+        const cardsContainer = new Section(
+          {
+            items: [
+              {
+                name: card.name,
+                link: card.link,
+                _id: card._id,
+                likes: card.likes,
+                owner: card.owner,
+              },
+            ],
+            rendered: (item) => {
+              const card = new Card(item, '#card', api.myId, {
+                handleCardClick: (cardInfo) => popupPreview.open(cardInfo),
+                handlePopupDelete: (dataDelete) => popupDelete.open(dataDelete),
+                handleCardLike: (dataLike) => api.likeCard(dataLike),
+              });
+              const cardElement = card.generateCard();
+              cardsContainer.addItem({ element: cardElement });
+            },
+          },
+          '.elements'
+        );
+        cardsContainer.renderItems();
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        addPopup.close();
+        addPopup.statusLoading(false);
+      });
+  },
+});
+
+const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
+  submitForm: ([name, hobby]) => {
+    editPopup.statusLoading(true);
+    api
+      .updateUserInfo({ name: name.value, about: hobby.value })
+      .then((data) =>
+        userInfo.setUserInfo({ name: data.name, hobby: data.about })
+      )
+      .catch((err) => console.log(err))
+      .finally(() => {
+        editPopup.close();
+        editPopup.statusLoading(false);
+      });
+  },
+});
+
+api
+  .getInitialCards()
+  .then((cards) => {
     const cardsContainer = new Section(
       {
-        items: [{ name, link }],
+        items: cards.reverse(),
         rendered: (item) => {
-          const card = new Card(
-            item,
-            '#card',
-            popupPreview.open.bind(popupPreview)
-          );
+          const card = new Card(item, '#card', api.myId, {
+            handleCardClick: (dataCard) => popupPreview.open(dataCard),
+            handlePopupDelete: (dataDelete) => popupDelete.open(dataDelete),
+            handleCardLike: (dataLike) => api.likeCard(dataLike),
+          });
           const cardElement = card.generateCard();
-          cardsContainer.addItem(cardElement, false);
+          cardsContainer.addItem({ element: cardElement });
         },
       },
       '.elements'
     );
     cardsContainer.renderItems();
-    addPopup.close();
-  },
-});
+  })
+  .catch((err) => console.log(err));
 
-const cardsContainer = new Section(
-  {
-    items: initialCards,
-    rendered: (item) => {
-      const card = new Card(
-        item,
-        '#card',
-        popupPreview.open.bind(popupPreview)
-      );
-      const cardElement = card.generateCard();
-      cardsContainer.addItem(cardElement, true);
-    },
-  },
-  '.elements'
-);
-
-//рисуем карточки в контейнере
-cardsContainer.renderItems();
+api
+  .getUserInfo()
+  .then((userData) => {
+    const { name, about, avatar } = userData;
+    userInfo.setUserInfo({ name: name, hobby: about, src: avatar });
+  })
+  .catch((err) => console.log(err));
 
 //Добавляем слушатели событий к необходимым кнопкам на странице
+updateButton.addEventListener('click', () => updateAvatarPopup.open());
 addButton.addEventListener('click', () => addPopup.open());
 editButton.addEventListener('click', () => {
   editPopup.open();
