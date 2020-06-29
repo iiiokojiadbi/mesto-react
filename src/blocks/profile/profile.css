@@ -7,10 +7,11 @@
 @import url(./__btn-update/profile__btn-update.css);
 
 .profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: .3s;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, min-content);
+  justify-items: center;
+  transition: 0.3s;
   padding: 16px 0;
   max-width: 882px;
   width: 100%;
@@ -18,7 +19,6 @@
 
 @media screen and (min-width: 620px) {
   .profile {
-    display: grid;
     grid-template-columns: 1fr 1fr;
     grid-row: 1fr 1fr;
     margin-top: 20px;
@@ -27,7 +27,6 @@
 
 @media screen and (min-width: 920px) {
   .profile {
-    display: grid;
     grid-template-columns: min-content 2fr 1fr;
     grid-row: 1fr;
     margin-top: 0;

@@ -1,11 +1,11 @@
 .profile__user-hobby {
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: lighter;
   line-height: 1.0625rem;
   margin: 0;
-  transition: .3s;
+  transition: 0.3s;
   grid-area: hobby;
   max-width: 400px;
   justify-self: center;

@@ -6,7 +6,8 @@
     'hobby hobby';
   column-gap: 17px;
   margin: 10px 0 36px;
-  transition: .3s;
+  transition: 0.3s;
+  grid-row: 2 / 3;
 }
 
 @media screen and (min-width: 620px) {
