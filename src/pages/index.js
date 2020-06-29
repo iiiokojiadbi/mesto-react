@@ -83,14 +83,14 @@ const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
                 link: card.link,
                 _id: card._id,
                 likes: card.likes,
-                ownerMe: api.ownerMe === card.owner._id,
+                owner: card.owner,
               },
             ],
             rendered: (item) => {
-              const card = new Card(item, '#card', {
-                handleCardClick: (evt) => popupPreview.open(evt),
-                handlePopupDelete: (trashCard, idElement) =>
-                  popupDelete.open({ deleteCard: trashCard, id: idElement }),
+              const card = new Card(item, '#card', api.myId, {
+                handleCardClick: (cardInfo) => popupPreview.open(cardInfo),
+                handlePopupDelete: (dataDelete) => popupDelete.open(dataDelete),
+                handleCardLike: (dataLike) => api.likeCard(dataLike),
               });
               const cardElement = card.generateCard();
               cardsContainer.addItem({ element: cardElement });
@@ -120,15 +120,14 @@ const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
 api
   .getInitialCards()
   .then((cards) => {
-    cards.forEach((item) => (item.ownerMe = api.ownerMe === item.owner._id));
     const cardsContainer = new Section(
       {
         items: cards.reverse(),
         rendered: (item) => {
-          const card = new Card(item, '#card', {
-            handleCardClick: (evt) => popupPreview.open(evt),
-            handlePopupDelete: (trashCard, idElement) =>
-              popupDelete.open({ deleteCard: trashCard, id: idElement }),
+          const card = new Card(item, '#card', api.myId, {
+            handleCardClick: (dataCard) => popupPreview.open(dataCard),
+            handlePopupDelete: (dataDelete) => popupDelete.open(dataDelete),
+            handleCardLike: (dataLike) => api.likeCard(dataLike),
           });
           const cardElement = card.generateCard();
           cardsContainer.addItem({ element: cardElement });

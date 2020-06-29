@@ -2,7 +2,7 @@ export default class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
-    this._getOwnerId();
+    this._getMyId();
   }
 
   _returnResponse(response) {
@@ -12,13 +12,13 @@ export default class Api {
     return Promise.reject(`Ошибка: ${response.status}`);
   }
 
-  _getOwnerId() {
+  _getMyId() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     })
       .then(this._returnResponse)
       .then((response) => {
-        this.ownerMe = response._id;
+        this.myId = response._id;
       })
       .catch((err) => console.log(err));
   }
@@ -64,5 +64,14 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers,
     }).then(this._returnResponse);
+  }
+
+  likeCard({ method, idCard }) {
+    return fetch(`${this._baseUrl}/cards/likes/${idCard}`, {
+      method: method,
+      headers: this._headers,
+    })
+      .then(this._returnResponse)
+      .then((data) => data.likes);
   }
 }
