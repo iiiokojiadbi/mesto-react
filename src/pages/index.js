@@ -64,10 +64,10 @@ const updateAvatarPopup = new PopupWithForm(
         .updateUserAvatar({ avatar: link.value })
         .then((data) => {
           userInfo.setUserInfo({ src: data.avatar });
+          updateAvatarPopup.close();
         })
         .catch((err) => console.log(err))
         .finally(() => {
-          updateAvatarPopup.close();
           updateAvatarPopup.statusLoading(false);
         });
     },
@@ -104,10 +104,10 @@ const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
           '.elements'
         );
         cardsContainer.renderItems();
+        addPopup.close();
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        addPopup.close();
         addPopup.statusLoading(false);
       });
   },
@@ -118,12 +118,12 @@ const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
     editPopup.statusLoading(true);
     api
       .updateUserInfo({ name: name.value, about: hobby.value })
-      .then((data) =>
-        userInfo.setUserInfo({ name: data.name, hobby: data.about })
-      )
+      .then((data) => {
+        userInfo.setUserInfo({ name: data.name, hobby: data.about });
+        editPopup.close();
+      })
       .catch((err) => console.log(err))
       .finally(() => {
-        editPopup.close();
         editPopup.statusLoading(false);
       });
   },
