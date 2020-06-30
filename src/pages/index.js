@@ -46,14 +46,22 @@ const userInfo = new UserInfo({
   selectorUserAvatar: userAvatarSelector,
 });
 
-const popupPreview = new PopupWithImage(popupPreviewSelector, formSelector);
-const popupDelete = new PopupWithDelete(popupDeleteCardSelector, formSelector, {
-  submitForm: ({ deleteCard, idCard }) => {
-    api.deleteCard(idCard).catch((err) => console.log(err));
-    deleteCard();
-    popupDelete.close();
+const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
+  submitForm: ([name, hobby]) => {
+    editPopup.statusLoading(true);
+    api
+      .updateUserInfo({ name: name.value, about: hobby.value })
+      .then((data) => {
+        userInfo.setUserInfo({ name: data.name, hobby: data.about });
+        editPopup.close();
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        editPopup.statusLoading(false);
+      });
   },
 });
+
 const updateAvatarPopup = new PopupWithForm(
   popupUpdateAvatarSelector,
   formSelector,
@@ -73,6 +81,16 @@ const updateAvatarPopup = new PopupWithForm(
     },
   }
 );
+
+const popupPreview = new PopupWithImage(popupPreviewSelector, formSelector);
+
+const popupDelete = new PopupWithDelete(popupDeleteCardSelector, formSelector, {
+  submitForm: ({ deleteCard, idCard }) => {
+    api.deleteCard(idCard).catch((err) => console.log(err));
+    deleteCard();
+    popupDelete.close();
+  },
+});
 
 const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
   submitForm: ([name, link]) => {
@@ -109,22 +127,6 @@ const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
       .catch((err) => console.log(err))
       .finally(() => {
         addPopup.statusLoading(false);
-      });
-  },
-});
-
-const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
-  submitForm: ([name, hobby]) => {
-    editPopup.statusLoading(true);
-    api
-      .updateUserInfo({ name: name.value, about: hobby.value })
-      .then((data) => {
-        userInfo.setUserInfo({ name: data.name, hobby: data.about });
-        editPopup.close();
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        editPopup.statusLoading(false);
       });
   },
 });

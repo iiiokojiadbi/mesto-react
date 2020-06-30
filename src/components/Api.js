@@ -2,7 +2,6 @@ export default class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
-    this._getMyId();
   }
 
   _returnResponse(response) {
@@ -10,17 +9,6 @@ export default class Api {
       return response.json();
     }
     return Promise.reject(`Ошибка: ${response.status}`);
-  }
-
-  _getMyId() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
-    })
-      .then(this._returnResponse)
-      .then((response) => {
-        this.myId = response._id;
-      })
-      .catch((err) => console.log(err));
   }
 
   getInitialCards() {
@@ -32,7 +20,12 @@ export default class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    }).then(this._returnResponse);
+    })
+      .then(this._returnResponse)
+      .then((response) => {
+        this.myId = response._id;
+        return response;
+      });
   }
 
   updateUserInfo(body) {
