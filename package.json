@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/iiiokojiadbi/mesto#readme",
   "dependencies": {
-    "corejs": "^1.0.0"
+    "core-js": "^3.6.5"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
