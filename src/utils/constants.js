@@ -2,7 +2,7 @@
   Создание необходимых элементов для работы кнопок и функций
 */
 /* объект с необходимыми классами для работы валидации */
-const optionsForm = {
+export const optionsForm = {
   formSelector: '.form',
   inputSelector: '.form__input',
   submitButtonSelector: '.form__btn-submit',
@@ -12,41 +12,24 @@ const optionsForm = {
   errorClass: 'form__input-error_active',
 };
 
-const editButton = document.querySelector('.btn_type_edit');
-const addButton = document.querySelector('.btn_type_add');
-const updateButton = document.querySelector('.profile__photo');
+export const editButton = document.querySelector('.btn_type_edit');
+export const addButton = document.querySelector('.btn_type_add');
+export const updateButton = document.querySelector('.profile__photo');
 
-const allForms = Array.from(document.forms);
+export const allForms = Array.from(document.forms);
 
-const editForm = document.forms.editForm;
-const newNameProfile = editForm.elements.name;
-const newHobbyProfile = editForm.elements.hobby;
+export const editForm = document.forms.editForm;
+export const newNameProfile = editForm.elements.name;
+export const newHobbyProfile = editForm.elements.hobby;
 
-const popupEditSelector = '#popupEditForm';
-const popupAddSelector = '#popupAddForm';
-const popupPreviewSelector = '#popupCardPreview';
-const popupUpdateAvatarSelector = '#popupUpdateAvatar';
-const popupDeleteCardSelector = '#popupDeleteForm';
-const userNameSelector = '.profile__user-name';
-const userHobbySelector = '.profile__user-hobby';
-const userAvatarSelector = '.profile__photo';
-const formSelector = '.form';
+export const popupEditSelector = '#popupEditForm';
+export const popupAddSelector = '#popupAddForm';
+export const popupPreviewSelector = '#popupCardPreview';
+export const popupUpdateAvatarSelector = '#popupUpdateAvatar';
+export const popupDeleteCardSelector = '#popupDeleteForm';
 
-export {
-  popupAddSelector,
-  popupEditSelector,
-  popupPreviewSelector,
-  popupUpdateAvatarSelector,
-  popupDeleteCardSelector,
-  optionsForm,
-  editButton,
-  addButton,
-  updateButton,
-  allForms,
-  newNameProfile,
-  newHobbyProfile,
-  userNameSelector,
-  userHobbySelector,
-  userAvatarSelector,
-  formSelector,
-};
+export const userNameSelector = '.profile__user-name';
+export const userHobbySelector = '.profile__user-hobby';
+export const userAvatarSelector = '.profile__photo';
+
+export const formSelector = '.form';

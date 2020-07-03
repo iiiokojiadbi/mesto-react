@@ -46,14 +46,22 @@ const userInfo = new UserInfo({
   selectorUserAvatar: userAvatarSelector,
 });
 
-const popupPreview = new PopupWithImage(popupPreviewSelector, formSelector);
-const popupDelete = new PopupWithDelete(popupDeleteCardSelector, formSelector, {
-  submitForm: ({ deleteCard, idCard }) => {
-    api.deleteCard(idCard).catch((err) => console.log(err));
-    deleteCard();
-    popupDelete.close();
+const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
+  submitForm: ([name, hobby]) => {
+    editPopup.statusLoading(true);
+    api
+      .updateUserInfo({ name: name.value, about: hobby.value })
+      .then((data) => {
+        userInfo.setUserInfo({ name: data.name, hobby: data.about });
+        editPopup.close();
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        editPopup.statusLoading(false);
+      });
   },
 });
+
 const updateAvatarPopup = new PopupWithForm(
   popupUpdateAvatarSelector,
   formSelector,
@@ -64,15 +72,25 @@ const updateAvatarPopup = new PopupWithForm(
         .updateUserAvatar({ avatar: link.value })
         .then((data) => {
           userInfo.setUserInfo({ src: data.avatar });
+          updateAvatarPopup.close();
         })
         .catch((err) => console.log(err))
         .finally(() => {
-          updateAvatarPopup.close();
           updateAvatarPopup.statusLoading(false);
         });
     },
   }
 );
+
+const popupPreview = new PopupWithImage(popupPreviewSelector, formSelector);
+
+const popupDelete = new PopupWithDelete(popupDeleteCardSelector, formSelector, {
+  submitForm: ({ deleteCard, idCard }) => {
+    api.deleteCard(idCard).catch((err) => console.log(err));
+    deleteCard();
+    popupDelete.close();
+  },
+});
 
 const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
   submitForm: ([name, link]) => {
@@ -104,27 +122,11 @@ const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
           '.elements'
         );
         cardsContainer.renderItems();
+        addPopup.close();
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        addPopup.close();
         addPopup.statusLoading(false);
-      });
-  },
-});
-
-const editPopup = new PopupWithForm(popupEditSelector, formSelector, {
-  submitForm: ([name, hobby]) => {
-    editPopup.statusLoading(true);
-    api
-      .updateUserInfo({ name: name.value, about: hobby.value })
-      .then((data) =>
-        userInfo.setUserInfo({ name: data.name, hobby: data.about })
-      )
-      .catch((err) => console.log(err))
-      .finally(() => {
-        editPopup.close();
-        editPopup.statusLoading(false);
       });
   },
 });
