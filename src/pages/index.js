@@ -153,8 +153,7 @@ api
 
 api
   .getUserInfo()
-  .then((userData) => {
-    const { name, about, avatar } = userData;
+  .then(({ name, about, avatar }) => {
     userInfo.setUserInfo({ name: name, hobby: about, src: avatar });
   })
   .catch((err) => console.log(err));
