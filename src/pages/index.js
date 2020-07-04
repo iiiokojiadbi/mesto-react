@@ -100,17 +100,12 @@ const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
       .then((card) => {
         const cardsContainer = new Section(
           {
-            items: [
-              {
-                name: card.name,
-                link: card.link,
-                _id: card._id,
-                likes: card.likes,
-                owner: card.owner,
-              },
-            ],
+            items: [card],
             rendered: (item) => {
-              const card = new Card(item, '#card', api.myId, {
+              const card = new Card({
+                data: item,
+                cardSelector: '#card',
+                myId: api.myId,
                 handleCardClick: (cardInfo) => popupPreview.open(cardInfo),
                 handlePopupDelete: (dataDelete) => popupDelete.open(dataDelete),
                 handleCardLike: (dataLike) => api.likeCard(dataLike),
@@ -138,8 +133,11 @@ api
       {
         items: cards.reverse(),
         rendered: (item) => {
-          const card = new Card(item, '#card', api.myId, {
-            handleCardClick: (dataCard) => popupPreview.open(dataCard),
+          const card = new Card({
+            data: item,
+            cardSelector: '#card',
+            myId: api.myId,
+            handleCardClick: (cardInfo) => popupPreview.open(cardInfo),
             handlePopupDelete: (dataDelete) => popupDelete.open(dataDelete),
             handleCardLike: (dataLike) => api.likeCard(dataLike),
           });

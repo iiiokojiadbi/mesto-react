@@ -1,22 +1,18 @@
 export default class Card {
-  constructor(
-    data,
-    cardSelector,
-    myId,
-    { handleCardClick, handlePopupDelete, handleCardLike }
-  ) {
-    this._cardSelector = cardSelector;
-    this._name = data.name;
-    this._link = data.link;
-    this._id = data._id;
+  constructor({ ...props }) {
+    this._cardSelector = props.cardSelector;
+    this._name = props.data.name;
+    this._link = props.data.link;
+    this._id = props.data._id;
     this._altText =
-      data.altText || 'Изображение новой карточки с произвольным изображением';
-    this._likes = data.likes || [];
-    this._ownerId = data.owner._id;
-    this._myId = myId;
-    this._handleCardClick = handleCardClick;
-    this._handlePopupDelete = handlePopupDelete;
-    this._handleCardLike = handleCardLike;
+      props.data.altText ||
+      'Изображение новой карточки с произвольным изображением';
+    this._likes = props.data.likes || [];
+    this._ownerId = props.data.owner._id;
+    this._myId = props.myId;
+    this._handleCardClick = props.handleCardClick;
+    this._handlePopupDelete = props.handlePopupDelete;
+    this._handleCardLike = props.handleCardLike;
   }
 
   _getTemplate() {
@@ -60,7 +56,7 @@ export default class Card {
   }
 
   _trashElement() {
-    this._element.remove(); // ⊙﹏⊙
+    this._element.remove();
     this._element = null;
   }
 

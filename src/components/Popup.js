@@ -3,7 +3,6 @@ export default class Popup {
     this._popup = document.querySelector(selectorPopup);
     this._closeButton = this._popup.querySelector('.popup__btn-close');
     this._handleEscClose = (evt) => {
-      // (づ｡◕‿‿◕｡)づ
       if (evt.key === 'Escape') {
         this.close();
       }
