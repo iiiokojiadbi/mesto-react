@@ -32,6 +32,8 @@ import Api from '../components/Api.js';
 
 //создаем необходимые объекты
 
+let cardsContainer;
+
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
   headers: {
@@ -98,25 +100,16 @@ const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
     api
       .postCard({ name: name.value, link: link.value })
       .then((card) => {
-        const cardsContainer = new Section(
-          {
-            items: [card],
-            rendered: (item) => {
-              const card = new Card({
-                data: item,
-                cardSelector: '#card',
-                myId: api.myId,
-                handleCardClick: (cardInfo) => popupPreview.open(cardInfo),
-                handlePopupDelete: (dataDelete) => popupDelete.open(dataDelete),
-                handleCardLike: (dataLike) => api.likeCard(dataLike),
-              });
-              const cardElement = card.generateCard();
-              cardsContainer.addItem({ element: cardElement });
-            },
-          },
-          '.elements'
-        );
-        cardsContainer.renderItems();
+        const newCard = new Card({
+          data: card,
+          cardSelector: '#card',
+          myId: api.myId,
+          handleCardClick: (cardInfo) => popupPreview.open(cardInfo),
+          handlePopupDelete: (dataDelete) => popupDelete.open(dataDelete),
+          handleCardLike: (dataLike) => api.likeCard(dataLike),
+        });
+        const cardElement = newCard.generateCard();
+        cardsContainer.addItem({ element: cardElement });
         addPopup.close();
       })
       .catch((err) => console.log(err))
@@ -129,7 +122,7 @@ const addPopup = new PopupWithForm(popupAddSelector, formSelector, {
 api
   .getInitialCards()
   .then((cards) => {
-    const cardsContainer = new Section(
+    cardsContainer = new Section(
       {
         items: cards.reverse(),
         rendered: (item) => {
