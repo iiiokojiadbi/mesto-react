@@ -1,43 +1,15 @@
 import React from 'react';
 import '../index.css';
 import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
 
 function App() {
   return (
     <div className="page">
       <Header />
-      <main className="content">
-        <section className="profile">
-          <img
-            className="profile__photo"
-            src="#"
-            alt="Фотография пользователя"
-          />
-          <button
-            type="button"
-            aria-label="обновить"
-            className="profile__btn-update btn btn_type_update"
-          ></button>
-          <div className="profile__info">
-            <h2 className="profile__user-name">Жак-ив Кусто</h2>
-            <button
-              type="button"
-              aria-label="редактировать"
-              className="profile__btn-edit btn btn_type_edit"
-            ></button>
-            <p className="profile__user-hobby">Исследователь океана</p>
-          </div>
-          <button
-            type="button"
-            aria-label="добавить"
-            className="profile__btn-add btn btn_type_add"
-          ></button>
-        </section>
-        <section className="elements"></section>
-      </main>
-      <footer className="footer">
-        <span className="footer__copyright">© 2020 Mesto Russia</span>
-      </footer>
+      <Main />
+      <Footer />
       <section className="popup popup_disabled" id="popupAddForm">
         <div className="popup__container">
           <form
