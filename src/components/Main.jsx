@@ -1,26 +1,14 @@
 import React from 'react';
 
 class Main extends React.Component {
-  handleEditAvatarClick() {
-    document
-      .querySelector('#popupUpdateAvatarForm')
-      .classList.remove('popup_disabled');
-  }
-
-  handleEditProfileClick() {
-    document.querySelector('#popupEditForm').classList.remove('popup_disabled');
-  }
-
-  handleAddPlaceClick() {
-    document.querySelector('#popupAddForm').classList.remove('popup_disabled');
-  }
-
   render() {
+    const { onEditAvatar, onEditProfile, onAddPlace } = this.props;
+
     return (
       <main className="content">
         <section className="profile">
           <img
-            onClick={this.handleEditAvatarClick}
+            onClick={onEditAvatar}
             className="profile__photo"
             src="#"
             alt="Фотография пользователя"
@@ -33,7 +21,7 @@ class Main extends React.Component {
           <div className="profile__info">
             <h2 className="profile__user-name">Жак-ив Кусто</h2>
             <button
-              onClick={this.handleEditProfileClick}
+              onClick={onEditProfile}
               type="button"
               aria-label="редактировать"
               className="profile__btn-edit btn btn_type_edit"
@@ -41,7 +29,7 @@ class Main extends React.Component {
             <p className="profile__user-hobby">Исследователь океана</p>
           </div>
           <button
-            onClick={this.handleAddPlaceClick}
+            onClick={onAddPlace}
             type="button"
             aria-label="добавить"
             className="profile__btn-add btn btn_type_add"
