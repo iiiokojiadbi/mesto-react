@@ -109,6 +109,7 @@ class App extends React.Component {
           name="AddForm"
           title="Новое место"
           isOpen={isAddPlacePopupOpen}
+          onClose={this.handleCloseAllPopups}
         >
           <label className="form__field">
             <input
@@ -147,6 +148,7 @@ class App extends React.Component {
           name="UpdateAvatarForm"
           title="Обновить аватар"
           isOpen={isEditAvatarPopupOpen}
+          onClose={this.handleCloseAllPopups}
         >
           <label className="form__field">
             <input
@@ -171,6 +173,7 @@ class App extends React.Component {
           name="DeleteForm"
           title="Вы уверены?"
           isOpen={isDeleteCardPopupOpen}
+          onClose={this.handleCloseAllPopups}
         >
           <button
             type="submit"
