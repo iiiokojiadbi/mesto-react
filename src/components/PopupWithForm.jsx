@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 class PopupWithForm extends React.Component {
   render() {
-    const { name, title } = this.props;
+    const { name, title, children, onClose } = this.props;
 
     const popupClasses = classnames({
       popup: true,
@@ -17,6 +17,7 @@ class PopupWithForm extends React.Component {
             type="button"
             aria-label="закрыть"
             className="btn btn_type_close popup__btn-close form__btn-close"
+            onClick={onClose}
           ></button>
           <h3 className="form__title">{title}</h3>
           <form
@@ -25,7 +26,7 @@ class PopupWithForm extends React.Component {
             action="#"
             className="form popup__form"
           >
-            {this.props.children}
+            {children}
           </form>
         </div>
       </section>

@@ -22,7 +22,6 @@ class App extends React.Component {
   };
 
   handleEditProfileClick = () => {
-    console.log('!');
     this.setState({ isEditProfilePopupOpen: true });
   };
 
@@ -34,6 +33,14 @@ class App extends React.Component {
     this.setState({ isDeleteCardPopupOpen: true });
   };
 
+  handleCloseAllPopups = () => {
+    this.setState({
+      isEditProfilePopupOpen: false,
+      isAddPlacePopupOpen: false,
+      isEditAvatarPopupOpen: false,
+      isDeleteCardPopupOpen: false,
+    });
+  };
 
   render() {
     const {
@@ -57,6 +64,7 @@ class App extends React.Component {
           name="EditForm"
           title="Редактировать профиль"
           isOpen={isEditProfilePopupOpen}
+          onClose={this.handleCloseAllPopups}
         >
           <label className="form__field">
             <input
