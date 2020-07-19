@@ -2,11 +2,15 @@ import React from 'react';
 import api from '../utils/Api';
 import Card from './Card';
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
+function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setCards] = React.useState([]);
+
+  function handleCardClick(infoCard) {
+    onCardClick(infoCard);
+  }
 
   React.useEffect(() => {
     api.getInitialData().then(([userInfo, initialCards]) => {
@@ -21,7 +25,13 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
             (owner) => owner._id === userInfo._id
           );
           return (
-            <Card key={_id} {...cardInfo} isMyCard={myCard} isLiked={myLike} />
+            <Card
+              key={_id}
+              {...cardInfo}
+              onCardClick={handleCardClick}
+              isMyCard={myCard}
+              isLiked={myLike}
+            />
           );
         })
       );

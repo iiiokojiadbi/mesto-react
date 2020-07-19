@@ -17,6 +17,7 @@ function App() {
     false
   );
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(null);
 
   function handleEditAvatarClick() {
     setIsEditProfilePopupOpen(true);
@@ -30,8 +31,13 @@ function App() {
     setIsDeleteCardPopupOpen(true);
   }
 
-  function handleDeletePlaceClick() {
-    setIsAddPlacePopupOpen(true);
+  // function handleDeletePlaceClick() {
+  //   setIsAddPlacePopupOpen(true);
+  // }
+
+  function handleCardClick(infoCard) {
+    console.log(infoCard);
+    setSelectedCard(infoCard);
   }
 
   function handleCloseAllPopups() {
@@ -39,6 +45,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsDeleteCardPopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard(null);
   }
 
   return (
@@ -48,9 +55,10 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
-      <ImagePopup />
+      <ImagePopup {...selectedCard} onClose={handleCloseAllPopups} />
       <PopupWithForm
         name="EditForm"
         title="Редактировать профиль"
