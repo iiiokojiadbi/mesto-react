@@ -13,7 +13,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(
     false
   );
-  const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = React.useState(
+  const [isDeletePlacePopupOpen, setIsDeletePlacePopupOpen] = React.useState(
     false
   );
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -28,11 +28,11 @@ function App() {
   }
 
   function handleAddPlaceClick() {
-    setIsDeleteCardPopupOpen(true);
+    setIsAddPlacePopupOpen(true);
   }
 
   // function handleDeletePlaceClick() {
-  //   setIsAddPlacePopupOpen(true);
+  //   setIsDeletePlacePopupOpen(true);
   // }
 
   function handleCardClick(infoCard) {
@@ -47,7 +47,7 @@ function App() {
     if (isNeedClose) {
       setIsEditProfilePopupOpen(false);
       setIsEditAvatarPopupOpen(false);
-      setIsDeleteCardPopupOpen(false);
+      setIsDeletePlacePopupOpen(false);
       setIsAddPlacePopupOpen(false);
       setSelectedCard(null);
     }
@@ -173,7 +173,7 @@ function App() {
       <PopupWithForm
         name="DeleteForm"
         title="Вы уверены?"
-        isOpen={isDeleteCardPopupOpen}
+        // isOpen={isDeletePlacePopupOpen}
         onClose={handleCloseAllPopups}
       >
         <button
