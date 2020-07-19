@@ -8,10 +8,7 @@
   margin: 26px 0 0;
   object-fit: cover;
   transition: 0.3s;
-}
-
-.profile__photo:hover {
-  opacity: 0.2;
+  z-index: 0;
 }
 
 @media screen and (min-width: 620px) {

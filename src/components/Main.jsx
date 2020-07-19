@@ -42,7 +42,6 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
     <main className="content">
       <section className="profile">
         <img
-          onClick={onEditAvatar}
           className="profile__photo"
           src={userAvatar}
           alt="Фотография пользователя"
@@ -51,6 +50,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
           type="button"
           aria-label="обновить"
           className="profile__btn-update btn btn_type_update"
+          onClick={onEditAvatar}
         ></button>
         <div className="profile__info">
           <h2 className="profile__user-name">{userName}</h2>
