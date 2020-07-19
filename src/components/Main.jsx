@@ -9,30 +9,23 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
-      ([userInfo, initialCards]) => {
-        setUserName(userInfo.name);
-        setUserDescription(userInfo.about);
-        setUserAvatar(userInfo.avatar);
+    api.getInitialData().then(([userInfo, initialCards]) => {
+      setUserName(userInfo.name);
+      setUserDescription(userInfo.about);
+      setUserAvatar(userInfo.avatar);
 
-        setCards(
-          initialCards.map(({ _id, ...cardInfo }) => {
-            const myCard = cardInfo.owner._id === userInfo._id;
-            const myLike = cardInfo.likes.find(
-              (owner) => owner._id === userInfo._id
-            );
-            return (
-              <Card
-                key={_id}
-                {...cardInfo}
-                isMyCard={myCard}
-                isLiked={myLike}
-              />
-            );
-          })
-        );
-      }
-    );
+      setCards(
+        initialCards.map(({ _id, ...cardInfo }) => {
+          const myCard = cardInfo.owner._id === userInfo._id;
+          const myLike = cardInfo.likes.find(
+            (owner) => owner._id === userInfo._id
+          );
+          return (
+            <Card key={_id} {...cardInfo} isMyCard={myCard} isLiked={myLike} />
+          );
+        })
+      );
+    });
   }, []);
 
   return (
