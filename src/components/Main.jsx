@@ -1,20 +1,38 @@
 import React from 'react';
 import api from '../utils/Api';
+import Card from './Card';
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then((userInfo) => {
+    Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
+      ([userInfo, initialCards]) => {
         setUserName(userInfo.name);
         setUserDescription(userInfo.about);
         setUserAvatar(userInfo.avatar);
-      })
-      .catch((err) => console.log(`Ошибка: ${err.status}`));
+
+        setCards(
+          initialCards.map(({ _id, ...cardInfo }) => {
+            const myCard = cardInfo.owner._id === userInfo._id;
+            const myLike = cardInfo.likes.find(
+              (owner) => owner._id === userInfo._id
+            );
+            return (
+              <Card
+                key={_id}
+                {...cardInfo}
+                isMyCard={myCard}
+                isLiked={myLike}
+              />
+            );
+          })
+        );
+      }
+    );
   }, []);
 
   return (
@@ -48,7 +66,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace }) {
           className="profile__btn-add btn btn_type_add"
         ></button>
       </section>
-      <section className="elements"></section>
+      <section className="elements">{cards}</section>
     </main>
   );
 }

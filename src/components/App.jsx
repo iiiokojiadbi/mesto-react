@@ -171,23 +171,6 @@ function App() {
           Да
         </button>
       </PopupWithForm>
-      <template id="card">
-        <div className="element">
-          <img src="#" alt="" className="element__img" />
-          <h2 className="element__title"></h2>
-          <span className="element__likes">0</span>
-          <button
-            type="button"
-            aria-label="лайкнуть"
-            className="btn btn_type_not-like element__btn-like"
-          ></button>
-          <button
-            type="button"
-            aria-label="удалить"
-            className="btn btn_type_trash element__btn-trash"
-          ></button>
-        </div>
-      </template>
     </div>
   );
 }
