@@ -8,10 +8,6 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
   const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setCards] = React.useState([]);
 
-  function handleCardClick(infoCard) {
-    onCardClick(infoCard);
-  }
-
   React.useEffect(() => {
     api.getInitialData().then(([userInfo, initialCards]) => {
       setUserName(userInfo.name);
@@ -28,7 +24,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
             <Card
               key={_id}
               {...cardInfo}
-              onCardClick={handleCardClick}
+              onCardClick={onCardClick}
               isMyCard={myCard}
               isLiked={myLike}
             />
