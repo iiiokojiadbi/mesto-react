@@ -7,15 +7,23 @@ function ImagePopup({ name, link, onClose }) {
     popup_disabled: !(name && link),
   });
 
+  function handleClose(evt) {
+    evt.stopPropagation();
+    onClose(evt.target);
+  }
+
   return (
-    <section className={popupClasses} id="popupCardPreview">
+    <section
+      className={popupClasses}
+      id="popupCardPreview"
+      onClick={handleClose} //маленькая унификация
+    >
       <div className="popup__container">
         <section className="preview-image popup__preview">
           <button
             type="button"
             aria-label="закрыть"
             className="btn btn_type_close popup__btn-close preview-image__btn-close"
-            onClick={onClose}
           ></button>
           <img
             src={link}

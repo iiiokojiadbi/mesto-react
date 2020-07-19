@@ -7,14 +7,22 @@ function PopupWithForm({ name, title, isOpen, onClose, children }) {
     popup_disabled: !isOpen,
   });
 
+  function handleClose(evt) {
+    evt.stopPropagation();
+    onClose(evt.target);
+  }
+
   return (
-    <section className={popupClasses} id={`popup${name}`}>
+    <section
+      className={popupClasses}
+      id={`popup${name}`}
+      onClick={handleClose} // маленькая унификация
+    >
       <div className="popup__container">
         <button
           type="button"
           aria-label="закрыть"
           className="btn btn_type_close popup__btn-close"
-          onClick={onClose}
         ></button>
         <h3 className="popup__title">{title}</h3>
         <form name={name} method="post" action="#" className="form popup__form">

@@ -36,16 +36,21 @@ function App() {
   // }
 
   function handleCardClick(infoCard) {
-    console.log(infoCard);
     setSelectedCard(infoCard);
   }
 
-  function handleCloseAllPopups() {
-    setIsEditProfilePopupOpen(false);
-    setIsEditAvatarPopupOpen(false);
-    setIsDeleteCardPopupOpen(false);
-    setIsAddPlacePopupOpen(false);
-    setSelectedCard(null);
+  function handleCloseAllPopups(target) {
+    const isNeedClose =
+      target.classList.contains('popup') ||
+      target.classList.contains('btn_type_close');
+
+    if (isNeedClose) {
+      setIsEditProfilePopupOpen(false);
+      setIsEditAvatarPopupOpen(false);
+      setIsDeleteCardPopupOpen(false);
+      setIsAddPlacePopupOpen(false);
+      setSelectedCard(null);
+    }
   }
 
   return (
