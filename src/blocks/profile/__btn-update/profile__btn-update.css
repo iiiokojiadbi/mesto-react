@@ -4,7 +4,12 @@
   align-self: center;
   justify-self: center;
   margin: 26px 0 0;
-  z-index: -1;
+  opacity: 0;
+  z-index: 1;
+}
+
+.profile__btn-update:hover {
+  opacity: 0.8;
 }
 
 @media screen and (min-width: 620px) {

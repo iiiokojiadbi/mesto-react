@@ -1,47 +1,36 @@
-import Popup from './Popup.js';
+import React from 'react';
+import classnames from 'classnames';
 
-export default class PopupWithForm extends Popup {
-  constructor(selectorPopup, formSelector, { submitForm }) {
-    super(selectorPopup);
-    this._form = this._popup.querySelector(formSelector);
-    this._submitButton = this._form.querySelector('.form__btn-submit');
-    this._defaultSubmitButtonText = this._submitButton.textContent;
-    this._submitForm = submitForm;
+function PopupWithForm({ name, title, isOpen, onClose, children }) {
+  const popupClasses = classnames({
+    popup: true,
+    popup_disabled: !isOpen,
+  });
+
+  function handleClose(evt) {
+    evt.stopPropagation();
+    onClose(evt.target);
   }
 
-  _getInputValues() {
-    this._inputList = this._form.querySelectorAll('.form__input');
-    return this._inputList;
-  }
-
-  _setEventListeners() {
-    super._setEventListeners();
-    this._popup.querySelector('.form').addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      this._submitForm(this._getInputValues());
-    });
-  }
-
-  statusLoading(status) {
-    if (status) {
-      this._submitButton.textContent = 'Сохранение';
-      let count = 0;
-      this._loadingInterval = setInterval(() => {
-        if (count === 3) {
-          this._submitButton.textContent = 'Сохранение';
-          count = 0;
-        }
-        this._submitButton.textContent = `\u00A0${this._submitButton.textContent}.`;
-        count++;
-      }, 200);
-    } else {
-      clearInterval(this._loadingInterval);
-      this._submitButton.textContent = this._defaultSubmitButtonText;
-    }
-  }
-
-  close() {
-    super.close();
-    this._form.reset();
-  }
+  return (
+    <section
+      className={popupClasses}
+      id={`popup${name}`}
+      onClick={handleClose} // маленькая унификация
+    >
+      <div className="popup__container">
+        <button
+          type="button"
+          aria-label="закрыть"
+          className="btn btn_type_close popup__btn-close"
+        ></button>
+        <h3 className="popup__title">{title}</h3>
+        <form name={name} method="post" action="#" className="form popup__form">
+          {children}
+        </form>
+      </div>
+    </section>
+  );
 }
+
+export default PopupWithForm;
