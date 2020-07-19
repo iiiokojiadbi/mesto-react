@@ -35,12 +35,10 @@ function App() {
   }
 
   function handleCloseAllPopups() {
-    this.setState({
-      isEditProfilePopupOpen: false,
-      isAddPlacePopupOpen: false,
-      isEditAvatarPopupOpen: false,
-      isDeleteCardPopupOpen: false,
-    });
+    setIsEditProfilePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsDeleteCardPopupOpen(false);
+    setIsAddPlacePopupOpen(false);
   }
 
   return (
