@@ -12,4 +12,4 @@
 
 **Проект**
 
-- [Ссылка на проект в github pages](https://iiiokojiadbi.github.io/react-mesto/)
+- [Ссылка на проект в github](https://github.com/iiiokojiadbi/mesto)
