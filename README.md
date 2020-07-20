@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# mesto-react
-=======
 # Проект: Реактивное место
 
 ### Технологии
@@ -16,4 +13,3 @@
 **Проект**
 
 - [Ссылка на проект в github](https://github.com/iiiokojiadbi/mesto)
->>>>>>> predevelop
