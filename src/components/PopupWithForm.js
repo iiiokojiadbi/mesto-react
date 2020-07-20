@@ -12,6 +12,10 @@ function PopupWithForm({ name, title, isOpen, onClose, children }) {
     onClose(evt.target);
   }
 
+  function handleSubmit(evt) {
+    evt.preventDefault();
+  }
+
   return (
     <section
       className={popupClasses}
@@ -25,7 +29,13 @@ function PopupWithForm({ name, title, isOpen, onClose, children }) {
           className="btn btn_type_close popup__btn-close"
         ></button>
         <h3 className="popup__title">{title}</h3>
-        <form name={name} method="post" action="#" className="form popup__form">
+        <form
+          name={name}
+          method="post"
+          action="#"
+          className="form popup__form"
+          onClick={handleSubmit}
+        >
           {children}
         </form>
       </div>

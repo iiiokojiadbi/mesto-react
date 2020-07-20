@@ -6,6 +6,13 @@ import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 
+    /*
+      Стандартная отправка формы теперь отменена.
+
+      Надеюсь, что это единственная проблема мешающая проверке.
+      Но на сами ошибки я сильно расчитываю! Учусь на ошибках! (Ну и не только)
+    */
+
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(
     false
@@ -13,9 +20,9 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(
     false
   );
-  const [isDeletePlacePopupOpen, setIsDeletePlacePopupOpen] = React.useState(
-    false
-  );
+  // const [isDeletePlacePopupOpen, setIsDeletePlacePopupOpen] = React.useState(
+  //   false
+  // );
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
 
@@ -43,11 +50,12 @@ function App() {
     const isNeedClose =
       target.classList.contains('popup') ||
       target.classList.contains('btn_type_close');
+    // target.classList.contains('btn_type_submit');
 
     if (isNeedClose) {
       setIsEditProfilePopupOpen(false);
       setIsEditAvatarPopupOpen(false);
-      setIsDeletePlacePopupOpen(false);
+      // setIsDeletePlacePopupOpen(false);
       setIsAddPlacePopupOpen(false);
       setSelectedCard(null);
     }
