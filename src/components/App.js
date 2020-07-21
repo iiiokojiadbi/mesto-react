@@ -4,7 +4,7 @@ import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
-import ButtonSubmit from './ui/ButtonSubmit';
+import ButtonSubmitForm from './ui/ButtonSubmitForm';
 
 /*
     const isNeedClose = Проверка классов в этой ситуации - не лучшее решение.
@@ -94,7 +94,7 @@ function App() {
           />
           <span className="form__input-error" id="hobby-input-error"></span>
         </label>
-        <ButtonSubmit text="Сохранить" label="сохранить" />
+        <ButtonSubmitForm text="Сохранить" label="сохранить" />
       </PopupWithForm>
       <PopupWithForm
         name="AddForm"
@@ -127,7 +127,7 @@ function App() {
           />
           <span className="form__input-error" id="url-input-error"></span>
         </label>
-        <ButtonSubmit text="Создать" label="создать" />
+        <ButtonSubmitForm text="Создать" label="создать" />
       </PopupWithForm>
       <PopupWithForm
         name="UpdateAvatarForm"
@@ -146,14 +146,14 @@ function App() {
           />
           <span className="form__input-error" id="avatar-input-error"></span>
         </label>
-        <ButtonSubmit text="Сохранить" label="сохранить" />
+        <ButtonSubmitForm text="Сохранить" label="сохранить" />
       </PopupWithForm>
       <PopupWithForm
         name="DeleteForm"
         title="Вы уверены?"
         onClose={handleCloseAllPopups}
       >
-        <ButtonSubmit text="Да" label="подтвердить" />
+        <ButtonSubmitForm text="Да" label="подтвердить" />
       </PopupWithForm>
     </div>
   );

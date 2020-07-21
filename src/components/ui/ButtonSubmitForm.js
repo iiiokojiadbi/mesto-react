@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ButtonSubmit({ text, label }) {
+function ButtonSubmitForm({ text, label }) {
   return (
     <button
       type="submit"
@@ -12,4 +12,4 @@ function ButtonSubmit({ text, label }) {
   );
 }
 
-export default ButtonSubmit;
+export default ButtonSubmitForm;

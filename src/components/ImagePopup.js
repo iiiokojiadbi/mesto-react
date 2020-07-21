@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import ButtonClosePopup from './ui/ButtonClosePopup';
 
 function ImagePopup({ name, link, onClose }) {
   const popupClasses = classnames({
@@ -7,20 +8,14 @@ function ImagePopup({ name, link, onClose }) {
     popup_disabled: !(name && link),
   });
 
-  function handleClose() {
-    onClose();
-  }
-
   return (
     <section className={popupClasses} id="popupCardPreview">
       <div className="popup__container">
         <section className="preview-image popup__preview">
-          <button
-            type="button"
-            aria-label="закрыть"
-            className="btn btn_type_close popup__btn-close preview-image__btn-close"
-            onClick={handleClose}
-          ></button>
+          <ButtonClosePopup
+            onClose={onClose}
+            optionalClasses="preview-image__btn-close"
+          />
           <img
             src={link}
             alt={name}
