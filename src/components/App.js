@@ -4,6 +4,7 @@ import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
+import ButtonSubmit from './ui/ButtonSubmit';
 
 /*
     const isNeedClose = Проверка классов в этой ситуации - не лучшее решение.
@@ -93,13 +94,7 @@ function App() {
           />
           <span className="form__input-error" id="hobby-input-error"></span>
         </label>
-        <button
-          type="submit"
-          className="btn btn_type_submit form__btn-submit"
-          aria-label="сохранить"
-        >
-          Сохранить
-        </button>
+        <ButtonSubmit text="Сохранить" label="сохранить" />
       </PopupWithForm>
       <PopupWithForm
         name="AddForm"
@@ -132,13 +127,7 @@ function App() {
           />
           <span className="form__input-error" id="url-input-error"></span>
         </label>
-        <button
-          type="submit"
-          className="btn btn_type_submit form__btn-submit"
-          aria-label="создать"
-        >
-          Создать
-        </button>
+        <ButtonSubmit text="Создать" label="создать" />
       </PopupWithForm>
       <PopupWithForm
         name="UpdateAvatarForm"
@@ -157,26 +146,14 @@ function App() {
           />
           <span className="form__input-error" id="avatar-input-error"></span>
         </label>
-        <button
-          type="submit"
-          className="btn btn_type_submit form__btn-submit"
-          aria-label="создать"
-        >
-          Сохранить
-        </button>
+        <ButtonSubmit text="Сохранить" label="сохранить" />
       </PopupWithForm>
       <PopupWithForm
         name="DeleteForm"
         title="Вы уверены?"
         onClose={handleCloseAllPopups}
       >
-        <button
-          type="submit"
-          className="btn btn_type_submit form__btn-submit"
-          aria-label="создать"
-        >
-          Да
-        </button>
+        <ButtonSubmit text="Да" label="подтвердить" />
       </PopupWithForm>
     </div>
   );
