@@ -31,18 +31,12 @@ function App() {
     setSelectedCard(infoCard);
   }
 
-  function handleCloseAllPopups(target) {
-    const isNeedClose =
-      target.classList.contains('popup') ||
-      target.classList.contains('btn_type_close') ||
-      target.classList.contains('btn_type_submit');
-
-    if (isNeedClose) {
-      setIsEditProfilePopupOpen(false);
-      setIsEditAvatarPopupOpen(false);
-      setIsAddPlacePopupOpen(false);
-      setSelectedCard(null);
-    }
+  function handleCloseAllPopups() {
+    console.log('!');
+    setIsEditProfilePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setSelectedCard(null);
   }
 
   return (
