@@ -20,7 +20,7 @@ function PopupWithForm({ name, title, isOpen, onClose, children }) {
     <section
       className={popupClasses}
       id={`popup${name}`}
-      onClick={handleClose} // маленькая унификация
+      onClick={handleClose}
     >
       <div className="popup__container">
         <button

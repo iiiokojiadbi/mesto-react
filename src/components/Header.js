@@ -7,7 +7,7 @@ function Header() {
       <img
         src={logoHeader}
         alt="Изображение логотипа социальной сети Mesto Russia"
-        className="header__logo logo"
+        className="logo header__logo "
       />
     </header>
   );

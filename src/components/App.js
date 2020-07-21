@@ -1,18 +1,9 @@
 import React from 'react';
-import '../index.css';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
-
-/*
-      Стандартная отправка формы теперь отменена.
-
-      Надеюсь, что это единственная проблема мешающая проверке.
-      Но на сами ошибки я сильно расчитываю! Учусь на ошибках! (Ну и не только)
-      
-    */
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(
@@ -21,9 +12,6 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(
     false
   );
-  // const [isDeletePlacePopupOpen, setIsDeletePlacePopupOpen] = React.useState(
-  //   false
-  // );
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
 
@@ -39,10 +27,6 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
-  // function handleDeletePlaceClick() {
-  //   setIsDeletePlacePopupOpen(true);
-  // }
-
   function handleCardClick(infoCard) {
     setSelectedCard(infoCard);
   }
@@ -52,12 +36,10 @@ function App() {
       target.classList.contains('popup') ||
       target.classList.contains('btn_type_close') ||
       target.classList.contains('btn_type_submit');
-    // target.classList.contains('btn_type_submit');
 
     if (isNeedClose) {
       setIsEditProfilePopupOpen(false);
       setIsEditAvatarPopupOpen(false);
-      // setIsDeletePlacePopupOpen(false);
       setIsAddPlacePopupOpen(false);
       setSelectedCard(null);
     }
@@ -183,7 +165,6 @@ function App() {
       <PopupWithForm
         name="DeleteForm"
         title="Вы уверены?"
-        // isOpen={isDeletePlacePopupOpen}
         onClose={handleCloseAllPopups}
       >
         <button

@@ -45,7 +45,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
         <button
           type="button"
           aria-label="обновить"
-          className="profile__btn-update btn btn_type_update"
+          className="btn btn_type_update profile__btn-update"
           onClick={onEditAvatar}
         ></button>
         <div className="profile__info">
@@ -54,7 +54,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
             onClick={onEditProfile}
             type="button"
             aria-label="редактировать"
-            className="profile__btn-edit btn btn_type_edit"
+            className="btn btn_type_edit profile__btn-edit"
           ></button>
           <p className="profile__user-hobby">{userDescription}</p>
         </div>
@@ -62,7 +62,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
           onClick={onAddPlace}
           type="button"
           aria-label="добавить"
-          className="profile__btn-add btn btn_type_add"
+          className="btn btn_type_add profile__btn-add"
         ></button>
       </section>
       <section className="elements">{cards}</section>

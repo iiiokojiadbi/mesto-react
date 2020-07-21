@@ -16,7 +16,7 @@ function ImagePopup({ name, link, onClose }) {
     <section
       className={popupClasses}
       id="popupCardPreview"
-      onClick={handleClose} //маленькая унификация
+      onClick={handleClose}
     >
       <div className="popup__container">
         <section className="preview-image popup__preview">
