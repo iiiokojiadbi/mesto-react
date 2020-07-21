@@ -5,6 +5,16 @@ import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 
+/*
+    const isNeedClose = Проверка классов в этой ситуации - не лучшее решение.
+    Лучше установите обработчики события закрытия только там, 
+    где они должны срабатывать, а не на родителях - повысит логичность кода и производительность"
+
+    Если убрать проверку по классу, то приходится убрать закрытие попапа по клику по оверлею,
+    иначе любой клик по куда угодно закрывает попап.
+    Пытался найти "stopPropagation" наоборот, но как-то не задалось. 
+*/
+
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(
     false

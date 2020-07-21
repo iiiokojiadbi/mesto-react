@@ -7,9 +7,8 @@ function PopupWithForm({ name, title, isOpen, onClose, children }) {
     popup_disabled: !isOpen,
   });
 
-  function handleClose(evt) {
-    evt.stopPropagation();
-    onClose(evt.target);
+  function handleClose() {
+    onClose();
   }
 
   function handleSubmit(evt) {
