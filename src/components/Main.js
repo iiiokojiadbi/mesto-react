@@ -6,6 +6,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
+  const [userId, setUserId] = React.useState('');
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
@@ -13,24 +14,8 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
       setUserName(userInfo.name);
       setUserDescription(userInfo.about);
       setUserAvatar(userInfo.avatar);
-
-      setCards(
-        initialCards.map(({ _id, ...cardInfo }, index) => {
-          const myCard = cardInfo.owner._id === userInfo._id;
-          const myLike = cardInfo.likes.find(
-            (owner) => owner._id === userInfo._id
-          );
-          return (
-            <Card
-              key={`${index}-${_id}`}
-              {...cardInfo}
-              onCardClick={onCardClick}
-              isMyCard={myCard}
-              isLiked={myLike}
-            />
-          );
-        })
-      );
+      setUserId(userInfo._id);
+      setCards(initialCards);
     });
   }, []);
 
@@ -65,7 +50,21 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
           className="btn btn_type_add profile__btn-add"
         ></button>
       </section>
-      <section className="elements">{cards}</section>
+      <section className="elements">
+        {cards.map(({ _id, ...cardInfo }, index) => {
+          const myCard = cardInfo.owner._id === userId;
+          const myLike = cardInfo.likes.find((owner) => owner._id === userId);
+          return (
+            <Card
+              key={`${index}-${_id}`}
+              {...cardInfo}
+              onCardClick={onCardClick}
+              isMyCard={myCard}
+              isLiked={myLike}
+            />
+          );
+        })}
+      </section>
     </main>
   );
 }
