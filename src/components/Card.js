@@ -9,9 +9,8 @@ function Card({ link, name, likes, isLiked = false, isMyCard, onCardClick }) {
     ['element__btn-like']: true,
   });
 
-  function handleCardClick(evt) {
-    const infoCard = { name: evt.target.alt, link: evt.target.src };
-    onCardClick(infoCard);
+  function handleCardClick() {
+    onCardClick({ name, link }); // действительно ...
   }
 
   return (

@@ -15,14 +15,14 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
       setUserAvatar(userInfo.avatar);
 
       setCards(
-        initialCards.map(({ _id, ...cardInfo }) => {
+        initialCards.map(({ _id, ...cardInfo }, index) => {
           const myCard = cardInfo.owner._id === userInfo._id;
           const myLike = cardInfo.likes.find(
             (owner) => owner._id === userInfo._id
           );
           return (
             <Card
-              key={_id}
+              key={`${index}-${_id}`}
               {...cardInfo}
               onCardClick={onCardClick}
               isMyCard={myCard}
