@@ -32,7 +32,6 @@ function App() {
   }
 
   function handleCloseAllPopups() {
-    console.log('!');
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
