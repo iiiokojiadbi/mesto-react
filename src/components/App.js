@@ -6,7 +6,7 @@ import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 
-    /*
+/*
       Стандартная отправка формы теперь отменена.
 
       Надеюсь, что это единственная проблема мешающая проверке.
@@ -50,7 +50,8 @@ function App() {
   function handleCloseAllPopups(target) {
     const isNeedClose =
       target.classList.contains('popup') ||
-      target.classList.contains('btn_type_close');
+      target.classList.contains('btn_type_close') ||
+      target.classList.contains('btn_type_submit');
     // target.classList.contains('btn_type_submit');
 
     if (isNeedClose) {
