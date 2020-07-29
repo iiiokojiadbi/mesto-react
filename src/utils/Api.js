@@ -5,7 +5,7 @@ class Api {
   }
 
   getInitialData() {
-    return Promise.all([this._getUserInfo(), this._getInitialCards()]);
+    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
   }
 
   _returnResponse(response) {
@@ -15,13 +15,13 @@ class Api {
     return Promise.reject(`Ошибка: ${response.status}`);
   }
 
-  _getInitialCards() {
+  getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
     }).then(this._returnResponse);
   }
 
-  _getUserInfo() {
+  getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     })
