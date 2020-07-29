@@ -4,9 +4,9 @@ import classnames from 'classnames';
 function Card({ link, name, likes, isLiked = false, isMyCard, onCardClick }) {
   const btnClasses = classnames({
     btn: true,
-    ['btn_type_not-like']: !isLiked,
-    ['btn_type_like']: isLiked,
-    ['element__btn-like']: true,
+    'btn_type_not-like': !isLiked,
+    btn_type_like: isLiked,
+    'element__btn-like': true,
   });
 
   function handleCardClick() {

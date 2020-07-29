@@ -4,8 +4,8 @@ import classnames from 'classnames';
 function ButtonClosePopup({ onClose, optionalClasses }) {
   const btnClasses = classnames({
     btn: true,
-    ['btn_type_close']: true,
-    ['popup__btn-close']: true,
+    btn_type_close: true,
+    'popup__btn-close': true,
     [`${optionalClasses}`]: optionalClasses,
   });
 
