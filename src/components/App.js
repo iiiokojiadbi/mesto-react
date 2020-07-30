@@ -4,7 +4,9 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
-import PopupWithForm from './PopupWithForm';
+import PopupWithForm from './PopupWithForm'; // !
+import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
 
 import api from './../utils/Api';
@@ -28,28 +30,35 @@ const App = () => {
       .catch((error) => console.log(`Данные не загрузились. Ошибка: ${error}`));
   }, []);
 
-  function handleEditAvatarClick() {
+  const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
-  }
+  };
 
-  function handleEditProfileClick() {
+  const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
-  }
+  };
 
-  function handleAddPlaceClick() {
+  const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
-  }
+  };
 
-  function handleCardClick(infoCard) {
+  const handleCardClick = (infoCard) => {
     setSelectedCard(infoCard);
-  }
+  };
 
-  function handleCloseAllPopups() {
+  const handleCloseAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setSelectedCard(null);
-  }
+  };
+
+  const handleUpdaterUser = ({ name, about }) => {
+    api.updateUserInfo({ name, about }).then((newUserData) => {
+      setCurrentUser(newUserData);
+      handleCloseAllPopups();
+    });
+  };
 
   return (
     <div className="page">
@@ -63,45 +72,15 @@ const App = () => {
         />
         <Footer />
         <ImagePopup {...selectedCard} onClose={handleCloseAllPopups} />
-        <PopupWithForm
-          name="EditForm"
-          title="Редактировать профиль"
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={handleCloseAllPopups}
-        >
-          <label className="form__field">
-            <input
-              type="text"
-              className="input input_type_name form__input"
-              placeholder="Введите имя"
-              name="name"
-              id="user-name-input"
-              required
-              minLength="2"
-              maxLength="40"
-              pattern="[А-Яа-яёЁA-Za-z\s-]*"
-            />
-            <span
-              className="form__input-error"
-              id="user-name-input-error"
-            ></span>
-          </label>
-          <label className="form__field">
-            <input
-              type="text"
-              className="input input_type_hobby form__input"
-              placeholder="Введите хобби"
-              name="hobby"
-              id="hobby-input"
-              required
-              minLength="2"
-              maxLength="200"
-              pattern=".*"
-            />
-            <span className="form__input-error" id="hobby-input-error"></span>
-          </label>
-          <ButtonSubmitForm text="Сохранить" label="сохранить" />
-        </PopupWithForm>
+          onUpdaterUser={handleUpdaterUser}
+        />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={handleCloseAllPopups}
+        />
         <PopupWithForm
           name="AddForm"
           title="Новое место"
@@ -134,25 +113,6 @@ const App = () => {
             <span className="form__input-error" id="url-input-error"></span>
           </label>
           <ButtonSubmitForm text="Создать" label="создать" />
-        </PopupWithForm>
-        <PopupWithForm
-          name="UpdateAvatarForm"
-          title="Обновить аватар"
-          isOpen={isEditAvatarPopupOpen}
-          onClose={handleCloseAllPopups}
-        >
-          <label className="form__field">
-            <input
-              type="url"
-              className="input input_type_hobby form__input"
-              placeholder="Ссылка на новый аватар"
-              name="urlAvatar"
-              id="avatar-input"
-              required
-            />
-            <span className="form__input-error" id="avatar-input-error"></span>
-          </label>
-          <ButtonSubmitForm text="Сохранить" label="сохранить" />
         </PopupWithForm>
         <PopupWithForm
           name="DeleteForm"

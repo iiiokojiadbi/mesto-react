@@ -2,7 +2,14 @@ import React from 'react';
 import classnames from 'classnames';
 import ButtonClosePopup from './ui/ButtonClosePopup';
 
-const PopupWithForm = ({ name, title, isOpen, onClose, children }) => {
+const PopupWithForm = ({
+  name,
+  title,
+  isOpen,
+  onClose,
+  onSubmitForm,
+  children,
+}) => {
   const popupClasses = classnames({
     popup: true,
     popup_disabled: !isOpen,
@@ -10,6 +17,7 @@ const PopupWithForm = ({ name, title, isOpen, onClose, children }) => {
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    onSubmitForm();
   }
 
   return (
@@ -22,7 +30,7 @@ const PopupWithForm = ({ name, title, isOpen, onClose, children }) => {
           method="post"
           action="#"
           className="form popup__form"
-          onClick={handleSubmit}
+          onSubmit={handleSubmit}
         >
           {children}
         </form>
