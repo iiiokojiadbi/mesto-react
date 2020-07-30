@@ -4,7 +4,7 @@ import Card from './Card';
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 import { CardsContext } from './../contexts/CardsContext';
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
+const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) => {
   const currentUser = useContext(CurrentUserContext);
   const cards = useContext(CardsContext);
 
@@ -58,6 +58,6 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
       </section>
     </main>
   );
-}
+};
 
 export default Main;

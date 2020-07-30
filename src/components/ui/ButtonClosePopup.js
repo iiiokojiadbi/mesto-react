@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-function ButtonClosePopup({ onClose, optionalClasses }) {
+const ButtonClosePopup = ({ onClose, optionalClasses }) => {
   const btnClasses = classnames({
     btn: true,
     btn_type_close: true,
@@ -21,6 +21,6 @@ function ButtonClosePopup({ onClose, optionalClasses }) {
       onClick={handleClose}
     ></button>
   );
-}
+};
 
 export default ButtonClosePopup;

@@ -1,7 +1,14 @@
 import React from 'react';
 import classnames from 'classnames';
 
-function Card({ link, name, likes, isLiked = false, isMyCard, onCardClick }) {
+const Card = ({
+  link,
+  name,
+  likes,
+  isLiked = false,
+  isMyCard,
+  onCardClick,
+}) => {
   const btnClasses = classnames({
     btn: true,
     'btn_type_not-like': !isLiked,
@@ -37,6 +44,6 @@ function Card({ link, name, likes, isLiked = false, isMyCard, onCardClick }) {
       )}
     </div>
   );
-}
+};
 
 export default Card;

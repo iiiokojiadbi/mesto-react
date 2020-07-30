@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import ButtonClosePopup from './ui/ButtonClosePopup';
 
-function ImagePopup({ name, link, onClose }) {
+const ImagePopup = ({ name, link, onClose }) => {
   const popupClasses = classnames({
     popup: true,
     popup_disabled: !(name && link),
@@ -26,6 +26,6 @@ function ImagePopup({ name, link, onClose }) {
       </div>
     </section>
   );
-}
+};
 
 export default ImagePopup;

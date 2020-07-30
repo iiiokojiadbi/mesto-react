@@ -12,7 +12,7 @@ import api from './../utils/Api';
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 import { CardsContext } from './../contexts/CardsContext';
 
-function App() {
+const App = () => {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
@@ -172,6 +172,6 @@ function App() {
       </CurrentUserContext.Provider>
     </div>
   );
-}
+};
 
 export default App;

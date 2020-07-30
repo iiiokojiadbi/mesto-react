@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ButtonSubmitForm({ text, label }) {
+const ButtonSubmitForm = ({ text, label }) => {
   return (
     <button
       type="submit"
@@ -10,6 +10,6 @@ function ButtonSubmitForm({ text, label }) {
       {text}
     </button>
   );
-}
+};
 
 export default ButtonSubmitForm;

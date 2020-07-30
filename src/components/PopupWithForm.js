@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import ButtonClosePopup from './ui/ButtonClosePopup';
 
-function PopupWithForm({ name, title, isOpen, onClose, children }) {
+const PopupWithForm = ({ name, title, isOpen, onClose, children }) => {
   const popupClasses = classnames({
     popup: true,
     popup_disabled: !isOpen,
@@ -29,6 +29,6 @@ function PopupWithForm({ name, title, isOpen, onClose, children }) {
       </div>
     </section>
   );
-}
+};
 
 export default PopupWithForm;
