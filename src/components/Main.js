@@ -23,9 +23,19 @@ const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) => {
     api
       .likeCard({ isLiked, cardId })
       .then((likes) => {
-        const newCards = cards.map((c) =>
-          c._id === cardId ? { ...c, likes: likes } : c
+        const newCards = cards.map((card) =>
+          card._id === cardId ? { ...card, likes: likes } : card
         );
+        setCards(newCards);
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  };
+
+  const handleCardDelete = ({ cardId }) => {
+    api
+      .deleteCard({ cardId })
+      .then((data) => {
+        const newCards = cards.filter((card) => card._id !== cardId);
         setCards(newCards);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
@@ -70,6 +80,7 @@ const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) => {
               {...card}
               onCardClick={onCardClick}
               onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />
           );
         })}

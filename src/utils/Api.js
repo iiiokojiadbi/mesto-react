@@ -32,7 +32,7 @@ class Api {
       });
   }
 
-  updateUserInfo(body) {
+  updateUserInfo({ body }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
@@ -40,7 +40,7 @@ class Api {
     }).then(this._returnResponse);
   }
 
-  updateUserAvatar(body) {
+  updateUserAvatar({ body }) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
@@ -48,7 +48,7 @@ class Api {
     }).then(this._returnResponse);
   }
 
-  postCard(body) {
+  postCard({ body }) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
@@ -56,8 +56,8 @@ class Api {
     }).then(this._returnResponse);
   }
 
-  deleteCard(idCard) {
-    return fetch(`${this._baseUrl}/cards/${idCard}`, {
+  deleteCard({ cardId }) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headers,
     }).then(this._returnResponse);

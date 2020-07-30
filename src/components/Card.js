@@ -3,9 +3,18 @@ import classnames from 'classnames';
 
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 
-const Card = ({ name, link, owner, likes, _id, onCardClick, onCardLike }) => {
+const Card = ({
+  name,
+  link,
+  owner,
+  likes,
+  _id,
+  onCardClick,
+  onCardLike,
+  onCardDelete,
+}) => {
   const currentUser = useContext(CurrentUserContext);
-  
+
   const isMyCard = owner._id === currentUser._id;
   const isMyLike = likes.some((owner) => owner._id === currentUser._id);
 
@@ -16,9 +25,9 @@ const Card = ({ name, link, owner, likes, _id, onCardClick, onCardLike }) => {
     'element__btn-like': true,
   });
 
-  function handleCardClick() {
+  const handleCardClick = () => {
     onCardClick({ name, link });
-  }
+  };
 
   return (
     <div className="element">
@@ -41,6 +50,9 @@ const Card = ({ name, link, owner, likes, _id, onCardClick, onCardLike }) => {
           type="button"
           aria-label="удалить"
           className="btn btn_type_trash element__btn-trash"
+          onClick={() => {
+            onCardDelete({ cardId: _id });
+          }}
         ></button>
       )}
     </div>
