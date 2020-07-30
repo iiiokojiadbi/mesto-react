@@ -1,12 +1,35 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Card from './Card';
 
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
-import { CardsContext } from './../contexts/CardsContext';
+
+import api from '../utils/Api';
 
 const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) => {
   const currentUser = useContext(CurrentUserContext);
-  const cards = useContext(CardsContext);
+
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    api
+      .getInitialCards()
+      .then((cardsData) => setCards(cardsData))
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  }, []);
+
+  const handleCardLike = ({ likes, cardId }) => {
+    const isLiked = likes.some((owner) => owner._id === currentUser._id);
+
+    api
+      .likeCard({ isLiked, cardId })
+      .then((likes) => {
+        const newCards = cards.map((c) =>
+          c._id === cardId ? { ...c, likes: likes } : c
+        );
+        setCards(newCards);
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  };
 
   return (
     <main className="content">
@@ -40,18 +63,13 @@ const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) => {
         ></button>
       </section>
       <section className="elements">
-        {cards.map(({ _id, ...cardInfo }, index) => {
-          const myCard = cardInfo.owner._id === currentUser._id;
-          const myLike = cardInfo.likes.find(
-            (owner) => owner._id === currentUser._id
-          );
+        {cards.map((card, index) => {
           return (
             <Card
-              key={`${index}-${_id}`}
-              {...cardInfo}
+              key={`${index}-${card._id}`}
+              {...card}
               onCardClick={onCardClick}
-              isMyCard={myCard}
-              isLiked={myLike}
+              onCardLike={handleCardLike}
             />
           );
         })}

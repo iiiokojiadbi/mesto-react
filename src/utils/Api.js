@@ -63,9 +63,9 @@ class Api {
     }).then(this._returnResponse);
   }
 
-  likeCard({ method, idCard }) {
-    return fetch(`${this._baseUrl}/cards/likes/${idCard}`, {
-      method: method,
+  likeCard({ isLiked, cardId }) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: isLiked ? 'DELETE' : 'PUT',
       headers: this._headers,
     })
       .then(this._returnResponse)
