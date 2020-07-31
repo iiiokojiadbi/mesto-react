@@ -9,16 +9,12 @@ const ButtonClosePopup = ({ onClose, optionalClasses }) => {
     [`${optionalClasses}`]: optionalClasses,
   });
 
-  function handleClose() {
-    onClose();
-  }
-
   return (
     <button
       type="button"
       aria-label="закрыть"
       className={btnClasses}
-      onClick={handleClose}
+      onClick={onClose}
     ></button>
   );
 };

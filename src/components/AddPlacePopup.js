@@ -5,23 +5,23 @@ import ButtonSubmitForm from './ui/ButtonSubmitForm';
 
 const AddPlacePopup = ({ isOpen, onClose, onPost }) => {
   const inputName = useRef();
-  const inputUrl = useRef();
+  const inpitLink = useRef();
 
   const [name, setName] = useState();
-  const [url, setUrl] = useState();
+  const [link, setLink] = useState();
 
   const handleNameChange = () => {
     const { value } = inputName.current;
     setName(value);
   };
 
-  const handleUrlChange = () => {
-    const { value } = inputUrl.current;
-    setUrl(value);
+  const handleLinkChange = () => {
+    const { value } = inpitLink.current;
+    setLink(value);
   };
 
   const handleSubmit = () => {
-    onPost({ name, link: url });
+    onPost({ name, link });
   };
 
   return (
@@ -56,8 +56,8 @@ const AddPlacePopup = ({ isOpen, onClose, onPost }) => {
           name="urlPic"
           id="url-input"
           required
-          ref={inputUrl}
-          onChange={handleUrlChange}
+          ref={inpitLink}
+          onChange={handleLinkChange}
         />
         <span className="form__input-error" id="url-input-error"></span>
       </label>
