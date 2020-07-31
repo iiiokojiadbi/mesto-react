@@ -95,7 +95,7 @@ const App = () => {
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
 
-  const handleCardDeleteSubmit = () => {
+  const handleCardDelete = () => {
     api
       .deleteCard({ cardId: selectedDeleteCardId })
       .then(() => {
@@ -151,7 +151,7 @@ const App = () => {
         <DeletePlacePopup
           isOpen={isDeletePlacePopupOpen}
           onClose={handleCloseAllPopups}
-          onDelete={handleCardDeleteSubmit}
+          onDelete={handleCardDelete}
         />
       </CurrentUserContext.Provider>
     </div>
