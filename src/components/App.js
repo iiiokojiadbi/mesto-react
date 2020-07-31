@@ -76,11 +76,13 @@ const App = () => {
   };
 
   const handleUpdaterAvatar = ({ avatar }) => {
+    setIsRenderer(true);
     api
       .updateUserAvatar({ avatar })
       .then((newUserData) => {
         setCurrentUser(newUserData);
         handleCloseAllPopups();
+        setIsRenderer(false);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
@@ -99,6 +101,7 @@ const App = () => {
   };
 
   const handleCardDelete = () => {
+    setIsRenderer(true);
     api
       .deleteCard({ cardId: selectedDeleteCardId })
       .then(() => {
@@ -107,16 +110,19 @@ const App = () => {
         );
         setCards(newCards);
         handleCloseAllPopups();
+        setIsRenderer(false);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
 
   const handleAddPlace = ({ name, link }) => {
+    setIsRenderer(true);
     api
       .postCard({ name, link })
       .then((newCard) => {
         setCards([newCard, ...cards]);
         handleCloseAllPopups();
+        setIsRenderer(false);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
