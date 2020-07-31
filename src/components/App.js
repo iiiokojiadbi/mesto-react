@@ -12,8 +12,10 @@ import DeletePlacePopup from './DeletePlacePopup';
 import api from './../utils/Api';
 
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
+import { StatusRenderContext } from './../contexts/StatusRenderContext';
 
 const App = () => {
+  const [isRenderer, setIsRenderer] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
@@ -63,11 +65,13 @@ const App = () => {
   };
 
   const handleUpdaterUser = ({ name, about }) => {
+    setIsRenderer(true);
     api
       .updateUserInfo({ name, about })
       .then((newUserData) => {
         setCurrentUser(newUserData);
         handleCloseAllPopups();
+        setIsRenderer(false);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
@@ -133,26 +137,28 @@ const App = () => {
         />
         <Footer />
         <ImagePopup {...selectedCard} onClose={handleCloseAllPopups} />
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={handleCloseAllPopups}
-          onUpdaterUser={handleUpdaterUser}
-        />
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={handleCloseAllPopups}
-          onUpdaterUserAvatar={handleUpdaterAvatar}
-        />
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={handleCloseAllPopups}
-          onPost={handleAddPlace}
-        />
-        <DeletePlacePopup
-          isOpen={isDeletePlacePopupOpen}
-          onClose={handleCloseAllPopups}
-          onDelete={handleCardDelete}
-        />
+        <StatusRenderContext.Provider value={isRenderer}>
+          <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onClose={handleCloseAllPopups}
+            onUpdaterUser={handleUpdaterUser}
+          />
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={handleCloseAllPopups}
+            onUpdaterUserAvatar={handleUpdaterAvatar}
+          />
+          <AddPlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onClose={handleCloseAllPopups}
+            onPost={handleAddPlace}
+          />
+          <DeletePlacePopup
+            isOpen={isDeletePlacePopupOpen}
+            onClose={handleCloseAllPopups}
+            onDelete={handleCardDelete}
+          />
+        </StatusRenderContext.Provider>
       </CurrentUserContext.Provider>
     </div>
   );
