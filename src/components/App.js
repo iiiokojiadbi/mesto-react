@@ -7,6 +7,7 @@ import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm'; // !
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
 
 import api from './../utils/Api';
@@ -123,39 +124,10 @@ const App = () => {
           onClose={handleCloseAllPopups}
           onUpdaterUserAvatar={handleUpdaterAvatar}
         />
-        <PopupWithForm
-          name="AddForm"
-          title="Новое место"
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={handleCloseAllPopups}
-        >
-          <label className="form__field">
-            <input
-              type="text"
-              className="input input_type_name form__input"
-              placeholder="Название"
-              name="namePlace"
-              id="place-input"
-              required
-              minLength="1"
-              maxLength="30"
-              pattern=".*"
-            />
-            <span className="form__input-error" id="place-input-error"></span>
-          </label>
-          <label className="form__field">
-            <input
-              type="url"
-              className="input input_type_hobby form__input"
-              placeholder="Ссылка на картинку"
-              name="urlPic"
-              id="url-input"
-              required
-            />
-            <span className="form__input-error" id="url-input-error"></span>
-          </label>
-          <ButtonSubmitForm text="Создать" label="создать" />
-        </PopupWithForm>
+        />
         <PopupWithForm
           name="DeleteForm"
           title="Вы уверены?"
