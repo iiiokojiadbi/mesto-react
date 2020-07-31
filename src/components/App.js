@@ -99,6 +99,13 @@ const App = () => {
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
 
+  const handleAddPlace = ({ name, link }) => {
+    api
+      .postCard({ name, link })
+      .then((newCard) => setCards([newCard, ...cards]))
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  };
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -127,6 +134,7 @@ const App = () => {
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={handleCloseAllPopups}
+          onPost={handleAddPlace}
         />
         <PopupWithForm
           name="DeleteForm"

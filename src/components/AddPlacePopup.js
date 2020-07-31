@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 
 import PopupWithForm from './PopupWithForm';
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
 
-const AddPlacePopup = ({ isOpen, onClose }) => {
+const AddPlacePopup = ({ isOpen, onClose, onPost }) => {
+  const inputName = useRef();
+  const inputUrl = useRef();
+
+  const [name, setName] = useState();
+  const [url, setUrl] = useState();
+
+  const handleNameChange = () => {
+    const { value } = inputName.current;
+    setName(value);
+  };
+
+  const handleUrlChange = () => {
+    const { value } = inputUrl.current;
+    setUrl(value);
+  };
+
+  const handleSubmit = () => {
+    onPost({ name, link: url });
+  };
+
   return (
     <PopupWithForm
       name="AddForm"
       title="Новое место"
       isOpen={isOpen}
       onClose={onClose}
+      onSubmitForm={handleSubmit}
     >
       <label className="form__field">
         <input
@@ -22,6 +43,8 @@ const AddPlacePopup = ({ isOpen, onClose }) => {
           minLength="1"
           maxLength="30"
           pattern=".*"
+          ref={inputName}
+          onChange={handleNameChange}
         />
         <span className="form__input-error" id="place-input-error"></span>
       </label>
@@ -33,6 +56,8 @@ const AddPlacePopup = ({ isOpen, onClose }) => {
           name="urlPic"
           id="url-input"
           required
+          ref={inputUrl}
+          onChange={handleUrlChange}
         />
         <span className="form__input-error" id="url-input-error"></span>
       </label>
