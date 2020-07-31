@@ -20,6 +20,7 @@ const App = () => {
   const [selectedCard, setSelectedCard] = useState(null);
 
   const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     api
@@ -27,6 +28,13 @@ const App = () => {
       .then((userData) => {
         setCurrentUser(userData);
       })
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  }, []);
+
+  useEffect(() => {
+    api
+      .getInitialCards()
+      .then((cardsData) => setCards(cardsData))
       .catch((error) => console.log(`Ошибка: ${error}`));
   }, []);
 
@@ -73,15 +81,41 @@ const App = () => {
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
 
+  const handleCardLike = ({ likes, cardId }) => {
+    const isLiked = likes.some((owner) => owner._id === currentUser._id);
+    api
+      .likeCard({ isLiked, cardId })
+      .then((likes) => {
+        const newCards = cards.map((card) =>
+          card._id === cardId ? { ...card, likes: likes } : card
+        );
+        setCards(newCards);
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  };
+
+  const handleCardDelete = ({ cardId }) => {
+    api
+      .deleteCard({ cardId })
+      .then((data) => {
+        const newCards = cards.filter((card) => card._id !== cardId);
+        setCards(newCards);
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  };
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
         <Main
+          cards={cards}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
+          onCardDelete={handleCardDelete}
+          onCardLike={handleCardLike}
         />
         <Footer />
         <ImagePopup {...selectedCard} onClose={handleCloseAllPopups} />

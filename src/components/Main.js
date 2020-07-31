@@ -5,41 +5,16 @@ import { CurrentUserContext } from './../contexts/CurrentUserContext';
 
 import api from '../utils/Api';
 
-const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) => {
+const Main = ({
+  cards,
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+  onCardClick,
+  onCardDelete,
+  onCardLike,
+}) => {
   const currentUser = useContext(CurrentUserContext);
-
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((cardsData) => setCards(cardsData))
-      .catch((error) => console.log(`Ошибка: ${error}`));
-  }, []);
-
-  const handleCardLike = ({ likes, cardId }) => {
-    const isLiked = likes.some((owner) => owner._id === currentUser._id);
-
-    api
-      .likeCard({ isLiked, cardId })
-      .then((likes) => {
-        const newCards = cards.map((card) =>
-          card._id === cardId ? { ...card, likes: likes } : card
-        );
-        setCards(newCards);
-      })
-      .catch((error) => console.log(`Ошибка: ${error}`));
-  };
-
-  const handleCardDelete = ({ cardId }) => {
-    api
-      .deleteCard({ cardId })
-      .then((data) => {
-        const newCards = cards.filter((card) => card._id !== cardId);
-        setCards(newCards);
-      })
-      .catch((error) => console.log(`Ошибка: ${error}`));
-  };
 
   return (
     <main className="content">
@@ -79,8 +54,8 @@ const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) => {
               key={`${index}-${card._id}`}
               {...card}
               onCardClick={onCardClick}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
             />
           );
         })}
