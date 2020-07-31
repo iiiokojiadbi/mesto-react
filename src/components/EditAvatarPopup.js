@@ -14,7 +14,6 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdaterUserAvatar }) => {
   };
 
   const handleSubmit = () => {
-    console.log(avatar);
     onUpdaterUserAvatar({
       avatar,
     });
