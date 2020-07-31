@@ -27,7 +27,7 @@ const App = () => {
       .then((userData) => {
         setCurrentUser(userData);
       })
-      .catch((error) => console.log(`Данные не загрузились. Ошибка: ${error}`));
+      .catch((error) => console.log(`Ошибка: ${error}`));
   }, []);
 
   const handleEditAvatarClick = () => {
@@ -54,10 +54,23 @@ const App = () => {
   };
 
   const handleUpdaterUser = ({ name, about }) => {
-    api.updateUserInfo({ name, about }).then((newUserData) => {
-      setCurrentUser(newUserData);
-      handleCloseAllPopups();
-    });
+    api
+      .updateUserInfo({ name, about })
+      .then((newUserData) => {
+        setCurrentUser(newUserData);
+        handleCloseAllPopups();
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  };
+
+  const handleUpdaterAvatar = ({ avatar }) => {
+    api
+      .updateUserAvatar({ avatar })
+      .then((newUserData) => {
+        setCurrentUser(newUserData);
+        handleCloseAllPopups();
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
   };
 
   return (
@@ -80,6 +93,7 @@ const App = () => {
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={handleCloseAllPopups}
+          onUpdaterUserAvatar={handleUpdaterAvatar}
         />
         <PopupWithForm
           name="AddForm"

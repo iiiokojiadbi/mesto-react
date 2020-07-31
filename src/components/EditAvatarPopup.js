@@ -1,18 +1,24 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useRef } from 'react';
 
 import PopupWithForm from './PopupWithForm';
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
 
-import { CurrentUserContext } from './../contexts/CurrentUserContext';
+const EditAvatarPopup = ({ isOpen, onClose, onUpdaterUserAvatar }) => {
+  const inputUrl = useRef();
 
-const EditAvatarPopup = ({ isOpen, onClose }) => {
-  const currentUser = useContext(CurrentUserContext);
+  const [avatar, setAvatar] = useState('');
 
-  // const [avatar, setAvatar] = useState('');
+  const handleUrlChange = () => {
+    const { value } = inputUrl.current;
+    setAvatar(value);
+  };
 
-  // useEffect(() => {
-  //   setAvatar(currentUser.avatar);
-  // }, [currentUser]);
+  const handleSubmit = () => {
+    console.log(avatar);
+    onUpdaterUserAvatar({
+      avatar,
+    });
+  };
 
   return (
     <PopupWithForm
@@ -20,6 +26,7 @@ const EditAvatarPopup = ({ isOpen, onClose }) => {
       title="Редактировать профиль"
       isOpen={isOpen}
       onClose={onClose}
+      onSubmitForm={handleSubmit}
     >
       <label className="form__field">
         <input
@@ -29,6 +36,8 @@ const EditAvatarPopup = ({ isOpen, onClose }) => {
           name="urlAvatar"
           id="avatar-input"
           required
+          ref={inputUrl}
+          onChange={handleUrlChange}
         />
         <span className="form__input-error" id="avatar-input-error"></span>
       </label>
