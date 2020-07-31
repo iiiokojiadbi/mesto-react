@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
-
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-
 import Loader from 'react-loader-spinner';
 
 import { StatusRenderContext } from './../../contexts/StatusRenderContext';
+
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 const ButtonSubmitForm = ({ text, label }) => {
   const isRenderer = useContext(StatusRenderContext);
