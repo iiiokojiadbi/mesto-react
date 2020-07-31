@@ -24,17 +24,11 @@ const App = () => {
 
   useEffect(() => {
     api
-      .getUserInfo()
-      .then((userData) => {
+      .getInitialData()
+      .then(([userData, cardsData]) => {
         setCurrentUser(userData);
+        setCards(cardsData);
       })
-      .catch((error) => console.log(`Ошибка: ${error}`));
-  }, []);
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((cardsData) => setCards(cardsData))
       .catch((error) => console.log(`Ошибка: ${error}`));
   }, []);
 
