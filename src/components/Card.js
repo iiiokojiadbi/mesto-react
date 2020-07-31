@@ -11,7 +11,7 @@ const Card = ({
   _id,
   onCardClick,
   onCardLike,
-  onCardDelete,
+  onConfirmDelete,
 }) => {
   const currentUser = useContext(CurrentUserContext);
 
@@ -51,7 +51,7 @@ const Card = ({
           aria-label="удалить"
           className="btn btn_type_trash element__btn-trash"
           onClick={() => {
-            onCardDelete({ cardId: _id });
+            onConfirmDelete({ cardId: _id });
           }}
         ></button>
       )}

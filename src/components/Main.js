@@ -9,8 +9,8 @@ const Main = ({
   onEditProfile,
   onAddPlace,
   onCardClick,
-  onCardDelete,
   onCardLike,
+  onConfirmDelete,
 }) => {
   const currentUser = useContext(CurrentUserContext);
 
@@ -53,7 +53,7 @@ const Main = ({
               {...card}
               onCardClick={onCardClick}
               onCardLike={onCardLike}
-              onCardDelete={onCardDelete}
+              onConfirmDelete={onConfirmDelete}
             />
           );
         })}
