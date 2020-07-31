@@ -92,7 +92,7 @@ const App = () => {
   const handleCardDelete = ({ cardId }) => {
     api
       .deleteCard({ cardId })
-      .then((data) => {
+      .then(() => {
         const newCards = cards.filter((card) => card._id !== cardId);
         setCards(newCards);
       })
@@ -102,7 +102,10 @@ const App = () => {
   const handleAddPlace = ({ name, link }) => {
     api
       .postCard({ name, link })
-      .then((newCard) => setCards([newCard, ...cards]))
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        handleCloseAllPopups();
+      })
       .catch((error) => console.log(`Ошибка: ${error}`));
   };
 
