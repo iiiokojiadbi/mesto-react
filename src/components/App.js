@@ -166,5 +166,4 @@ function App() {
   );
 }
 
-const MemodApp = React.memo(App);
-export default MemodApp;
+export default App;
