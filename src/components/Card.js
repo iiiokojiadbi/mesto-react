@@ -57,7 +57,7 @@ const Card = ({
         <Button
           action="trash"
           label="удалить"
-          optionalClasses={'element__btn-trash'}
+          optionalClasses="element__btn-trash"
           onBtnClick={handleConfirmDelete}
         />
       )}
