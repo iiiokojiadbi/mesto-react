@@ -19,6 +19,12 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdaterUser }) => {
 
   const handleNameChange = (evt) => setName(evt.target.value);
   const handleDescriptionChange = (evt) => setDescription(evt.target.value);
+  const handleClose = () => {
+    const { name, about } = currentUser;
+    setName(name);
+    setDescription(about);
+    onClose();
+  };
   const handleSubmit = () =>
     onUpdaterUser({
       name,
@@ -30,7 +36,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdaterUser }) => {
       name="EditForm"
       title="Редактировать профиль"
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       onSubmitForm={handleSubmit}
     >
       <label className="form__field">
