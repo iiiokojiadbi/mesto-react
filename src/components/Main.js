@@ -1,72 +1,67 @@
-import React from 'react';
-import api from '../utils/Api';
+import React, { useContext } from 'react';
 import Card from './Card';
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
-  const [userId, setUserId] = React.useState('');
-  const [cards, setCards] = React.useState([]);
+import Button from './ui/Button';
 
-  React.useEffect(() => {
-    api.getInitialData().then(([userInfo, initialCards]) => {
-      setUserName(userInfo.name);
-      setUserDescription(userInfo.about);
-      setUserAvatar(userInfo.avatar);
-      setUserId(userInfo._id);
-      setCards(initialCards);
-    });
-  }, []);
+import { CurrentUserContext } from './../contexts/CurrentUserContext';
+
+const Main = ({
+  cards,
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+  onCardClick,
+  onCardLike,
+  onConfirmDelete,
+}) => {
+  const currentUser = useContext(CurrentUserContext);
 
   return (
     <main className="content">
       <section className="profile">
         <img
           className="profile__photo"
-          src={userAvatar}
+          src={currentUser.avatar}
           alt="Фотография пользователя"
         />
-        <button
-          type="button"
-          aria-label="обновить"
-          className="btn btn_type_update profile__btn-update"
-          onClick={onEditAvatar}
-        ></button>
+        <Button
+          action="update"
+          label="обновить"
+          optionalClasses="profile__btn-update"
+          onBtnClick={onEditAvatar}
+        />
         <div className="profile__info">
-          <h2 className="profile__user-name">{userName}</h2>
-          <button
-            onClick={onEditProfile}
-            type="button"
-            aria-label="редактировать"
-            className="btn btn_type_edit profile__btn-edit"
-          ></button>
-          <p className="profile__user-hobby">{userDescription}</p>
+          <h2 className="profile__user-name">{currentUser.name}</h2>
+          <Button
+            action="edit"
+            label="редактировать"
+            optionalClasses="profile__btn-edit"
+            onBtnClick={onEditProfile}
+          />
+          <p className="profile__user-hobby">{currentUser.about}</p>
         </div>
-        <button
-          onClick={onAddPlace}
-          type="button"
-          aria-label="добавить"
-          className="btn btn_type_add profile__btn-add"
-        ></button>
+        <Button
+          action="add"
+          label="добавить"
+          optionalClasses="profile__btn-add"
+          onBtnClick={onAddPlace}
+        />
       </section>
       <section className="elements">
-        {cards.map(({ _id, ...cardInfo }, index) => {
-          const myCard = cardInfo.owner._id === userId;
-          const myLike = cardInfo.likes.find((owner) => owner._id === userId);
+        {cards.map((card, index) => {
           return (
             <Card
-              key={`${index}-${_id}`}
-              {...cardInfo}
+              key={`${index}-${card._id}`}
+              {...card}
               onCardClick={onCardClick}
-              isMyCard={myCard}
-              isLiked={myLike}
+              onCardLike={onCardLike}
+              onConfirmDelete={onConfirmDelete}
             />
           );
         })}
       </section>
     </main>
   );
-}
+};
 
 export default Main;

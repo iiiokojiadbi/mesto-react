@@ -1,20 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classnames from 'classnames';
-import ButtonClosePopup from './ui/ButtonClosePopup';
 
-function ImagePopup({ name, link, onClose }) {
+import Button from './ui/Button';
+
+const ImagePopup = ({ name, link, onClose, isOpen }) => {
   const popupClasses = classnames({
     popup: true,
-    popup_disabled: !(name && link),
+    popup_disabled: !isOpen,
   });
 
+  useEffect(() => {
+    const handleEscListener = (evt) => {
+      if (evt.key === 'Escape') onClose();
+    };
+
+    if (isOpen) document.addEventListener('keydown', handleEscListener);
+
+    return () => document.removeEventListener('keydown', handleEscListener);
+  }, [isOpen, onClose]);
+
+  const handleOverlayClick = (evt) => {
+    if (evt.target.classList.contains('popup')) onClose();
+  };
+
   return (
-    <section className={popupClasses} id="popupCardPreview">
+    <section
+      className={popupClasses}
+      id="popupCardPreview"
+      onClick={handleOverlayClick}
+    >
       <div className="popup__container">
         <section className="preview-image popup__preview">
-          <ButtonClosePopup
-            onClose={onClose}
-            optionalClasses="preview-image__btn-close"
+          <Button
+            action="close"
+            label="закрыть"
+            optionalClasses="popup__btn-close preview-image__btn-close"
+            onBtnClick={onClose}
           />
           <img
             src={link}
@@ -26,6 +47,6 @@ function ImagePopup({ name, link, onClose }) {
       </div>
     </section>
   );
-}
+};
 
 export default ImagePopup;

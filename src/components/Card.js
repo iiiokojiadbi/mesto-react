@@ -1,17 +1,33 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classnames from 'classnames';
 
-function Card({ link, name, likes, isLiked = false, isMyCard, onCardClick }) {
-  const btnClasses = classnames({
-    btn: true,
-    ['btn_type_not-like']: !isLiked,
-    ['btn_type_like']: isLiked,
-    ['element__btn-like']: true,
+import Button from './ui/Button';
+
+import { CurrentUserContext } from './../contexts/CurrentUserContext';
+
+const Card = ({
+  name,
+  link,
+  owner,
+  likes,
+  _id,
+  onCardClick,
+  onCardLike,
+  onConfirmDelete,
+}) => {
+  const currentUser = useContext(CurrentUserContext);
+
+  const isMyCard = owner._id === currentUser._id;
+  const isMyLike = likes.some((owner) => owner._id === currentUser._id);
+
+  const btnLikeClasses = classnames({
+    btn_type_like: isMyLike,
+    'element__btn-like': true,
   });
 
-  function handleCardClick() {
-    onCardClick({ name, link }); // действительно ...
-  }
+  const handleCardClick = () => onCardClick({ name, link });
+  const handleCardLike = () => onCardLike({ likes: likes, cardId: _id });
+  const handleConfirmDelete = () => onConfirmDelete({ cardId: _id });
 
   return (
     <div className="element">
@@ -23,20 +39,22 @@ function Card({ link, name, likes, isLiked = false, isMyCard, onCardClick }) {
       />
       <h2 className="element__title">{name}</h2>
       <span className="element__likes">{likes.length}</span>
-      <button
-        type="button"
-        aria-label="лайкнуть"
-        className={btnClasses}
-      ></button>
+      <Button
+        action="not-like"
+        label="лайкнуть"
+        optionalClasses={btnLikeClasses}
+        onBtnClick={handleCardLike}
+      />
       {isMyCard && (
-        <button
-          type="button"
-          aria-label="удалить"
-          className="btn btn_type_trash element__btn-trash"
-        ></button>
+        <Button
+          action="trash"
+          label="удалить"
+          optionalClasses="element__btn-trash"
+          onBtnClick={handleConfirmDelete}
+        />
       )}
     </div>
   );
-}
+};
 
 export default Card;

@@ -6,9 +6,12 @@
 @import url(./_type/btn_type_trash.css);
 @import url(./_type/btn_type_like.css);
 @import url(./_type/btn_type_update.css);
+@import url(./__spinner/btn__spinner.css);
 
 .btn {
-  display: block;
+  display: grid;
+  justify-content: center;
+  align-content: center;
   transition: .3s;
   outline: none;
   box-sizing: border-box;

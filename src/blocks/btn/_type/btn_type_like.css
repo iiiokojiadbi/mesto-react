@@ -1,5 +1,5 @@
 .btn_type_like {
-  background-image: url(../../../images/blackHeart.svg);
+  background-image: url(./../../../images/blackHeart.svg);
 }
 
 @media screen and (pointer: fine) {

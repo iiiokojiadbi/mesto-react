@@ -1,34 +1,68 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classnames from 'classnames';
-import ButtonClosePopup from './ui/ButtonClosePopup';
 
-function PopupWithForm({ name, title, isOpen, onClose, children }) {
+import Button from './ui/Button';
+
+const PopupWithForm = ({
+  name,
+  title,
+  isOpen = false,
+  onClose,
+  onSubmitForm,
+  children,
+}) => {
   const popupClasses = classnames({
     popup: true,
     popup_disabled: !isOpen,
   });
 
-  function handleSubmit(evt) {
+  useEffect(() => {
+    const handleEscListener = (evt) => {
+      if (evt.key === 'Escape') onClose();
+    };
+
+    if (isOpen) document.addEventListener('keydown', handleEscListener);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscListener);
+    };
+  }, [isOpen, onClose]);
+
+  const handleOverlayClick = (evt) => {
+    if (evt.target.classList.contains('popup')) onClose();
+  };
+
+  const handleSubmit = (evt) => {
     evt.preventDefault();
-  }
+    onSubmitForm();
+  };
 
   return (
-    <section className={popupClasses} id={`popup${name}`}>
+    <section
+      className={popupClasses}
+      id={`popup${name}`}
+      onClick={handleOverlayClick}
+    >
       <div className="popup__container">
-        <ButtonClosePopup onClose={onClose} />
+        <Button
+          action="close"
+          label="закрыть"
+          optionalClasses="popup__btn-close"
+          onBtnClick={onClose}
+        />
         <h3 className="popup__title">{title}</h3>
         <form
           name={name}
           method="post"
           action="#"
           className="form popup__form"
-          onClick={handleSubmit}
+          onSubmit={handleSubmit}
         >
           {children}
         </form>
       </div>
     </section>
   );
-}
+};
 
 export default PopupWithForm;
