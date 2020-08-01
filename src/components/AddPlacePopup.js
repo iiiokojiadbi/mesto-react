@@ -7,19 +7,9 @@ const AddPlacePopup = ({ isOpen, onClose, onPost }) => {
   const [name, setName] = useState();
   const [link, setLink] = useState();
 
-  const handleNameChange = (evt) => {
-    const { value } = evt.target;
-    setName(value);
-  };
-
-  const handleLinkChange = (evt) => {
-    const { value } = evt.target;
-    setLink(value);
-  };
-
-  const handleSubmit = () => {
-    onPost({ name, link });
-  };
+  const handleNameChange = (evt) => setName(evt.target.value);
+  const handleLinkChange = (evt) => setLink(evt.target.value);
+  const handleSubmit = () => onPost({ name, link });
 
   return (
     <PopupWithForm

@@ -25,17 +25,9 @@ const Card = ({
     'element__btn-like': true,
   });
 
-  const handleCardClick = () => {
-    onCardClick({ name, link });
-  };
-
-  const handleCardLike = () => {
-    onCardLike({ likes: likes, cardId: _id });
-  };
-
-  const handleConfirmDelete = () => {
-    onConfirmDelete({ cardId: _id });
-  };
+  const handleCardClick = () => onCardClick({ name, link });
+  const handleCardLike = () => onCardLike({ likes: likes, cardId: _id });
+  const handleConfirmDelete = () => onConfirmDelete({ cardId: _id });
 
   return (
     <div className="element">

@@ -19,6 +19,7 @@ const App = () => {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isDeletePlacePopupOpen, setIsDeletePlacePopupOpen] = useState(false);
+  const [isPreviewPopupOpen, setIsPreviewPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [selectedDeleteCardId, setSelectedDeleteCardId] = useState('');
   const [currentUser, setCurrentUser] = useState({});
@@ -34,25 +35,25 @@ const App = () => {
       .catch((error) => console.log(`Ошибка: ${error}`));
   }, []);
 
+  const handlePreviewOpen = () => setIsPreviewPopupOpen(true);
   const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
-
   const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
-
   const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
-
   const handleDeletePlaceClick = ({ cardId }) => {
     setIsDeletePlacePopupOpen(true);
     setSelectedDeleteCardId(cardId);
   };
-
-  const handleCardClick = (infoCard) => setSelectedCard(infoCard);
-
   const handleCloseAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsDeletePlacePopupOpen(false);
-    setSelectedCard(null);
+    setIsPreviewPopupOpen(false);
+  };
+
+  const handleCardClick = (infoCard) => {
+    setSelectedCard(infoCard);
+    handlePreviewOpen();
   };
 
   const handleUpdaterUser = ({ name, about }) => {
@@ -133,7 +134,11 @@ const App = () => {
           onConfirmDelete={handleDeletePlaceClick}
         />
         <Footer />
-        <ImagePopup {...selectedCard} onClose={handleCloseAllPopups} />
+        <ImagePopup
+          {...selectedCard}
+          isOpen={isPreviewPopupOpen}
+          onClose={handleCloseAllPopups}
+        />
         <StatusRenderContext.Provider value={isRenderer}>
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}

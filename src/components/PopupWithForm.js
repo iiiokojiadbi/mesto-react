@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classnames from 'classnames';
 
 import Button from './ui/Button';
@@ -6,7 +6,7 @@ import Button from './ui/Button';
 const PopupWithForm = ({
   name,
   title,
-  isOpen,
+  isOpen = false,
   onClose,
   onSubmitForm,
   children,
@@ -16,13 +16,33 @@ const PopupWithForm = ({
     popup_disabled: !isOpen,
   });
 
-  function handleSubmit(evt) {
+  useEffect(() => {
+    const handleEscListener = (evt) => {
+      if (evt.key === 'Escape') onClose();
+    };
+
+    if (isOpen) document.addEventListener('keydown', handleEscListener);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscListener);
+    };
+  }, [isOpen, onClose]);
+
+  const handleOverlayClick = (evt) => {
+    if (evt.target.classList.contains('popup')) onClose();
+  };
+
+  const handleSubmit = (evt) => {
     evt.preventDefault();
     onSubmitForm();
-  }
+  };
 
   return (
-    <section className={popupClasses} id={`popup${name}`}>
+    <section
+      className={popupClasses}
+      id={`popup${name}`}
+      onClick={handleOverlayClick}
+    >
       <div className="popup__container">
         <Button
           action="close"

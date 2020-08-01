@@ -17,22 +17,13 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdaterUser }) => {
     setDescription(about);
   }, [currentUser]);
 
-  const handleNameChange = (evt) => {
-    const { value } = evt.target;
-    setName(value);
-  };
-
-  const handleDescriptionChange = (evt) => {
-    const { value } = evt.target;
-    setDescription(value);
-  };
-
-  const handleSubmit = () => {
+  const handleNameChange = (evt) => setName(evt.target.value);
+  const handleDescriptionChange = (evt) => setDescription(evt.target.value);
+  const handleSubmit = () =>
     onUpdaterUser({
       name,
       about: description,
     });
-  };
 
   return (
     <PopupWithForm

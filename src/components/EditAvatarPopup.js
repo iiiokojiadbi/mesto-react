@@ -7,16 +7,11 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdaterUserAvatar }) => {
 
   const [avatar, setAvatar] = useState('');
 
-  const handleUrlChange = () => {
-    const { value } = inputUrl.current;
-    setAvatar(value);
-  };
-
-  const handleSubmit = () => {
+  const handleUrlChange = () => setAvatar(inputUrl.current.value);
+  const handleSubmit = () =>
     onUpdaterUserAvatar({
       avatar,
     });
-  };
 
   return (
     <PopupWithForm

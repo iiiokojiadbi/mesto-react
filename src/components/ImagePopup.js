@@ -1,16 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classnames from 'classnames';
 
 import Button from './ui/Button';
 
-const ImagePopup = ({ name, link, onClose }) => {
+const ImagePopup = ({ name, link, onClose, isOpen }) => {
   const popupClasses = classnames({
     popup: true,
-    popup_disabled: !(name && link),
+    popup_disabled: !isOpen,
   });
 
+  useEffect(() => {
+    const handleEscListener = (evt) => {
+      if (evt.key === 'Escape') onClose();
+    };
+
+    if (isOpen) document.addEventListener('keydown', handleEscListener);
+
+    return () => document.removeEventListener('keydown', handleEscListener);
+  }, [isOpen, onClose]);
+
+  const handleOverlayClick = (evt) => {
+    if (evt.target.classList.contains('popup')) onClose();
+  };
+
   return (
-    <section className={popupClasses} id="popupCardPreview">
+    <section
+      className={popupClasses}
+      id="popupCardPreview"
+      onClick={handleOverlayClick}
+    >
       <div className="popup__container">
         <section className="preview-image popup__preview">
           <Button
