@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
-import ButtonClosePopup from './ui/ButtonClosePopup';
+
+import Button from './ui/Button';
 
 const PopupWithForm = ({
   name,
@@ -23,7 +24,12 @@ const PopupWithForm = ({
   return (
     <section className={popupClasses} id={`popup${name}`}>
       <div className="popup__container">
-        <ButtonClosePopup onClose={onClose} />
+        <Button
+          action="close"
+          label="закрыть"
+          optionalClasses="popup__btn-close"
+          onBtnClick={onClose}
+        />
         <h3 className="popup__title">{title}</h3>
         <form
           name={name}
