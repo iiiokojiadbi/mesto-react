@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
-import ButtonClosePopup from './ui/ButtonClosePopup';
+
+import Button from './ui/Button';
 
 const ImagePopup = ({ name, link, onClose }) => {
   const popupClasses = classnames({
@@ -12,9 +13,11 @@ const ImagePopup = ({ name, link, onClose }) => {
     <section className={popupClasses} id="popupCardPreview">
       <div className="popup__container">
         <section className="preview-image popup__preview">
-          <ButtonClosePopup
-            onClose={onClose}
-            optionalClasses="preview-image__btn-close"
+          <Button
+            action="close"
+            label="закрыть"
+            optionalClasses="popup__btn-close preview-image__btn-close"
+            onBtnClick={onClose}
           />
           <img
             src={link}
