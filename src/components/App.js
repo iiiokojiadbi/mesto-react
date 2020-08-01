@@ -34,26 +34,18 @@ const App = () => {
       .catch((error) => console.log(`Ошибка: ${error}`));
   }, []);
 
-  const handleEditAvatarClick = () => {
-    setIsEditAvatarPopupOpen(true);
-  };
+  const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
 
-  const handleEditProfileClick = () => {
-    setIsEditProfilePopupOpen(true);
-  };
+  const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
 
-  const handleAddPlaceClick = () => {
-    setIsAddPlacePopupOpen(true);
-  };
+  const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
 
   const handleDeletePlaceClick = ({ cardId }) => {
     setIsDeletePlacePopupOpen(true);
     setSelectedDeleteCardId(cardId);
   };
 
-  const handleCardClick = (infoCard) => {
-    setSelectedCard(infoCard);
-  };
+  const handleCardClick = (infoCard) => setSelectedCard(infoCard);
 
   const handleCloseAllPopups = () => {
     setIsEditProfilePopupOpen(false);
