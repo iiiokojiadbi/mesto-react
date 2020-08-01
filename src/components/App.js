@@ -13,7 +13,7 @@ import api from './../utils/Api';
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 import { StatusRenderContext } from './../contexts/StatusRenderContext';
 
-const App = () => {
+function App() {
   const [isRenderer, setIsRenderer] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -164,6 +164,7 @@ const App = () => {
       </CurrentUserContext.Provider>
     </div>
   );
-};
+}
 
-export default App;
+const MemodApp = React.memo(App);
+export default MemodApp;

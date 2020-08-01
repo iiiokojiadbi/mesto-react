@@ -2,14 +2,20 @@ import React, { useState, useEffect, useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
 import InputForm from './ui/InputForm';
+import ErrorSpan from './ui/ErrorSpan';
 
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 
-const EditProfilePopup = ({ isOpen, onClose, onUpdaterUser }) => {
+function EditProfilePopup({ isOpen, onClose, onUpdaterUser }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [errorName, setErrorName] = useState('');
+  const [errorDescription, setErrorDescription] = useState('');
+  const [isNameValid, setIsNameValid] = useState(false);
+  const [isDescriptionValid, setIsDescriptionValid] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
     const { name, about } = currentUser;
@@ -17,14 +23,49 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdaterUser }) => {
     setDescription(about);
   }, [currentUser]);
 
-  const handleNameChange = (evt) => setName(evt.target.value);
-  const handleDescriptionChange = (evt) => setDescription(evt.target.value);
+  useEffect(() => {
+    hideErrors();
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isNameValid && isDescriptionValid) setIsValid(true);
+
+    return () => {
+      setIsValid(false);
+    };
+  }, [isNameValid, isDescriptionValid]);
+
+  const hideErrors = () => {
+    setErrorName('');
+    setErrorDescription('');
+    setIsNameValid(true);
+    setIsDescriptionValid(true);
+  };
+
+  const handleNameChange = (evt) => {
+    const { value, validationMessage, validity } = evt.target;
+    setName(value);
+    if (validationMessage !== errorName) setErrorName(validationMessage);
+    if (validity.valid) setIsNameValid(true);
+    else setIsNameValid(false);
+  };
+
+  const handleDescriptionChange = (evt) => {
+    const { value, validationMessage, validity } = evt.target;
+    setDescription(value);
+    if (validationMessage !== errorDescription)
+      setErrorDescription(validationMessage);
+    if (validity.valid) setIsDescriptionValid(true);
+    else setIsDescriptionValid(false);
+  };
+
   const handleClose = () => {
     const { name, about } = currentUser;
     setName(name);
     setDescription(about);
     onClose();
   };
+
   const handleSubmit = () =>
     onUpdaterUser({
       name,
@@ -38,6 +79,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdaterUser }) => {
       isOpen={isOpen}
       onClose={handleClose}
       onSubmitForm={handleSubmit}
+      isValid={isValid}
     >
       <label className="form__field">
         <InputForm
@@ -49,7 +91,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdaterUser }) => {
           value={name}
           onInputChange={handleNameChange}
         />
-        <span className="form__input-error" id="user-name-input-error"></span>
+        <ErrorSpan isActive={isNameValid} errorText={errorName} />
       </label>
       <label className="form__field">
         <InputForm
@@ -60,11 +102,12 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdaterUser }) => {
           value={description}
           onInputChange={handleDescriptionChange}
         />
-        <span className="form__input-error" id="hobby-input-error"></span>
+        <ErrorSpan isActive={isDescriptionValid} errorText={errorDescription} />
       </label>
-      <ButtonSubmitForm text="Сохранить" label="сохранить" />
+      <ButtonSubmitForm text="Сохранить" label="сохранить" isActive={isValid} />
     </PopupWithForm>
   );
-};
+}
 
-export default EditProfilePopup;
+const MemodEditProfilePopup = React.memo(EditProfilePopup);
+export default MemodEditProfilePopup;

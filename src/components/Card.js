@@ -5,7 +5,7 @@ import Button from './ui/Button';
 
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 
-const Card = ({
+function Card({
   name,
   link,
   owner,
@@ -14,7 +14,7 @@ const Card = ({
   onCardClick,
   onCardLike,
   onConfirmDelete,
-}) => {
+}) {
   const currentUser = useContext(CurrentUserContext);
 
   const isMyCard = owner._id === currentUser._id;
@@ -37,7 +37,7 @@ const Card = ({
         className="element__img"
         onClick={handleCardClick}
       />
-      <h2 className="element__title">{name}</h2>
+      <h2 className="element__title">{name}</h2>{' '}
       <span className="element__likes">{likes.length}</span>
       <Button
         action="not-like"
@@ -55,6 +55,7 @@ const Card = ({
       )}
     </div>
   );
-};
+}
 
-export default Card;
+const MemodCard = React.memo(Card);
+export default MemodCard;

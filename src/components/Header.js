@@ -2,7 +2,7 @@ import React from 'react';
 
 import logoHeader from '../images/logo.svg';
 
-const Header = () => {
+function Header() {
   return (
     <header className="header">
       <img
@@ -12,6 +12,7 @@ const Header = () => {
       />
     </header>
   );
-};
+}
 
-export default Header;
+const MemodHeader = React.memo(Header);
+export default MemodHeader;

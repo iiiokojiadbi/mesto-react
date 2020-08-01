@@ -2,7 +2,7 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm'; // !
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
 
-const DeletePlacePopup = ({ isOpen, onClose, onDelete }) => {
+function DeletePlacePopup({ isOpen, onClose, onDelete }) {
   return (
     <PopupWithForm
       name="DeleteForm"
@@ -11,9 +11,10 @@ const DeletePlacePopup = ({ isOpen, onClose, onDelete }) => {
       onClose={onClose}
       onSubmitForm={onDelete}
     >
-      <ButtonSubmitForm text="Да" label="подтвердить" />
+      <ButtonSubmitForm text="Да" label="подтвердить" isActive={true} />
     </PopupWithForm>
   );
-};
+}
 
-export default DeletePlacePopup;
+const MemodDeletePlacePopup = React.memo(DeletePlacePopup);
+export default MemodDeletePlacePopup;

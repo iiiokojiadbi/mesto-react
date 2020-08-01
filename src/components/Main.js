@@ -5,7 +5,7 @@ import Button from './ui/Button';
 
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 
-const Main = ({
+function Main({
   cards,
   onEditAvatar,
   onEditProfile,
@@ -13,7 +13,7 @@ const Main = ({
   onCardClick,
   onCardLike,
   onConfirmDelete,
-}) => {
+}) {
   const currentUser = useContext(CurrentUserContext);
 
   return (
@@ -62,6 +62,7 @@ const Main = ({
       </section>
     </main>
   );
-};
+}
 
-export default Main;
+const MemodMain = React.memo(Main);
+export default MemodMain;

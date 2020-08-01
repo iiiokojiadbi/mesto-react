@@ -1,13 +1,40 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PopupWithForm from './PopupWithForm';
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
+import ErrorSpan from './ui/ErrorSpan';
 
-const EditAvatarPopup = ({ isOpen, onClose, onUpdaterUserAvatar }) => {
+function EditAvatarPopup({ isOpen, onClose, onUpdaterUserAvatar }) {
   const inputUrl = useRef();
 
   const [avatar, setAvatar] = useState('');
+  const [errorAvatar, setErrorAvatar] = useState('');
+  const [isAvatarValid, setIsAvatarValid] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
-  const handleUrlChange = () => setAvatar(inputUrl.current.value);
+  useEffect(() => {
+    setAvatar('');
+    inputUrl.current.value = '';
+    hideErrors();
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isAvatarValid) setIsValid(true);
+    return () => setIsValid(false);
+  }, [isAvatarValid]);
+
+  const hideErrors = () => {
+    setErrorAvatar('');
+    setIsAvatarValid(false);
+  };
+
+  const handleUrlChange = () => {
+    const { value, validationMessage, validity } = inputUrl.current;
+    setAvatar(value);
+    if (validationMessage !== errorAvatar) setErrorAvatar(validationMessage);
+    if (validity.valid) setIsAvatarValid(true);
+    else setIsAvatarValid(false);
+  };
+
   const handleSubmit = () =>
     onUpdaterUserAvatar({
       avatar,
@@ -32,11 +59,12 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdaterUserAvatar }) => {
           ref={inputUrl}
           onChange={handleUrlChange}
         />
-        <span className="form__input-error" id="avatar-input-error"></span>
+        <ErrorSpan isActive={isAvatarValid} errorText={errorAvatar} />
       </label>
-      <ButtonSubmitForm text="Сохранить" label="сохранить" />
+      <ButtonSubmitForm text="Сохранить" label="сохранить" isActive={isValid} />
     </PopupWithForm>
   );
-};
+}
 
-export default EditAvatarPopup;
+const MemodEditAvatarPopup = React.memo(EditAvatarPopup);
+export default MemodEditAvatarPopup;

@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-const Button = ({ action, label, onBtnClick, optionalClasses }) => {
+function Button({ action, label, onBtnClick, optionalClasses }) {
   const btnClasses = classnames({
     btn: true,
     [`btn_type_${action}`]: action || false,
@@ -16,6 +16,7 @@ const Button = ({ action, label, onBtnClick, optionalClasses }) => {
       onClick={onBtnClick}
     ></button>
   );
-};
+}
 
-export default Button;
+const MemodButton = React.memo(Button);
+export default MemodButton;
