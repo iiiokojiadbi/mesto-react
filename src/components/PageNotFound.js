@@ -11,7 +11,7 @@ function PageNotFound() {
       <img className="not-found__image" src={notFoundPage} alt="" />
       <p className="not-found__text">Ой, опять Mesto</p>
       <Link className="btn btn_type_to-main not-found__to-main" to="/">
-        Назад
+        Не уйти...
       </Link>
     </div>
   );
