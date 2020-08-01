@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import Card from './Card';
 
+import Button from './ui/Button';
+
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 
 const Main = ({
@@ -22,28 +24,28 @@ const Main = ({
           src={currentUser.avatar}
           alt="Фотография пользователя"
         />
-        <button
-          type="button"
-          aria-label="обновить"
-          className="btn btn_type_update profile__btn-update"
-          onClick={onEditAvatar}
-        ></button>
+        <Button
+          action="update"
+          label="обновить"
+          optionalClasses="profile__btn-update"
+          onBtnClick={onEditAvatar}
+        />
         <div className="profile__info">
           <h2 className="profile__user-name">{currentUser.name}</h2>
-          <button
-            onClick={onEditProfile}
-            type="button"
-            aria-label="редактировать"
-            className="btn btn_type_edit profile__btn-edit"
-          ></button>
+          <Button
+            action="edit"
+            label="редактировать"
+            optionalClasses="profile__btn-edit"
+            onBtnClick={onEditProfile}
+          />
           <p className="profile__user-hobby">{currentUser.about}</p>
         </div>
-        <button
-          onClick={onAddPlace}
-          type="button"
-          aria-label="добавить"
-          className="btn btn_type_add profile__btn-add"
-        ></button>
+        <Button
+          action="add"
+          label="добавить"
+          optionalClasses="profile__btn-add"
+          onBtnClick={onAddPlace}
+        />
       </section>
       <section className="elements">
         {cards.map((card, index) => {
