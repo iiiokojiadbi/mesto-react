@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PopupWithForm from './PopupWithForm';
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
 
@@ -6,8 +6,31 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdaterUserAvatar }) => {
   const inputUrl = useRef();
 
   const [avatar, setAvatar] = useState('');
+  const [errorAvatar, setErrorAvatar] = useState('');
+  const [isValid, setIsValid] = useState(false);
 
-  const handleUrlChange = () => setAvatar(inputUrl.current.value);
+  useEffect(() => {
+    setAvatar('');
+    inputUrl.current.value = '';
+    hideErrors();
+    setIsValid(false);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (errorAvatar) setIsValid(false);
+    return () => setIsValid(true);
+  }, [errorAvatar]);
+
+  const hideErrors = () => {
+    setErrorAvatar('');
+  };
+
+  const handleUrlChange = () => {
+    const { value, validationMessage } = inputUrl.current;
+    setAvatar(value);
+    if (validationMessage !== errorAvatar) setErrorAvatar(validationMessage);
+  };
+
   const handleSubmit = () =>
     onUpdaterUserAvatar({
       avatar,
@@ -32,9 +55,15 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdaterUserAvatar }) => {
           ref={inputUrl}
           onChange={handleUrlChange}
         />
-        <span className="form__input-error" id="avatar-input-error"></span>
+        <span
+          className={`form__input-error ${
+            errorAvatar && 'form__input-error_active'
+          }`}
+        >
+          {errorAvatar}
+        </span>{' '}
       </label>
-      <ButtonSubmitForm text="Сохранить" label="сохранить" />
+      <ButtonSubmitForm text="Сохранить" label="сохранить" isActive={isValid} />
     </PopupWithForm>
   );
 };

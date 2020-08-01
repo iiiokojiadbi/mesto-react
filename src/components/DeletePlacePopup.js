@@ -11,7 +11,7 @@ const DeletePlacePopup = ({ isOpen, onClose, onDelete }) => {
       onClose={onClose}
       onSubmitForm={onDelete}
     >
-      <ButtonSubmitForm text="Да" label="подтвердить" />
+      <ButtonSubmitForm text="Да" label="подтвердить" isActive={true} />
     </PopupWithForm>
   );
 };

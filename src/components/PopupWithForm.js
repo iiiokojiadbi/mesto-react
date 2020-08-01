@@ -29,7 +29,7 @@ const PopupWithForm = ({
   }, [isOpen, onClose]);
 
   const handleOverlayClick = (evt) => {
-    if (evt.target.classList.contains('popup')) onClose();
+    if (evt.target.classList.contains('popup')) onClose();  // ???
   };
 
   const handleSubmit = (evt) => {
@@ -57,6 +57,7 @@ const PopupWithForm = ({
           action="#"
           className="form popup__form"
           onSubmit={handleSubmit}
+          noValidate
         >
           {children}
         </form>
