@@ -7,28 +7,31 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdaterUserAvatar }) => {
 
   const [avatar, setAvatar] = useState('');
   const [errorAvatar, setErrorAvatar] = useState('');
+  const [isAvatarValid, setIsAvatarValid] = useState(false);
   const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
     setAvatar('');
     inputUrl.current.value = '';
     hideErrors();
-    setIsValid(false);
   }, [isOpen]);
 
   useEffect(() => {
-    if (errorAvatar) setIsValid(false);
-    return () => setIsValid(true);
-  }, [errorAvatar]);
+    if (isAvatarValid) setIsValid(true);
+    return () => setIsValid(false);
+  }, [isAvatarValid]);
 
   const hideErrors = () => {
     setErrorAvatar('');
+    setIsAvatarValid(false);
   };
 
   const handleUrlChange = () => {
-    const { value, validationMessage } = inputUrl.current;
+    const { value, validationMessage, validity } = inputUrl.current;
     setAvatar(value);
     if (validationMessage !== errorAvatar) setErrorAvatar(validationMessage);
+    if (validity.valid) setIsAvatarValid(true);
+    else setIsAvatarValid(false);
   };
 
   const handleSubmit = () =>

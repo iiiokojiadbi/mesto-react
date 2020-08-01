@@ -15,7 +15,6 @@ const AddPlacePopup = ({ isOpen, onClose, onPost }) => {
   useEffect(() => {
     setName('');
     setLink('');
-    setIsValid(false);
     hideErrors();
   }, [isOpen]);
 

@@ -12,6 +12,8 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdaterUser }) => {
   const [description, setDescription] = useState('');
   const [errorName, setErrorName] = useState('');
   const [errorDescription, setErrorDescription] = useState('');
+  const [isNameValid, setIsNameValid] = useState(false);
+  const [isDescriptionValid, setIsDescriptionValid] = useState(false);
   const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
@@ -25,26 +27,35 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdaterUser }) => {
   }, [isOpen]);
 
   useEffect(() => {
-    if (!errorName && !errorDescription) setIsValid(true);
-    return () => setIsValid(false);
-  }, [errorName, errorDescription]);
+    if (isNameValid && isDescriptionValid) setIsValid(true);
+
+    return () => {
+      setIsValid(false);
+    };
+  }, [isNameValid, isDescriptionValid]);
 
   const hideErrors = () => {
     setErrorName('');
     setErrorDescription('');
+    setIsNameValid(true);
+    setIsDescriptionValid(true);
   };
 
   const handleNameChange = (evt) => {
-    const { value, validationMessage } = evt.target;
+    const { value, validationMessage, validity } = evt.target;
     setName(value);
     if (validationMessage !== errorName) setErrorName(validationMessage);
+    if (validity.valid) setIsNameValid(true);
+    else setIsNameValid(false);
   };
 
   const handleDescriptionChange = (evt) => {
-    const { value, validationMessage } = evt.target;
+    const { value, validationMessage, validity } = evt.target;
     setDescription(value);
     if (validationMessage !== errorDescription)
       setErrorDescription(validationMessage);
+    if (validity.valid) setIsDescriptionValid(true);
+    else setIsDescriptionValid(false);
   };
 
   const handleClose = () => {

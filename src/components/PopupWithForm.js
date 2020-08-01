@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import classnames from 'classnames';
 
 import Button from './ui/Button';
@@ -16,9 +16,11 @@ const PopupWithForm = ({
     popup_disabled: !isOpen,
   });
 
+  const linkClose = useCallback(onClose);
+
   useEffect(() => {
     const handleEscListener = (evt) => {
-      if (evt.key === 'Escape') onClose();
+      if (evt.key === 'Escape') linkClose();
     };
 
     if (isOpen) document.addEventListener('keydown', handleEscListener);
@@ -26,10 +28,10 @@ const PopupWithForm = ({
     return () => {
       document.removeEventListener('keydown', handleEscListener);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, linkClose]);
 
   const handleOverlayClick = (evt) => {
-    if (evt.target.classList.contains('popup')) onClose();  // ???
+    if (evt.target.classList.contains('popup')) onClose(); // ???
   };
 
   const handleSubmit = (evt) => {
