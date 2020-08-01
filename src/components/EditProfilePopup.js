@@ -5,7 +5,7 @@ import InputForm from './ui/InputForm';
 
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 
-const EditProfilePopup = ({ isOpen, onClose, onUpdaterUser }) => {
+function EditProfilePopup({ isOpen, onClose, onUpdaterUser }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [name, setName] = useState('');
@@ -118,6 +118,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdaterUser }) => {
       <ButtonSubmitForm text="Сохранить" label="сохранить" isActive={isValid} />
     </PopupWithForm>
   );
-};
+}
 
-export default EditProfilePopup;
+const MemodEditProfilePopup = React.memo(EditProfilePopup);
+export default MemodEditProfilePopup;

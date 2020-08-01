@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InputForm = ({
+function InputForm({
   type = 'text',
   placeholder,
   name,
@@ -9,7 +9,7 @@ const InputForm = ({
   pattern = '.*',
   value = '',
   onInputChange,
-}) => {
+}) {
   return (
     <input
       type={type}
@@ -24,6 +24,7 @@ const InputForm = ({
       onChange={onInputChange}
     />
   );
-};
+}
 
-export default InputForm;
+const MemodInputForm = React.memo(InputForm);
+export default MemodInputForm;

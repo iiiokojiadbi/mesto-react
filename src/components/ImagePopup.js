@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import Button from './ui/Button';
 
-const ImagePopup = ({ name, link, onClose, isOpen }) => {
+function ImagePopup({ name, link, onClose, isOpen }) {
   const popupClasses = classnames({
     popup: true,
     popup_disabled: !isOpen,
@@ -47,6 +47,7 @@ const ImagePopup = ({ name, link, onClose, isOpen }) => {
       </div>
     </section>
   );
-};
+}
 
-export default ImagePopup;
+const MemodImagePopup = React.memo(ImagePopup);
+export default MemodImagePopup;

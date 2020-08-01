@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PopupWithForm from './PopupWithForm';
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
 
-const EditAvatarPopup = ({ isOpen, onClose, onUpdaterUserAvatar }) => {
+function EditAvatarPopup({ isOpen, onClose, onUpdaterUserAvatar }) {
   const inputUrl = useRef();
 
   const [avatar, setAvatar] = useState('');
@@ -69,6 +69,7 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdaterUserAvatar }) => {
       <ButtonSubmitForm text="Сохранить" label="сохранить" isActive={isValid} />
     </PopupWithForm>
   );
-};
+}
 
-export default EditAvatarPopup;
+const MemodEditAvatarPopup = React.memo(EditAvatarPopup);
+export default MemodEditAvatarPopup;

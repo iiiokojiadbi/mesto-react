@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm';
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
 import InputForm from './ui/InputForm';
 
-const AddPlacePopup = ({ isOpen, onClose, onPost }) => {
+function AddPlacePopup({ isOpen, onClose, onPost }) {
   const [name, setName] = useState();
   const [link, setLink] = useState();
   const [errorName, setErrorName] = useState('');
@@ -96,6 +96,7 @@ const AddPlacePopup = ({ isOpen, onClose, onPost }) => {
       <ButtonSubmitForm text="Создать" label="создать" isActive={isValid} />
     </PopupWithForm>
   );
-};
+}
 
-export default AddPlacePopup;
+const MemodAddPlacePopup = React.memo(AddPlacePopup);
+export default MemodAddPlacePopup;

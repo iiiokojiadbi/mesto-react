@@ -3,14 +3,14 @@ import classnames from 'classnames';
 
 import Button from './ui/Button';
 
-const PopupWithForm = ({
+function PopupWithForm({
   name,
   title,
   isOpen = false,
   onClose,
   onSubmitForm,
   children,
-}) => {
+}) {
   const popupClasses = classnames({
     popup: true,
     popup_disabled: !isOpen,
@@ -66,6 +66,7 @@ const PopupWithForm = ({
       </div>
     </section>
   );
-};
+}
 
-export default PopupWithForm;
+const MemodPopupWithForm = React.memo(PopupWithForm);
+export default MemodPopupWithForm;

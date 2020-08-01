@@ -6,7 +6,7 @@ import { StatusRenderContext } from './../../contexts/StatusRenderContext';
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
-const ButtonSubmitForm = ({ text, label, isActive }) => {
+function ButtonSubmitForm({ text, label, isActive }) {
   const isRenderer = useContext(StatusRenderContext);
 
   const btnClasses = classnames({
@@ -36,6 +36,7 @@ const ButtonSubmitForm = ({ text, label, isActive }) => {
       )}
     </button>
   );
-};
+}
 
-export default ButtonSubmitForm;
+const MemodButtonSubmitForm = React.memo(ButtonSubmitForm);
+export default MemodButtonSubmitForm;
