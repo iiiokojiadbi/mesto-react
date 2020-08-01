@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
 import InputForm from './ui/InputForm';
+import ErrorSpan from './ui/ErrorSpan';
 
 function AddPlacePopup({ isOpen, onClose, onPost }) {
   const [name, setName] = useState();
@@ -68,13 +69,7 @@ function AddPlacePopup({ isOpen, onClose, onPost }) {
           value={name}
           onInputChange={handleNameChange}
         />
-        <span
-          className={`form__input-error ${
-            errorName && 'form__input-error_active'
-          }`}
-        >
-          {errorName}
-        </span>
+        <ErrorSpan isActive={isNameValid} errorText={errorName} />
       </label>
       <label className="form__field">
         <InputForm
@@ -85,13 +80,7 @@ function AddPlacePopup({ isOpen, onClose, onPost }) {
           value={link}
           onInputChange={handleLinkChange}
         />
-        <span
-          className={`form__input-error ${
-            errorLink && 'form__input-error_active'
-          }`}
-        >
-          {errorLink}
-        </span>
+        <ErrorSpan isActive={isLinkValid} errorText={errorLink} />
       </label>
       <ButtonSubmitForm text="Создать" label="создать" isActive={isValid} />
     </PopupWithForm>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PopupWithForm from './PopupWithForm';
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
+import ErrorSpan from './ui/ErrorSpan';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdaterUserAvatar }) {
   const inputUrl = useRef();
@@ -58,13 +59,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdaterUserAvatar }) {
           ref={inputUrl}
           onChange={handleUrlChange}
         />
-        <span
-          className={`form__input-error ${
-            errorAvatar && 'form__input-error_active'
-          }`}
-        >
-          {errorAvatar}
-        </span>{' '}
+        <ErrorSpan isActive={isAvatarValid} errorText={errorAvatar} />
       </label>
       <ButtonSubmitForm text="Сохранить" label="сохранить" isActive={isValid} />
     </PopupWithForm>

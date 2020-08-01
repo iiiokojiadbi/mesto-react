@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
 import InputForm from './ui/InputForm';
+import ErrorSpan from './ui/ErrorSpan';
 
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 
@@ -90,13 +91,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdaterUser }) {
           value={name}
           onInputChange={handleNameChange}
         />
-        <span
-          className={`form__input-error ${
-            errorName && 'form__input-error_active'
-          }`}
-        >
-          {errorName}
-        </span>
+        <ErrorSpan isActive={isNameValid} errorText={errorName} />
       </label>
       <label className="form__field">
         <InputForm
@@ -107,13 +102,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdaterUser }) {
           value={description}
           onInputChange={handleDescriptionChange}
         />
-        <span
-          className={`form__input-error ${
-            errorDescription && 'form__input-error_active'
-          }`}
-        >
-          {errorDescription}
-        </span>
+        <ErrorSpan isActive={isDescriptionValid} errorText={errorDescription} />
       </label>
       <ButtonSubmitForm text="Сохранить" label="сохранить" isActive={isValid} />
     </PopupWithForm>
