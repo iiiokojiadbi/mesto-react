@@ -1,21 +1,19 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
+import InputForm from './ui/InputForm';
 
 const AddPlacePopup = ({ isOpen, onClose, onPost }) => {
-  const inputName = useRef();
-  const inpitLink = useRef();
-
   const [name, setName] = useState();
   const [link, setLink] = useState();
 
-  const handleNameChange = () => {
-    const { value } = inputName.current;
+  const handleNameChange = (evt) => {
+    const { value } = evt.target;
     setName(value);
   };
 
-  const handleLinkChange = () => {
-    const { value } = inpitLink.current;
+  const handleLinkChange = (evt) => {
+    const { value } = evt.target;
     setLink(value);
   };
 
@@ -32,31 +30,24 @@ const AddPlacePopup = ({ isOpen, onClose, onPost }) => {
       onSubmitForm={handleSubmit}
     >
       <label className="form__field">
-        <input
-          type="text"
-          className="input input_type_name form__input"
-          placeholder="Название"
-          name="namePlace"
-          id="place-input"
+        <InputForm
+          placeholder="Название места"
+          name="place"
           required
-          minLength="1"
-          maxLength="30"
-          pattern=".*"
-          ref={inputName}
-          onChange={handleNameChange}
+          length={{ min: 1, max: 30 }}
+          value={name}
+          onInputChange={handleNameChange}
         />
         <span className="form__input-error" id="place-input-error"></span>
       </label>
       <label className="form__field">
-        <input
+        <InputForm
           type="url"
-          className="input input_type_hobby form__input"
           placeholder="Ссылка на картинку"
-          name="urlPic"
-          id="url-input"
+          name="linkPlace"
           required
-          ref={inpitLink}
-          onChange={handleLinkChange}
+          value={link}
+          onInputChange={handleLinkChange}
         />
         <span className="form__input-error" id="url-input-error"></span>
       </label>

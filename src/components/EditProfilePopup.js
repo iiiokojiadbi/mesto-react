@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 import ButtonSubmitForm from './ui/ButtonSubmitForm';
+import InputForm from './ui/InputForm';
 
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 
@@ -42,34 +43,25 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdaterUser }) => {
       onSubmitForm={handleSubmit}
     >
       <label className="form__field">
-        <input
-          type="text"
-          className="input input_type_name form__input"
+        <InputForm
           placeholder="Введите имя"
           name="name"
-          id="user-name-input"
-          required
-          minLength="2"
-          maxLength="40"
+          length={{ min: 2, max: 40 }}
           pattern="[А-Яа-яёЁA-Za-z\s-]*"
-          value={name || ''}
-          onChange={handleNameChange}
+          required
+          value={name}
+          onInputChange={handleNameChange}
         />
         <span className="form__input-error" id="user-name-input-error"></span>
       </label>
       <label className="form__field">
-        <input
-          type="text"
-          className="input input_type_hobby form__input"
+        <InputForm
           placeholder="Введите хобби"
           name="hobby"
-          id="hobby-input"
+          length={{ min: 2, max: 200 }}
           required
-          minLength="2"
-          maxLength="200"
-          pattern=".*"
-          value={description || ''}
-          onChange={handleDescriptionChange}
+          value={description}
+          onInputChange={handleDescriptionChange}
         />
         <span className="form__input-error" id="hobby-input-error"></span>
       </label>
