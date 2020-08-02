@@ -10,7 +10,7 @@ function App() {
     <div className="page">
       <Header />
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/mesto-react">
           <AdventureBoard />
         </Route>
         <Route path="*">
