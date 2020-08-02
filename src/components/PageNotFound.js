@@ -12,7 +12,7 @@ function PageNotFound() {
       <p className="not-found__text">Ой, опять Mesto</p>
       <Link
         className="btn btn_type_to-main not-found__to-main"
-        to="/mesto-react"
+        to="/mesto-react/"
       >
         Не уйти...
       </Link>
