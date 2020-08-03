@@ -130,34 +130,34 @@ function AdventureBoard() {
           onCardLike={handleCardLike}
           onConfirmDelete={handleDeletePlaceClick}
         />
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={handleCloseAllPopups}
-          onUpdaterUser={handleUpdaterUser}
-        />
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={handleCloseAllPopups}
-          onUpdaterUserAvatar={handleUpdaterAvatar}
-        />
+        <StatusRenderContext.Provider value={isRenderer}>
+          <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onClose={handleCloseAllPopups}
+            onUpdaterUser={handleUpdaterUser}
+          />
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={handleCloseAllPopups}
+            onUpdaterUserAvatar={handleUpdaterAvatar}
+          />
+          <ImagePopup
+            {...selectedCard}
+            isOpen={isPreviewPopupOpen}
+            onClose={handleCloseAllPopups}
+          />
+          <AddPlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onClose={handleCloseAllPopups}
+            onPost={handleAddPlace}
+          />
+          <DeletePlacePopup
+            isOpen={isDeletePlacePopupOpen}
+            onClose={handleCloseAllPopups}
+            onDelete={handleCardDelete}
+          />
+        </StatusRenderContext.Provider>
       </CurrentUserContext.Provider>
-      <StatusRenderContext.Provider value={isRenderer}>
-        <ImagePopup
-          {...selectedCard}
-          isOpen={isPreviewPopupOpen}
-          onClose={handleCloseAllPopups}
-        />
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={handleCloseAllPopups}
-          onPost={handleAddPlace}
-        />
-        <DeletePlacePopup
-          isOpen={isDeletePlacePopupOpen}
-          onClose={handleCloseAllPopups}
-          onDelete={handleCardDelete}
-        />
-      </StatusRenderContext.Provider>
     </>
   );
 }
