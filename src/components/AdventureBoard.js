@@ -130,6 +130,11 @@ function AdventureBoard() {
           onCardLike={handleCardLike}
           onConfirmDelete={handleDeletePlaceClick}
         />
+        <ImagePopup
+          {...selectedCard}
+          isOpen={isPreviewPopupOpen}
+          onClose={handleCloseAllPopups}
+        />
         <StatusRenderContext.Provider value={isRenderer}>
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
@@ -141,11 +146,7 @@ function AdventureBoard() {
             onClose={handleCloseAllPopups}
             onUpdaterUserAvatar={handleUpdaterAvatar}
           />
-          <ImagePopup
-            {...selectedCard}
-            isOpen={isPreviewPopupOpen}
-            onClose={handleCloseAllPopups}
-          />
+
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={handleCloseAllPopups}
